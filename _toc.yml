@@ -1,0 +1,9 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: overview
+chapters:
+  - file: command_line_interfaces
+  # - file: notebooks
+  # - file: markdown-notebooks
