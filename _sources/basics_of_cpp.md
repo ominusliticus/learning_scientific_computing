@@ -48,20 +48,39 @@ print('Hello, World!')
 ````
 
 Let's dissect this code:
-- `#include` _directive_ tells the C++ compiler to fetch the library `iostream` and paste it into this document.
-It contains the input and output abstractions that are common in C++. 
-These abstraction are generically referred to as _streams_, so the name of the library should make more sense now.
-- `int main() {...}` is the definition of a function named `main`.
-When compiling C++ programs with most compilers, it will always look for an `int main` function which it considers the _entry point_ for the program.
+- The `#include` _directive_ tells the C++ compiler to fetch the library `iostream` (referred to as a _header_ or _header file_) and paste it into `.cpp` document.
+It contains the input and output (i/o) abstractions that are common in C++. 
+These abstraction are generically referred to as _streams_, so the name of the library should be more transparent now.
+- The `int main() {...}` block defines a function named `main`.
+Function delaration follow the style
+```c++
+return_type function_name(type_1 arg_1, type_2 args_2, ...)
+{
+    <function body>
+    return statemet;
+}
+```
+When compiling C++ programs with most compilers, the compiler will always look for an `int main` function which within the supplied cpp files; it considers the `int main` the _entry point_ for the program.
 This means that having multiple functions named `int main` with throw and error at compile time.
-- `std::cout` is abstraction some very hard working people have created to write output the terminal. 
+- `std::cout` is an abstraction some very hard working people have created to write output the terminal. 
 The `std` part stands for _standard_, as `iostream` is part of the _Standard Template Library (STL)_ that ships with every compiler, and `cout` stands for _common out_ (another name for the terminal screen).
-The double colon between `std` and `cout` indicate that `cout` is an variable name belonging the `std` _namespace_, (in fact, one of the keywords we will use is `namespace`).
+The double colon between `std` and `cout` (called the _resolution operator_) indicates that `cout` is a name belonging the `std` _namespace_, (in fact, one of the keywords we will use is `namespace`).
 Namespaces are convenient for distinguishing between functions with the same name. 
-For example, you may have a function `real::sqrt` which is a function that takes the square-root of real numbers, while `complex::sqrt` takes the square-root of complex numbers.
+For example, you may have a function `real::sqrt` which is a function that takes the square-root of real numbers and therefore declared in the `real`-namespace, while `complex::sqrt` takes the square-root of complex numbers and sits in the `complex`-namespace.
+These can be created by you  
+```c++
+namespace real {
+    double sqrt(double x);
+}
+
+namespace complex {
+    // here we introduce some notation that we will elucidate a little later
+    std::complex<double> sqrt(std::complex<double> z);
+}
+```
 - `<<` is know as the _insertion operator_.
 All you should care about is that this essentially _inserts_ the information on the right into the stream on the left.
-The syntax for printing to a file is identical, the stream variable is simply replaced by the file variable.
+The syntax for printing to a file is identical, the stream variable is simply replaced by the file stream variable.
 - `"Hello, World!\n"` is called a _string_, or more technically a _const char array_.
 The `\n` at the end is a special character that indicates _add a new line_.
 - `return 0` - every function with a non-`void` return-type needs to have a `return` statement.
@@ -90,3 +109,9 @@ with open('output_file.txt', 'w') as f:
     f.write('Hello, World!')
 ```
 ````
+
+Now we have included the `fstream` header (which itself actually includes the same headers as `iostream`), and constructed the file stream object `fout`.
+Notice that the syntax of writing to the file is identical as writing to `std::cout`.
+At the end of our program, we always have to be careful to release all the resources we consumed throughout our program.
+(The python example would also have a `f.close()` statement, if we had not used a context statement).
+The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.

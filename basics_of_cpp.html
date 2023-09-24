@@ -423,20 +423,43 @@ We will jump straight into coding.</p>
 </div>
 <p>Let’s dissect this code:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">#include</span></code> <em>directive</em> tells the C++ compiler to fetch the library <code class="docutils literal notranslate"><span class="pre">iostream</span></code> and paste it into this document.
-It contains the input and output abstractions that are common in C++.
-These abstraction are generically referred to as <em>streams</em>, so the name of the library should make more sense now.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span> <span class="pre">{...}</span></code> is the definition of a function named <code class="docutils literal notranslate"><span class="pre">main</span></code>.
-When compiling C++ programs with most compilers, it will always look for an <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function which it considers the <em>entry point</em> for the program.
-This means that having multiple functions named <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> with throw and error at compile time.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">std::cout</span></code> is abstraction some very hard working people have created to write output the terminal.
+<li><p>The <code class="docutils literal notranslate"><span class="pre">#include</span></code> <em>directive</em> tells the C++ compiler to fetch the library <code class="docutils literal notranslate"><span class="pre">iostream</span></code> (referred to as a <em>header</em> or <em>header file</em>) and paste it into <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> document.
+It contains the input and output (i/o) abstractions that are common in C++.
+These abstraction are generically referred to as <em>streams</em>, so the name of the library should be more transparent now.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span> <span class="pre">{...}</span></code> block defines a function named <code class="docutils literal notranslate"><span class="pre">main</span></code>.
+Function delaration follow the style</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">return_type</span><span class="w"> </span><span class="nf">function_name</span><span class="p">(</span><span class="n">type_1</span><span class="w"> </span><span class="n">arg_1</span><span class="p">,</span><span class="w"> </span><span class="n">type_2</span><span class="w"> </span><span class="n">args_2</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">function</span><span class="w"> </span><span class="n">body</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">statemet</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When compiling C++ programs with most compilers, the compiler will always look for an <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function which within the supplied cpp files; it considers the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> the <em>entry point</em> for the program.
+This means that having multiple functions named <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> with throw and error at compile time.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::cout</span></code> is an abstraction some very hard working people have created to write output the terminal.
 The <code class="docutils literal notranslate"><span class="pre">std</span></code> part stands for <em>standard</em>, as <code class="docutils literal notranslate"><span class="pre">iostream</span></code> is part of the <em>Standard Template Library (STL)</em> that ships with every compiler, and <code class="docutils literal notranslate"><span class="pre">cout</span></code> stands for <em>common out</em> (another name for the terminal screen).
-The double colon between <code class="docutils literal notranslate"><span class="pre">std</span></code> and <code class="docutils literal notranslate"><span class="pre">cout</span></code> indicate that <code class="docutils literal notranslate"><span class="pre">cout</span></code> is an variable name belonging the <code class="docutils literal notranslate"><span class="pre">std</span></code> <em>namespace</em>, (in fact, one of the keywords we will use is <code class="docutils literal notranslate"><span class="pre">namespace</span></code>).
+The double colon between <code class="docutils literal notranslate"><span class="pre">std</span></code> and <code class="docutils literal notranslate"><span class="pre">cout</span></code> (called the <em>resolution operator</em>) indicates that <code class="docutils literal notranslate"><span class="pre">cout</span></code> is a name belonging the <code class="docutils literal notranslate"><span class="pre">std</span></code> <em>namespace</em>, (in fact, one of the keywords we will use is <code class="docutils literal notranslate"><span class="pre">namespace</span></code>).
 Namespaces are convenient for distinguishing between functions with the same name.
-For example, you may have a function <code class="docutils literal notranslate"><span class="pre">real::sqrt</span></code> which is a function that takes the square-root of real numbers, while <code class="docutils literal notranslate"><span class="pre">complex::sqrt</span></code> takes the square-root of complex numbers.</p></li>
+For example, you may have a function <code class="docutils literal notranslate"><span class="pre">real::sqrt</span></code> which is a function that takes the square-root of real numbers and therefore declared in the <code class="docutils literal notranslate"><span class="pre">real</span></code>-namespace, while <code class="docutils literal notranslate"><span class="pre">complex::sqrt</span></code> takes the square-root of complex numbers and sits in the <code class="docutils literal notranslate"><span class="pre">complex</span></code>-namespace.
+These can be created by you</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">real</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">complex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// here we introduce some notation that we will elucidate a little later</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">z</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> is know as the <em>insertion operator</em>.
 All you should care about is that this essentially <em>inserts</em> the information on the right into the stream on the left.
-The syntax for printing to a file is identical, the stream variable is simply replaced by the file variable.</p></li>
+The syntax for printing to a file is identical, the stream variable is simply replaced by the file stream variable.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;Hello,</span> <span class="pre">World!\n&quot;</span></code> is called a <em>string</em>, or more technically a <em>const char array</em>.
 The <code class="docutils literal notranslate"><span class="pre">\n</span></code> at the end is a special character that indicates <em>add a new line</em>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">0</span></code> - every function with a non-<code class="docutils literal notranslate"><span class="pre">void</span></code> return-type needs to have a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement.
@@ -467,6 +490,11 @@ Returning zero here, tells the operating system that the computer program execut
 </div>
 </div>
 </div>
+<p>Now we have included the <code class="docutils literal notranslate"><span class="pre">fstream</span></code> header (which itself actually includes the same headers as <code class="docutils literal notranslate"><span class="pre">iostream</span></code>), and constructed the file stream object <code class="docutils literal notranslate"><span class="pre">fout</span></code>.
+Notice that the syntax of writing to the file is identical as writing to <code class="docutils literal notranslate"><span class="pre">std::cout</span></code>.
+At the end of our program, we always have to be careful to release all the resources we consumed throughout our program.
+(The python example would also have a <code class="docutils literal notranslate"><span class="pre">f.close()</span></code> statement, if we had not used a context statement).
+The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.</p>
 </section>
 </section>
 
