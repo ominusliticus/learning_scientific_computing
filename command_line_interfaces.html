@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Command Line &#8212; Learning Scientific Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'command_line_interfaces';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to C++" href="basics_of_cpp.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="overview.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Learning Scientific Computing</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="overview.html">
+                    Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics_of_cpp.html">Introduction to C++</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html/issues/new?title=Issue%20on%20page%20%2Fcommand_line_interfaces.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/command_line_interfaces.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Command Line</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-terminal">Opening a terminal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-four-most-basic-commands">The four most basic commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags-for-common-posix-commands">Flags for common POSIX commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#less-common-by-still-useful-commands">Less common by still useful commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#help-documentation">Help documentation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-command-line">
+<h1>The Command Line<a class="headerlink" href="#the-command-line" title="Permalink to this heading">#</a></h1>
+<p>Before computers has <em>windows</em> and a mouse to navigate between applications, all computing happened view text that was entered a single line at a time.
+Despite the seemingly limited form of operability that this seems to offer, it is this minimal interface that we will start with.</p>
+<p>Different operating systems typically have different command line interfaces.
+This boils down to the commands that you can enter to make the computer do something like: create/delete a file, navigate between directory, etc.
+We will solely focus on POSIX systems, these include what you would find in most Linux operating systems and MacOS.</p>
+<section id="opening-a-terminal">
+<h2>Opening a terminal<a class="headerlink" href="#opening-a-terminal" title="Permalink to this heading">#</a></h2>
+<p>To open a terminal you can press</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Space&gt;</span></code>+<code class="docutils literal notranslate"><span class="pre">&lt;Cmd&gt;</span></code> on MacOs, then type <code class="docutils literal notranslate"><span class="pre">terminal</span></code> and press <code class="docutils literal notranslate"><span class="pre">&lt;Enter&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Super&gt;</span></code> on Linux and type <code class="docutils literal notranslate"><span class="pre">terminal</span></code> and find your terminal application</p></li>
+</ul>
+</section>
+<section id="the-four-most-basic-commands">
+<h2>The four most basic commands<a class="headerlink" href="#the-four-most-basic-commands" title="Permalink to this heading">#</a></h2>
+<p>The four most basic commands that you will need whenever navigating files on POSIX systems are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span></code> - Change director</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ls</span></code> - list files in directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mkdir</span></code> - create a directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rm</span></code> - remove a file</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As we familiarize ourselves with C++, we will be able to understand how file structures work, should you want to appreciate the plumbing that goes into designing operating systems.</p>
+</div>
+<p>Each command comes with a set of <em>flags</em> that you can pass to modify the behavior of the command.
+To see some examples, you can click on the drop down menu.</p>
+<section id="flags-for-common-posix-commands">
+<h3>Flags for common POSIX commands<a class="headerlink" href="#flags-for-common-posix-commands" title="Permalink to this heading">#</a></h3>
+<p>Here I include some example commands and their flags and show what their execution looks like</p>
+<details>
+  <summary> cd </summary>
+<p>This command requires you to feed it an argument, namely the path of the directory you want to change to, to work.
+There are no flags we will ever really need to worry about.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>path/to/dir
+</pre></div>
+</div>
+</details>
+<details>
+  <summary> ls </summary>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">ls</label><div class="tab-content docutils">
+<p>Here is an example of output for <code class="docutils literal notranslate"><span class="pre">ls</span></code> in a directory (Linux refers to folders as directories) with one file and two subdirectories.<br />
+<img alt="simple ls" src="_images/ls.png" /></p>
+<p>You can also give <code class="docutils literal notranslate"><span class="pre">ls</span></code> a <em>path</em> to a directory, and it will return what is in that directory.<br />
+<img alt="simple ls subdir" src="_images/ls-subdir.png" /></p>
+</div>
+<input class="tab-input" id="tab-set--0-input--2" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--2">ls -1</label><div class="tab-content docutils">
+<p>Lists items in directory one item per line.<br />
+<img alt="ls -1" src="_images/ls_-1.png" /></p>
+</div>
+<input class="tab-input" id="tab-set--0-input--3" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--3">ls -l </label><div class="tab-content docutils">
+<p>Lists all items in directory with additional information, such as, privileges, file size, last modified time stamp, file owner and file name.<br />
+<img alt="ls -l" src="_images/ls_-l.png" /></p>
+<p>We can add the <code class="docutils literal notranslate"><span class="pre">h</span></code> flag to indicate that the memory should be in human readable units.<br />
+<img alt="ls -lh" src="_images/ls_-lh.png" /></p>
+</div>
+<input class="tab-input" id="tab-set--0-input--4" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--4">ls -R </label><div class="tab-content docutils">
+<p>List items in directory, and recursively iterate through subdirectory to show items in those directories as well.<br />
+<img alt="ls -R" src="_images/ls_-R.png" /></p>
+</div>
+<input class="tab-input" id="tab-set--0-input--5" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--5">ls -lRh </label><div class="tab-content docutils">
+<p>As was implicitly shown before, we can combine flags to preform a desired behavior.
+Here, we list all the information about the the files, recursively, with a human readable size format.
+Note, that the order of the flags does not matter in this case.<br />
+<img alt="ls -lRh" src="_images/ls_-lRh.png" /></p>
+</div>
+</div>
+</details>
+<details>
+  <summary> mkdir </summary>
+<p>Like <code class="docutils literal notranslate"><span class="pre">cd</span></code>, this command requires and argument to execute.
+You can create multiple directories by separating the list by spaces.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>dir1<span class="w"> </span>dir2<span class="w"> </span>dir3
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>File and directory names are space sensitive in POSIX systems.
+Your file names and directory names should always be a consecutive string of characters.</p>
+</div>
+<p>There is really only one flag the might be useful here</p>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">mkdir -p</label><div class="tab-content docutils">
+<p>Creates a directory.
+If given a path, it creates all the <em>parent</em> directories as well</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>dir1/dir2/dir2<span class="w"> </span>
+</pre></div>
+</div>
+</div>
+</div>
+</details>
+<details>
+  <summary> rm </summary>
+<p>Like <code class="docutils literal notranslate"><span class="pre">cd</span></code> and <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> this command requires an argument to execute.
+Giving a list of space separated paths deletes all the files those paths point to.
+This command can be very dangerous, especially if you add the following to flags that I will show you.
+<strong>Always be certain to double check where you are and what the <code class="docutils literal notranslate"><span class="pre">rm</span></code> command will do before you execute it.</strong></p>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--2-input--1" name="tab-set--2" type="radio"><label class="tab-label" for="tab-set--2-input--1">rm -r</label><div class="tab-content docutils">
+<p>This flag is need if you want to remove a directory; the <em>r</em> stands for <em>recursive</em>.</p>
+</div>
+<input class="tab-input" id="tab-set--2-input--2" name="tab-set--2" type="radio"><label class="tab-label" for="tab-set--2-input--2">rm -f</label><div class="tab-content docutils">
+<p>Sometimes when you delete a file, the operating system will ask you to verify whether you are sure you want to remove said file.
+The <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag allows you to circumvent this inconvenience if you are sure you want to delete said file.
+This flag can be combine with the <code class="docutils literal notranslate"><span class="pre">-r</span></code> flag to <em>forcelly</em> remove a directory or list of directories and files.</p>
+</div>
+</div>
+</details>
+</section>
+</section>
+<section id="less-common-by-still-useful-commands">
+<h2>Less common by still useful commands<a class="headerlink" href="#less-common-by-still-useful-commands" title="Permalink to this heading">#</a></h2>
+<p>We just saw what I called the four most common commands.
+There are many, many more that ship with Linux out of the box and many more that you can add by install applications.
+Some more common ones that we will see throughout this tutorial which ship with POSIX systems include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cp</span></code> - copy allows you to move files (or directories with the <code class="docutils literal notranslate"><span class="pre">-r</span></code> flag). You can think of this as copy-and-paste</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mv</span></code> - move/rename file or directory paths. You can think of this as cut-and-paste.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cat</span></code> - outputs the contents of a file to the <em>standard out</em>, the terminal itself.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span></code> - a version controlling software that we will be working with extensively</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vim</span></code> - a command line text editor many people hate, but you should still have some familiarity with.</p></li>
+</ul>
+<p>Some more commands that are related to programs we will install to run are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcc</span></code> or <code class="docutils literal notranslate"><span class="pre">clang</span></code> - these are C/C++ compilers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> - the python interpreter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">code</span></code> - short of VS Code, a very popular code editor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">noevim</span></code> - my favorite text editor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdb</span></code> - a C/C++ runtime debugger</p></li>
+</ul>
+<section id="help-documentation">
+<h3>Help documentation<a class="headerlink" href="#help-documentation" title="Permalink to this heading">#</a></h3>
+<p>Any and all commands running on you systems have a help feature or a <em>man page</em> that give in depth documentation on how the command is used and the various flags you use to modify the program behavior.
+The two ways of accessing this documentation are</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;command&gt;<span class="w"> </span>--help
+man<span class="w"> </span>&lt;command&gt;
+</pre></div>
+</div>
+<p>where you would replace <code class="docutils literal notranslate"><span class="pre">&lt;command&gt;</span></code> with the command you are trying to interrogate.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="basics_of_cpp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to C++</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-terminal">Opening a terminal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-four-most-basic-commands">The four most basic commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags-for-common-posix-commands">Flags for common POSIX commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#less-common-by-still-useful-commands">Less common by still useful commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#help-documentation">Help documentation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kevin Ingles
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
