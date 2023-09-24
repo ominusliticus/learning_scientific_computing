@@ -164,9 +164,6 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="command_line_interfaces.html">The Command Line</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to C++</a></li>
-
-
-
 </ul>
 
     </div>
@@ -360,12 +357,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to C++</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -387,9 +382,8 @@ After this chapter, you should be able to:</p>
 <li><p>Write a program that does file input and output</p></li>
 <li><p>Solve a first-order linear differential equation</p></li>
 </ol>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="programming-syntax-keywords-functions-and-more">
-<h1>Programming syntax, keywords, functions and more<a class="headerlink" href="#programming-syntax-keywords-functions-and-more" title="Permalink to this heading">#</a></h1>
+<section id="programming-syntax-keywords-functions-and-more">
+<h2>Programming syntax, keywords, functions and more<a class="headerlink" href="#programming-syntax-keywords-functions-and-more" title="Permalink to this heading">#</a></h2>
 <p>All programming languages come with some words that have specific function when they show up in source code; these special works are called <em>reserved words</em>.
 Python has <a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#keywords">35 reserved words</a>, while C++ has <a class="reference external" href="https://en.cppreference.com/w/cpp/keyword">97 keywords with 7 more already in progress</a>.
 Unless you are a software engineer, there is not a really a reason you would need even 50% of these keywords, but I highlight them to underscore the complexity of C++.</p>
@@ -406,8 +400,8 @@ Some simple rules for C++ that you will need are:</p>
 Rather, if you have questions you can always refer to the <a class="reference external" href="https://en.cppreference.com/w/cpp/language">cppreference.com</a> guide on the language.
 We will jump straight into coding.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="hello-world">
-<h1><em>Hello, World!</em><a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h1>
+<section id="hello-world">
+<h2><em>Hello, World!</em><a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
 <p>The standard introduction program in C++ is as follows (we give python as a comparison)</p>
 <div class="tab-set docutils">
 <input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">C++</label><div class="tab-content docutils">
@@ -449,8 +443,8 @@ The <code class="docutils literal notranslate"><span class="pre">\n</span></code
 Returning zero here, tells the operating system that the computer program executed successfully.</p></li>
 </ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="file-i-o">
-<h1>File I/O<a class="headerlink" href="#file-i-o" title="Permalink to this heading">#</a></h1>
+<section id="file-i-o">
+<h2>File I/O<a class="headerlink" href="#file-i-o" title="Permalink to this heading">#</a></h2>
 <p>We can modify the above program to output <em>Hello, World!</em> to a file by replacing the <code class="docutils literal notranslate"><span class="pre">std::cout</span></code> stream by a file stream (again, we provide python for comparison)</p>
 <div class="tab-set docutils">
 <input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">C++</label><div class="tab-content docutils">
@@ -473,6 +467,7 @@ Returning zero here, tells the operating system that the computer program execut
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -529,12 +524,10 @@ Returning zero here, tells the operating system that the computer program execut
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to C++</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

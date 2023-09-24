@@ -8,7 +8,7 @@ After this chapter, you should be able to:
 1. Write a program that does file input and output
 1. Solve a first-order linear differential equation
 
-# Programming syntax, keywords, functions and more
+## Programming syntax, keywords, functions and more
 
 All programming languages come with some words that have specific function when they show up in source code; these special works are called _reserved words_.
 Python has [35 reserved words](https://docs.python.org/3/reference/lexical_analysis.html#keywords), while C++ has [97 keywords with 7 more already in progress](https://en.cppreference.com/w/cpp/keyword).
@@ -26,7 +26,7 @@ We are not going to systematically introduce all these and explain them.
 Rather, if you have questions you can always refer to the [cppreference.com](https://en.cppreference.com/w/cpp/language) guide on the language.
 We will jump straight into coding.
 
-# _Hello, World!_
+## _Hello, World!_
 
 The standard introduction program in C++ is as follows (we give python as a comparison)  
 
@@ -67,7 +67,7 @@ The `\n` at the end is a special character that indicates _add a new line_.
 - `return 0` - every function with a non-`void` return-type needs to have a `return` statement.
 Returning zero here, tells the operating system that the computer program executed successfully.
 
-# File I/O
+## File I/O
 
 We can modify the above program to output _Hello, World!_ to a file by replacing the `std::cout` stream by a file stream (again, we provide python for comparison)  
 
