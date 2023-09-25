@@ -64,6 +64,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'basics_of_cpp';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -360,6 +361,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#th-order-runge-kutta">4$^{th}$-Order Runge-Kutta</a></li>
 </ul>
             </nav>
         </div>
@@ -371,7 +373,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-c">
+  <section id="introduction-to-c">
 <h1>Introduction to C++<a class="headerlink" href="#introduction-to-c" title="Permalink to this heading">#</a></h1>
 <p>C++ is a very large and complex programming language.
 It is also constantly changing, meaning a person proficient is C++ best practices ten years ago, might not understand more modern syntax.
@@ -380,7 +382,7 @@ After this chapter, you should be able to:</p>
 <ol class="arabic simple">
 <li><p>Write a <em>Hello, World!</em> program</p></li>
 <li><p>Write a program that does file input and output</p></li>
-<li><p>Solve a first-order linear differential equation</p></li>
+<li><p>Solve a first-order differential equation</p></li>
 </ol>
 <section id="programming-syntax-keywords-functions-and-more">
 <h2>Programming syntax, keywords, functions and more<a class="headerlink" href="#programming-syntax-keywords-functions-and-more" title="Permalink to this heading">#</a></h2>
@@ -496,6 +498,104 @@ At the end of our program, we always have to be careful to release all the resou
 (The python example would also have a <code class="docutils literal notranslate"><span class="pre">f.close()</span></code> statement, if we had not used a context statement).
 The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.</p>
 </section>
+<section id="th-order-runge-kutta">
+<h2>4$^{th}$-Order Runge-Kutta<a class="headerlink" href="#th-order-runge-kutta" title="Permalink to this heading">#</a></h2>
+<p>Let us assume we have an initial value problem of the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ac536e5b-c733-4dfb-842f-a7a86b00213f">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ac536e5b-c733-4dfb-842f-a7a86b00213f" title="Permalink to this equation">#</a></span>\[\begin{align}
+x'(t)= f(x(t), t), \quad x(t_0) x_0,
+\end{align}\]</div>
+<p>we can solve such a system using a 4$^{th}$-order Runge-Kutta Method (or just RK4).
+Schematically, this looks line</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fc9e5255-ca9b-4bad-9f46-4e75fe4d4ed1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-fc9e5255-ca9b-4bad-9f46-4e75fe4d4ed1" title="Permalink to this equation">#</a></span>\[\begin{align}
+    k_1^{(n + 1)} &amp;= f(x(t_n),\ t_n) \\
+    k_2^{(n + 1)} &amp;= f\left(x(t_n) + k_1^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_3^{(n + 1)} &amp;= f\left(x(t_n) + k_2^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_4^{(n + 1)} &amp;= f\left(x(t_n) + k_3^{(n + 1)} j,\ t_n + h\right)
+\end{align}\]</div>
+<p>and</p>
+<p>$$
+x(t_{n + 1}) = x(t_n + h) = x(t_n) + \frac{h}{6}\left(k_1^{(n + 1)} + 2k_2^{(n + 1)} + 21k_3^{(n + 1)} + k_4^{(n + 1)}\right)
+$$</p>
+<p>These equations can be coded into C++ as</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span><span class="c1"> // input/output manipulation - used to format output</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1">   // For std::exp and std::cosh</span>
+
+<span class="c1">// We don&#39;t have to define the function yet, so the compiler knows the symbol exists.</span>
+<span class="c1">// This is called _prototyping a function_</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Open output file</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="w"> </span><span class="n">fout</span><span class="p">(</span><span class="s">&quot;solution.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Start time</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Initial condition</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span><span class="p">;</span><span class="w">     </span><span class="c1">// End time</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w">  </span><span class="c1">// Number of steps </span>
+
+<span class="w">    </span><span class="c1">// Integral numbers and floating point numbers are reppresented differently in binary</span>
+<span class="w">    </span><span class="c1">// To make sure the compiler knows which types are being multiplied we can hint to it </span>
+<span class="w">    </span><span class="c1">// what the types should be by casting, in this case `static_cast`-ing (meaning the </span>
+<span class="w">    </span><span class="c1">// compiler can do this at compile times), the desired type.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t_f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t_0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span><span class="w"> </span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">k_1</span><span class="p">,</span><span class="w"> </span><span class="n">k_2</span><span class="p">,</span><span class="w"> </span><span class="n">k_3</span><span class="p">,</span><span class="w"> </span><span class="n">k_4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x_0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// output current step to file</span>
+<span class="w">        </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Calculate next step</span>
+<span class="w">        </span><span class="n">k_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="n">t_0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_4</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Update time </span>
+<span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Our logic above implies that we would not output the last step, so we do it </span>
+<span class="w">    </span><span class="c1">// explicitly</span>
+<span class="w">    </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Close file</span>
+<span class="w">    </span><span class="n">fout</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// An arbitrary choice</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cosh</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can run this code online using <em>Compiler Explorer</em> by following this <a class="reference external" href="https://godbolt.org/z/8ss6K48sh">link</a>.</p>
+<p>Perhaps the most ambiguous line here is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This line creates an array object that stores <code class="docutils literal notranslate"><span class="pre">N</span></code> <code class="docutils literal notranslate"><span class="pre">double</span></code>-type variables.
+This line can be thought of the equivalent for numpy</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -555,6 +655,7 @@ The importance of acquiring and releasing resources (allocating and deallocating
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#th-order-runge-kutta">4$^{th}$-Order Runge-Kutta</a></li>
 </ul>
   </nav></div>
 

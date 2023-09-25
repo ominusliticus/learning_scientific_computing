@@ -6,7 +6,7 @@ In this chapter, we will try to give a very broad overview of the many possibili
 After this chapter, you should be able to:
 1. Write a _Hello, World!_ program
 1. Write a program that does file input and output
-1. Solve a first-order linear differential equation
+1. Solve a first-order differential equation
 
 ## Programming syntax, keywords, functions and more
 
@@ -115,3 +115,110 @@ Notice that the syntax of writing to the file is identical as writing to `std::c
 At the end of our program, we always have to be careful to release all the resources we consumed throughout our program.
 (The python example would also have a `f.close()` statement, if we had not used a context statement).
 The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.
+
+
+## 4$^{th}$-Order Runge-Kutta
+
+Let us assume we have an initial value problem of the form
+
+\begin{align}
+x'(t)= f(x(t), t), \quad x(t_0) x_0,
+\end{align}
+
+we can solve such a system using a 4$^{th}$-order Runge-Kutta Method (or just RK4).
+Schematically, this looks line
+
+\begin{align}
+    k_1^{(n + 1)} &= f(x(t_n),\ t_n) \\
+    k_2^{(n + 1)} &= f\left(x(t_n) + k_1^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_3^{(n + 1)} &= f\left(x(t_n) + k_2^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_4^{(n + 1)} &= f\left(x(t_n) + k_3^{(n + 1)} j,\ t_n + h\right)
+\end{align}
+
+and 
+
+$$
+x(t_{n + 1}) = x(t_n + h) = x(t_n) + \frac{h}{6}\left(k_1^{(n + 1)} + 2k_2^{(n + 1)} + 21k_3^{(n + 1)} + k_4^{(n + 1)}\right)
+$$
+
+These equations can be coded into C++ as
+
+```c++
+#include <fstream>
+#include <iomanip> // input/output manipulation - used to format output
+#include <array>
+#include <cmath>   // For std::exp and std::cosh
+
+// We don't have to define the function yet, so the compiler knows the symbol exists.
+// This is called _prototyping a function_
+double f(double x, double t);
+
+int main()
+{
+    // Open output file
+    std::fstream fout("solution.txt", std::fstream::out);
+
+    double t_0 = 0.0;  // Start time
+    double x_0 = 0.0;  // Initial condition
+
+    double t_f = 10.0;     // End time
+    const size_t N = 100;  // Number of steps 
+
+    // Integral numbers and floating point numbers are reppresented differently in binary
+    // To make sure the compiler knows which types are being multiplied we can hint to it 
+    // what the types should be by casting, in this case `static_cast`-ing (meaning the 
+    // compiler can do this at compile times), the desired type.
+    double h = (t_f - t_0) / static_cast<double>(N); 
+
+    double k_1, k_2, k_3, k_4;
+    std::array<double, N> x;
+    
+    double t = t_0;
+    x[0] = x_0;
+    for (size_t n = 0; n < N - 1; ++n)
+    {
+        // output current step to file
+        fout << std::setw(3) << std::setprecision(2) << t << ' ';
+        fout << std::setw(9) << std::setprecision(6) << x[n] << '\n';
+
+        // Calculate next step
+        k_1 = f(x[n], t_0);
+        k_2 = f(x[n] + 0.5 * k_1 * h, t + 0.5 * h);
+        k_3 = f(x[n] + 0.5 * k_2 * h, t + 0.5 * h);
+        k_4 = f(x[n] + k_3 * h, t + h);
+
+        x[n + 1] = x[n] + h * (k_1 + 3.0 * k_2 + 3.0 * k_3 + k_4);
+
+        // Update time 
+        t += h;
+    }
+
+    // Our logic above implies that we would not output the last step, so we do it 
+    // explicitly
+    fout << t << x[N - 1];
+    
+    // Close file
+    fout.close();
+    
+    return 0;
+}
+
+// An arbitrary choice
+double f(double x, double t)
+{
+    return std::exp(t) / std::cosh(x);
+}
+```
+
+You can run this code online using _Compiler Explorer_ by following this [link](https://godbolt.org/z/8ss6K48sh).
+
+
+Perhaps the most ambiguous line here is 
+```c++
+std::array<double, N> x;
+```
+This line creates an array object that stores `N` `double`-type variables.
+This line can be thought of the equivalent for numpy
+```python
+x = np.zeros(N);
+```

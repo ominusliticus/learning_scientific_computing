@@ -165,9 +165,6 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The Command Line</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basics_of_cpp.html">Introduction to C++</a></li>
-
-
-
 </ul>
 
     </div>
@@ -381,7 +378,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="the-command-line">
+  <section id="the-command-line">
 <h1>The Command Line<a class="headerlink" href="#the-command-line" title="Permalink to this heading">#</a></h1>
 <p>Before computers has <em>windows</em> and a mouse to navigate between applications, all computing happened view text that was entered a single line at a time.
 Despite the seemingly limited form of operability that this seems to offer, it is this minimal interface that we will start with.</p>
@@ -405,10 +402,9 @@ We will solely focus on POSIX systems, these include what you would find in most
 <li><p><code class="docutils literal notranslate"><span class="pre">mkdir</span></code> - create a directory</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">rm</span></code> - remove a file</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As we familiarize ourselves with C++, we will be able to understand how file structures work, should you want to appreciate the plumbing that goes into designing operating systems.</p>
-</div>
+<p>:::{note}
+As we familiarize ourselves with C++, we will be able to understand how file structures work, should you want to appreciate the plumbing that goes into designing operating systems.
+:::</p>
 <p>Each command comes with a set of <em>flags</em> that you can pass to modify the behavior of the command.
 To see some examples, you can click on the drop down menu.</p>
 <section id="flags-for-common-posix-commands">
@@ -460,11 +456,10 @@ You can create multiple directories by separating the list by spaces.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>dir1<span class="w"> </span>dir2<span class="w"> </span>dir3
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>File and directory names are space sensitive in POSIX systems.
-Your file names and directory names should always be a consecutive string of characters.</p>
-</div>
+<p>:::{note}
+File and directory names are space sensitive in POSIX systems.
+Your file names and directory names should always be a consecutive string of characters.
+:::</p>
 <p>There is really only one flag the might be useful here</p>
 <div class="tab-set docutils">
 <input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">mkdir -p</label><div class="tab-content docutils">
