@@ -117,7 +117,7 @@ At the end of our program, we always have to be careful to release all the resou
 The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.
 
 
-## 4$^{th}$-Order Runge-Kutta
+## 4$^\text{th}$-Order Runge-Kutta
 
 Let us assume we have an initial value problem of the form
 
@@ -125,7 +125,7 @@ Let us assume we have an initial value problem of the form
 x'(t)= f(x(t), t), \quad x(t_0) x_0,
 \end{align}
 
-we can solve such a system using a 4$^{th}$-order Runge-Kutta Method (or just RK4).
+we can solve such a system using a 4$^\text{th}$-order Runge-Kutta Method (or just RK4).
 Schematically, this looks line
 
 \begin{align}
