@@ -1,8 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Learning Scientific Computing
-author: Kevin Ingles
+title    : Learning Scientific Computing
+author   : Kevin Ingles
+copyright: "2023" 
 # logo: logo.png
 
 # Force re-execution of notebooks on each build.
@@ -21,15 +22,15 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html  # Online location of your book
+  url: https://ominusliticus.github.io/learning_scientific_computing/overview.html  # Online location of your book
   path_to_book: docs  # Optional path to your book, relative to the repository root
   branch: my-gh-pages  # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
-  use_issues_button: true
-  use_repository_button: true
+  use_issues_button: false
+  use_repository_button: false
 
 
 sphinx:

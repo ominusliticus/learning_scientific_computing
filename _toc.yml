@@ -6,5 +6,6 @@ root: overview
 chapters:
   - file: command_line_interfaces
   - file: basics_of_cpp
+  - file: cpp_project
   # - file: notebooks
   # - file: markdown-notebooks

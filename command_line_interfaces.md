@@ -82,10 +82,10 @@ Here I include some example commands and their flags and show what their executi
   mkdir dir1 dir2 dir3
   ```
 
-  :::{note} 
+  ````{note} 
   File and directory names are space sensitive in POSIX systems. 
   Your file names and directory names should always be a consecutive string of characters.
-  :::
+  ````
 
   There is really only one flag the might be useful here
 
