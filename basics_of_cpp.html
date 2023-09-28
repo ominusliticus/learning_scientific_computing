@@ -69,6 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'basics_of_cpp';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Creating a C++ Project" href="cpp_project.html" />
     <link rel="prev" title="The Command Line" href="command_line_interfaces.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -166,6 +167,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="command_line_interfaces.html">The Command Line</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Creating a C++ Project</a></li>
 </ul>
 
     </div>
@@ -207,53 +209,6 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html/issues/new?title=Issue%20on%20page%20%2Fbasics_of_cpp.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
 
 
 
@@ -502,14 +457,14 @@ The importance of acquiring and releasing resources (allocating and deallocating
 <section id="text-th-order-runge-kutta">
 <h2>4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-Order Runge-Kutta<a class="headerlink" href="#text-th-order-runge-kutta" title="Permalink to this heading">#</a></h2>
 <p>Let us assume we have an initial value problem of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-28ae9da7-95fc-4368-b998-dd7e80335b4e">
-<span class="eqno">(1)<a class="headerlink" href="#equation-28ae9da7-95fc-4368-b998-dd7e80335b4e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9d88ea3a-2d0d-44c5-ac94-24dd6f637226">
+<span class="eqno">(1)<a class="headerlink" href="#equation-9d88ea3a-2d0d-44c5-ac94-24dd6f637226" title="Permalink to this equation">#</a></span>\[\begin{align}
 x'(t)= f(x(t), t), \quad x(t_0) x_0,
 \end{align}\]</div>
 <p>we can solve such a system using a 4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-order Runge-Kutta Method (or just RK4).
 Schematically, this looks line</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1d39d3da-1c02-440c-9cd4-67e705264f49">
-<span class="eqno">(2)<a class="headerlink" href="#equation-1d39d3da-1c02-440c-9cd4-67e705264f49" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5ca650d8-79fb-4bee-b210-a8cb15c8a6ad">
+<span class="eqno">(2)<a class="headerlink" href="#equation-5ca650d8-79fb-4bee-b210-a8cb15c8a6ad" title="Permalink to this equation">#</a></span>\[\begin{align}
     k_1^{(n + 1)} &amp;= f(x(t_n),\ t_n) \\
     k_2^{(n + 1)} &amp;= f\left(x(t_n) + k_1^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
     k_3^{(n + 1)} &amp;= f\left(x(t_n) + k_2^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
@@ -639,6 +594,15 @@ This line can be thought of the equivalent for numpy</p>
         <p class="prev-next-title">The Command Line</p>
       </div>
     </a>
+    <a class="right-next"
+       href="cpp_project.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Creating a C++ Project</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -681,7 +645,7 @@ By Kevin Ingles
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>

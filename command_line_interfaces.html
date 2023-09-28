@@ -165,6 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">The Command Line</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basics_of_cpp.html">Introduction to C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Creating a C++ Project</a></li>
 </ul>
 
     </div>
@@ -206,53 +207,6 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://ominusliticus.github.io/my_notes/learning_scientific_computing/html/index.html/issues/new?title=Issue%20on%20page%20%2Fcommand_line_interfaces.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
 
 
 
@@ -456,10 +410,11 @@ You can create multiple directories by separating the list by spaces.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>dir1<span class="w"> </span>dir2<span class="w"> </span>dir3
 </pre></div>
 </div>
-<p>:::{note}
-File and directory names are space sensitive in POSIX systems.
-Your file names and directory names should always be a consecutive string of characters.
-:::</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>File and directory names are space sensitive in POSIX systems.
+Your file names and directory names should always be a consecutive string of characters.</p>
+</div>
 <p>There is really only one flag the might be useful here</p>
 <div class="tab-set docutils">
 <input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">mkdir -p</label><div class="tab-content docutils">
@@ -618,7 +573,7 @@ By Kevin Ingles
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
