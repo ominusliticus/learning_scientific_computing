@@ -76,7 +76,7 @@ Some popular ones are:
 - magini (my very own, and not yet popular)
 - Shell scripting
 
-Below, I will give examples of Makefiles, CMake, Shell scripting and magini on how to setup you build script.
+Below, I will give examples of Makefiles and CMake on how to setup you build script.
 Learning these is like learning another programming language (besides magini), and will often come with its own set of growing pains.
 I will not try to develop much of your fluency in these, and leave it to your disgression, which build system you try.
 Whenever possible, I will give the build scripts in the four examples listed above.
@@ -99,6 +99,8 @@ We are now going to separat our `main.cpp` file into three files
 #include <iomanip> // input/output manipulation - used to format output
 #include <cmath>   // For std::exp and std::cosh
 
+#include "RK4.hpp"
+
 // We don't have to define the function yet, so the compiler knows the symbol exists.
 // This is called _prototyping a function_
 double f(double x, double t);
@@ -114,15 +116,17 @@ int main()
     double t_f = 10.0;     // End time
     const size_t N = 100;  // Number of steps 
 
+    double dt = (t_f - t_0) / static_cast<double>(N);
+
     double x[N];
     RK4(x, x_0, t_0, t_f, N, f);
 
     for (size_t i = 0; i < N - 1; ++i)
-        fout << x[i] << '\n';
+        fout << t_0 + static_cast<double>(i) * dt << ' ' << x[i] << '\n';
 
     // Our logic above implies that we would not output the last step, so we do it 
     // explicitly
-    fout << t << x[N - 1];
+    fout << t_f - dt << ' ' << x[N - 1];
     
     // Close file
     fout.close();
@@ -142,6 +146,9 @@ double f(double x, double t)
 #ifndef _RK4_HPP_
 #define _RK4_HPP_
 
+# Needed for size_t
+#include <stddef.h>
+
 // Functions should _documented_ with their definitions to tell others what it does
 // and how to use it. What this looks like is up to you, although there are standards
 // like doxygen
@@ -159,11 +166,11 @@ double f(double x, double t)
  *             arguments of type double
  */
 void RK4(double *x,
-        double x_0,
-        double t_0,
-        double t_f, 
-        size_t N,
-        double (*f)(double,double))
+         double x_0,
+         double t_0,
+         double t_f, 
+         size_t N,
+         double (*f)(double,double));
 
 #endif
 ```
@@ -173,11 +180,11 @@ void RK4(double *x,
 #include "RK4.hpp"
 
 void RK4(double *x,
-        double x_0,
-        double t_0, 
-        double t_f,
-        size_t N,
-        double (*f)(double, double))
+         double x_0,
+         double t_0, 
+         double t_f,
+         size_t N,
+         double (*f)(double, double))
 {
     // Integral numbers and floating point numbers are reppresented differently in binary
     // To make sure the compiler knows which types are being multiplied we can hint to it 
@@ -191,10 +198,6 @@ void RK4(double *x,
     x[0] = x_0;
     for (size_t n = 0; n < N - 1; ++n)
     {
-        // output current step to file
-        fout << std::setw(3) << std::setprecision(2) << t << ' ';
-        fout << std::setw(9) << std::setprecision(6) << x[n] << '\n';
-
         // Calculate next step
         k_1 = f(x[n], t_0);
         k_2 = f(x[n] + 0.5 * k_1 * h, t + 0.5 * h);
@@ -229,7 +232,10 @@ I inlcude here an example without going into any detail, just to show how differ
   #include <fstream>
   #include <iomanip> // input/output manipulation - used to format output
   #include <cmath>   // For std::exp and std::cosh
+  #include <array>
   
+  #include "RK4.hpp"
+
   // We don't have to define the function yet, so the compiler knows the symbol exists.
   // This is called _prototyping a function_
   double f(double x, double t);
@@ -244,16 +250,18 @@ I inlcude here an example without going into any detail, just to show how differ
   
       double t_f = 10.0;     // End time
       const size_t N = 100;  // Number of steps 
+
+      doublt dt = (t_f - t_0) / static_cast<double>(N);
   
-      double x[N];
-      RK4(x, x_0, t_0, t_f, N, f);
+      std::array<double, N> x;
+      RK4<N>(x, x_0, t_0, t_f, N, f);
   
       for (size_t i = 0; i < N - 1; ++i)
-          fout << x[i] << '\n';
-  
+          fout << t_0 + static_cast<double>(i) * dt << ' ' << x[i] << '\n';
+
       // Our logic above implies that we would not output the last step, so we do it 
       // explicitly
-      fout << t << x[N - 1];
+      fout << t_f - dt << ' ' << x[N - 1];
       
       // Close file
       fout.close();
@@ -312,10 +320,6 @@ I inlcude here an example without going into any detail, just to show how differ
       x[0] = x_0;
       for (size_t n = 0; n < N - 1; ++n)
       {
-          // output current step to file
-          fout << std::setw(3) << std::setprecision(2) << t << ' ';
-          fout << std::setw(9) << std::setprecision(6) << x[n] << '\n';
-  
           // Calculate next step
           k_1 = f(x[n], t_0);
           k_2 = f(x[n] + 0.5 * k_1 * h, t + 0.5 * h);
@@ -331,7 +335,7 @@ I inlcude here an example without going into any detail, just to show how differ
 
   #endif
   ```
-    ````
+  ````
 </details>
 
 ### Writing a build script
@@ -339,5 +343,159 @@ I inlcude here an example without going into any detail, just to show how differ
 With the project structure in hand, we can set about writing a build script.
 Below I include build scripts for this projects and how to run them.
 Some can be extended to more complicated projects with minimal work, and none show the truly show how truly complex the build scripts themselves can actually be.
+As usual, I leave comments in the code to describe what is actually happening
 
+````{tab} Makefiles
+An online resource to introduce you to Makefiles can be found 
+[here](https://codingnest.com/basic-makefiles/).
+Here we give a Makefile that is pretty generic and easily extendible to larger projects.
+One can include Makefiles to extend the build steps even further, but we omit this step.
+
+```make
+# Define variables to store paths to source files and build area
+SRC = ./source/
+OBJ = ./build/
+
+# Include paths to header files
+INC = -I $(SRC)
+
+# Use POSIX command to find all files that end in ".cpp"
+SRC_FILES := $(shell find $(SRC) -name '*.cpp')
+
+# You can add more files to the this variable using
+# SRC_FILES += # files
+
+# Generate object files list from sources
+# Here the `%` does a greedy match (see regex greedy matchin for more)
+OBJ_FILES := $(patsubst $(SRC)%.cpp,$(OBJ)%.o,$(SRC_FILES))
+
+# This is to help you see what the variables we just created contain
+$(info $SRC_FILES)
+$(info $OBJ_FILES)
+
+# Get uname of your operating system (this matters when you build on MacOS or Linux
+UNAME_S := $(shell uname -s)
+# Print uname to console
+$(info $$UNAME_S is [$UNAME_S])
+
+# Branch on OS, for now they are the same, but they don't have to be
+ifeq ($(UNAME_S),Linux)
+    # Our standard compiler and flags
+    CC = clang++ -std=c++20 -Wall -Wextra -Wpedantic
+
+    # A level of optimization the compiler apply to make code run faster
+    OPT = -O3
+else
+    # Our standard compiler and flags
+    CC = clang++ -std=c++20 -Wall -Wextra -Wpedantic
+
+    # A level of optimization the compiler apply to make code run faster
+    OPT = -O3  
+endif
+
+# Make options useful for building more complex projects
+# -MMD tells make to generate a dependency file for every translation unit
+# -MP tells make to generate a dependency file for every header file
+# In this way, whenever any file is editted, make triggers a rebuild of the dependent
+#   files
+MAKE_OPTS = -MMD -MP
+
+# This tells make file where to find the dependencies
+-include $(OBJ_FILES:.o=.d)
+
+# define variable with path to executable
+EXE = example
+
+# Define build commands
+all: $(EXE)
+
+# Here $@, $^ and $< are called _automatic variables_
+# more info can be found here:
+#  https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+# 
+# The ones we use mean
+#   $@ current build target
+#   $^ all prerequisites for build target
+#   $< first prerequisite for build target
+# 
+# Lastly, -MMD tells `make` to see if any header files have been updated
+
+# Make sure these are tabs!! Otherwise you get a build error
+$(EXE): $(OBJ_FILES)
+    $(CC) $(OPTS) $(MAKE_OPTS) $(INC) $^ -o $@ 
+$(OBJ)%.o : $(SRC)%.cpp
+    # mkdir -p $(@D) # if you need to create a directory
+    $(CC) $(OPTS) $(MMAKE_OPTS) $(INC) $< -o $@ -c
+clean:
+    rm -rf build/*
+```
+
+We have the project setup with the current structure
+![makefile project 1](images/makefile_project_1.png)
+
+Before running the build command, you want to make sure that your build directory
+exists:
+```bash
+mkdir build
+```
+![makefile project 2](images/makefile_project_2.png)
+
+To execute the build command, you would then just run
+```bash
+make
+```
+![makefile project 3](images/makefile_project_3.png)
+
+If you wish to have a quicker build time, you can tell `make` how many cores to use to 
+build your project using the `-j` or `--jobs` flags
+```bash
+make -j8
+```
+After building, the executable should have been created
+![makefile project 4](images/makefile_project_4.png)
+
+We can now run the executable as
+```bash
+./example
+```
+````
+````{tab} CMake
+Nothing here yet
+````
+
+<details>
+  <summary> Expand if you want to see an example with my own build systme </summary>
+  `magini` is a build system that I am working on for myself.
+  The primary idea is that one should not have to learn another programming language to
+  build a project. 
+  So it is purely implemented in C++.
+  One has have the header file from 
+  [my repository](https://codeberg.org/ominusliticus/magini.git), and then write a 
+  semi-standard `magini.cpp` file
+  ```c++
+  #define MAGINI_COMPILER "clang++"
+  #define MAGINI_SAVE_OUTPUT
+  #define MAGINI_IMPLEMENTATION
+  #include "third_party/magini/magini.hpp"
+  
+  using namespace magini;
+  
+  int main([[maybe_unused]] int argc, char** argv)
+  {
+      MAGINI_INITIATE_LOGGING;
+      print_disclaimer();
+  
+      REBUILD_MAGINI();
+  
+      BuildTree build_tree;
+      build_tree.has_libraries = false;
+      TRY_MAIN(add_director_build_tree(build_tree, "./source"));
+      auto executable = TRY_MAIN(build(build_tree, {}, {"-I ./source"}, {}));
+      TRY_MAIN(execute({ executable.c_str() }));
+      return 0;
+  }
+  ```
+  But we will not develop this idea to much further in these notes.
+  Feel free to reach out to me if you are interested!
+</details>
 
