@@ -464,7 +464,9 @@ Nothing here yet
 ````
 
 <details>
+
   <summary> Expand if you want to see an example with my own build systme </summary>
+
   `magini` is a build system that I am working on for myself.
   The primary idea is that one should not have to learn another programming language to
   build a project. 

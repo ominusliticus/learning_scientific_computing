@@ -789,40 +789,39 @@ build your project using the <code class="docutils literal notranslate"><span cl
 </div>
 <details>
   <summary> Expand if you want to see an example with my own build systme </summary>
-  `magini` is a build system that I am working on for myself.
-  The primary idea is that one should not have to learn another programming language to
-  build a project. 
-  So it is purely implemented in C++.
-  One has have the header file from 
-  [my repository](https://codeberg.org/ominusliticus/magini.git), and then write a 
-  semi-standard `magini.cpp` file
-  ```c++
-  #define MAGINI_COMPILER "clang++"
-  #define MAGINI_SAVE_OUTPUT
-  #define MAGINI_IMPLEMENTATION
-  #include "third_party/magini/magini.hpp"
-<p>using namespace magini;</p>
-<p>int main([[maybe_unused]] int argc, char** argv)
-{
-MAGINI_INITIATE_LOGGING;
-print_disclaimer();</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  REBUILD_MAGINI();
+<p><code class="docutils literal notranslate"><span class="pre">magini</span></code> is a build system that I am working on for myself.
+The primary idea is that one should not have to learn another programming language to
+build a project.
+So it is purely implemented in C++.
+One has have the header file from
+<a class="reference external" href="https://codeberg.org/ominusliticus/magini.git">my repository</a>, and then write a
+semi-standard <code class="docutils literal notranslate"><span class="pre">magini.cpp</span></code> file</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MAGINI_COMPILER &quot;clang++&quot;</span>
+<span class="cp">#define MAGINI_SAVE_OUTPUT</span>
+<span class="cp">#define MAGINI_IMPLEMENTATION</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;third_party/magini/magini.hpp&quot;</span>
 
-  BuildTree build_tree;
-  build_tree.has_libraries = false;
-  TRY_MAIN(add_director_build_tree(build_tree, &quot;./source&quot;));
-  auto executable = TRY_MAIN(build(build_tree, {}, {&quot;-I ./source&quot;}, {}));
-  TRY_MAIN(execute({ executable.c_str() }));
-  return 0;
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">magini</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MAGINI_INITIATE_LOGGING</span><span class="p">;</span>
+<span class="w">    </span><span class="n">print_disclaimer</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">REBUILD_MAGINI</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">BuildTree</span><span class="w"> </span><span class="n">build_tree</span><span class="p">;</span>
+<span class="w">    </span><span class="n">build_tree</span><span class="p">.</span><span class="n">has_libraries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">TRY_MAIN</span><span class="p">(</span><span class="n">add_director_build_tree</span><span class="p">(</span><span class="n">build_tree</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./source&quot;</span><span class="p">));</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">executable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TRY_MAIN</span><span class="p">(</span><span class="n">build</span><span class="p">(</span><span class="n">build_tree</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;-I ./source&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{}));</span>
+<span class="w">    </span><span class="n">TRY_MAIN</span><span class="p">(</span><span class="n">execute</span><span class="p">({</span><span class="w"> </span><span class="n">executable</span><span class="p">.</span><span class="n">c_str</span><span class="p">()</span><span class="w"> </span><span class="p">}));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>But we will not develop this idea to much further in these notes.
-Feel free to reach out to me if you are interested!
-&lt;/details&gt;
-
-</pre></div>
-</div>
+<p>But we will not develop this idea to much further in these notes.
+Feel free to reach out to me if you are interested!</p>
+</details>
 </section>
 </section>
 </section>
