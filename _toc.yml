@@ -2,10 +2,18 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: overview
-chapters:
-  - file: command_line_interfaces
-  - file: basics_of_cpp
-  - file: cpp_project
+root: title
+parts:
+  - caption: Introduction
+    numbered: true
+    chapters:
+    - file: introduction
+  - caption: Basics of C++
+    numbered: true
+    chapters:
+    - file: what_is_a_program
+  # - file: command_line_interfaces
+  # - file: basics_of_cpp
+  # - file: cpp_project
   # - file: notebooks
   # - file: markdown-notebooks
