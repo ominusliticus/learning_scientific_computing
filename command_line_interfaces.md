@@ -1,5 +1,5 @@
 # The Command Line
-Before computers has _windows_ and a mouse to navigate between applications, all computing happened view text that was entered a single line at a time.
+Before computers had _windows_ and a mouse to navigate between applications, all computing happened view text that was entered a single line at a time.
 Despite the seemingly limited form of operability that this seems to offer, it is this minimal interface that we will start with.
 
 Different operating systems typically have different command line interfaces.
