@@ -17,3 +17,7 @@ parts:
     numbered: true
     chapters:
     - file: numerical_integration
+  - caption: High Preformance Computing
+    numbered: true
+    chapters:
+    - file: ssh.md

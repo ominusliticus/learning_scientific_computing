@@ -88,6 +88,7 @@ Compilation generally happens is several stages:
 
 There are more intricacy associated to each step that we needn't review or understand.
 However, it good to be familiar with what exactly it is that a compiler does.
+Though we won't be able to appreciate it from these notes, C++ provides a tool set that is vary well equipped for developing compiler infrastructure.
 
 
 ## Disassembly
