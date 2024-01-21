@@ -471,14 +471,14 @@ The importance of acquiring and releasing resources (allocating and deallocating
 <section id="text-th-order-runge-kutta">
 <h2>4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-Order Runge-Kutta<a class="headerlink" href="#text-th-order-runge-kutta" title="Permalink to this heading">#</a></h2>
 <p>Let us assume we have an initial value problem of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-02c5b78a-38f2-43fd-9388-c864f82bd0fe">
-<span class="eqno">()<a class="headerlink" href="#equation-02c5b78a-38f2-43fd-9388-c864f82bd0fe" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-14d0abbb-bad2-418f-bd1a-c25612b795fe">
+<span class="eqno">()<a class="headerlink" href="#equation-14d0abbb-bad2-418f-bd1a-c25612b795fe" title="Permalink to this equation">#</a></span>\[\begin{align}
 x'(t)= f(x(t), t), \quad x(t_0) x_0,
 \end{align}\]</div>
 <p>we can solve such a system using a 4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-order Runge-Kutta Method (or just RK4).
 Schematically, this looks line</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f1b8f69-863e-4175-bdba-684e82b722ab">
-<span class="eqno">()<a class="headerlink" href="#equation-1f1b8f69-863e-4175-bdba-684e82b722ab" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a92d90d1-79f2-4d96-b019-4bf0a4ec37fa">
+<span class="eqno">()<a class="headerlink" href="#equation-a92d90d1-79f2-4d96-b019-4bf0a4ec37fa" title="Permalink to this equation">#</a></span>\[\begin{align}
     k_1^{(n + 1)} &amp;= f(x(t_n),\ t_n) \\
     k_2^{(n + 1)} &amp;= f\left(x(t_n) + k_1^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
     k_3^{(n + 1)} &amp;= f\left(x(t_n) + k_2^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
