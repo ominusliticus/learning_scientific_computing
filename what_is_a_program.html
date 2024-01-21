@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2. What is a program &#8212; Learning Scientific Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'what_is_a_program';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Compilation, Debugging and Debuggers" href="compilation_and_debugging.html" />
+    <link rel="prev" title="1. Introduction" href="introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="title.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Learning Scientific Computing</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="title.html">
+                    Learning Scientific Computing
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics of C++</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. What is a program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">4. Numerical Integration</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/what_is_a_program.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What is a program</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-program">
+<h1><span class="section-number">2. </span>What is a program<a class="headerlink" href="#what-is-a-program" title="Permalink to this heading">#</a></h1>
+<p>C++ is a compiled language, meaning that to execute code written in C++, it has first be converted into machine code: this is the job of the compiler.
+We will talk about the compiler in the next chapter, but in general, to have a good understanding of any programming language, it is important to understand what the compiler does behind the scene.
+Programs are resulting machine code executable.
+These executables are hardware specific, meaning that that a program compiled on Windows machine, will not work on a Mac or Linux machine.</p>
+<p>There are generally three ingredients to making a program:</p>
+<ol class="arabic simple">
+<li><p>The source code: the header files and translation uints</p></li>
+<li><p>The libraries which the program has to link to</p></li>
+<li><p>The compiler, which is generally bundled with the linker, that translate our code to machine code.</p></li>
+</ol>
+<p>The source code is generally what we write, or take from other people.
+These are the <em>.cpp</em> and <em>.hpp</em> (and various other file suffixes, but these are the ones that we will use) files.
+The libraries are either provided by the operating sytstem, such as <code class="docutils literal notranslate"><span class="pre">libc</span></code>, or are installed via package manager, such as <code class="docutils literal notranslate"><span class="pre">libopenblas</span></code>.
+The compiler translates <em>.cpp</em> files into machine code, and the linker matches all the <em>symbols</em> between these <em>translation units</em> and library calls.
+If all the symbols can be resolved (i.e., function, variables, types and operations), the executable is linked and can be run on the device.</p>
+<p>As our first program, and the standard first program for any language, we will write a <code class="docutils literal notranslate"><span class="pre">&quot;Hello,</span> <span class="pre">World!&quot;</span></code> program, which prints the sentence to your command line (also known as <em>standard out</em> or <em>stdout</em>).
+In C++, this looks like</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World!&quot;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We will make sure you have the infrastructure to compile programs in the next chapter, but for this chapter is good enough to use my favorite website <a class="reference external" href="https://godbolt.org">Compiler Explorer</a>.
+Feel free to copy to code snippet above, navigate to <a class="reference external" href="https://godbolt.org">Compiler Explorer</a>, and paste.
+What you should see on the website is</p>
+<figure class="align-default" id="godbolt-hello-world">
+<img alt="_images/godbolt_hello_world_1.png" src="_images/godbolt_hello_world_1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Screenshot of Compiler Explorer, with the source code (left) and disassembly (right)</span><a class="headerlink" href="#godbolt-hello-world" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The left-hand side represent the code we are compiling, while the right-hand side shows us the <em>disassembly</em> (we reproduce the content here for convenience).</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">.LC0:</span>
+<span class="w">        </span><span class="nf">.string</span><span class="w"> </span><span class="s">&quot;Hello, Wolrd!&quot;</span>
+<span class="nl">main:</span>
+<span class="w">        </span><span class="nf">push</span><span class="w">    </span><span class="nb">rbp</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rbp</span><span class="p">,</span><span class="w"> </span><span class="nb">rsp</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">.LC0</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">edi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4cout</span>
+<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">,</span><span class="w"> </span><span class="nv">char</span><span class="w"> </span><span class="nv">const</span><span class="o">*</span><span class="p">)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rdi</span><span class="p">,</span><span class="w"> </span><span class="nb">rax</span>
+<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">))</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">eax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="nf">pop</span><span class="w">     </span><span class="nb">rbp</span>
+<span class="w">        </span><span class="nf">ret</span>
+</pre></div>
+</div>
+<p>This is computer code that has been converted to assembly for us to know exactly what operations the CPU is executing.
+We won’t get into it here (we will explain what each line does in the next chapter), but learning to understand disassembly will be a valuable tool for optimization purposes in the future.
+In general, a good rule-of-thumb for preformance considerations is: <em>the fewer lines of actual machine instructions, the better</em>.
+We will rely on the compiler to do most of the optimization, but there are tricks we can use to help the compiler out.
+One of the most notable instance, which I will mention here without further clarification, is using lambda functions instead of function pointers.</p>
+<p>To see the output of our code, we have to add an executor.
+This can be accomplished by clicking the <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">new...</span></code> drop-down menu on the right-hand side and selecting the <code class="docutils literal notranslate"><span class="pre">Executor</span> <span class="pre">From</span> <span class="pre">This</span></code> option.</p>
+<p>This will return another, third column with the contents</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Program<span class="w"> </span>returned:<span class="w"> </span><span class="m">0</span>
+Program<span class="w"> </span>stdout
+Hello,<span class="w"> </span>World!
+</pre></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="compilation_and_debugging.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Compilation, Debugging and Debuggers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kevin Ingles
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to C++ &#8212; Learning Scientific Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_basic_of_cpp';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="title.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Learning Scientific Computing</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="title.html">
+                    Learning Scientific Computing
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics of C++</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is_a_program.html">2. What is a program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">4. Numerical Integration</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/_basic_of_cpp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to C++</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-th-order-runge-kutta">4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-Order Runge-Kutta</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-c">
+<h1>Introduction to C++<a class="headerlink" href="#introduction-to-c" title="Permalink to this heading">#</a></h1>
+<p>C++ is a very large and complex programming language.
+It is also constantly changing, meaning a person proficient is C++ best practices ten years ago, might not understand more modern syntax.
+In this chapter, we will try to give a very broad overview of the many possibilities of coding with C++ and write our first couple of programs.
+After this chapter, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Write a <em>Hello, World!</em> program</p></li>
+<li><p>Write a program that does file input and output</p></li>
+<li><p>Solve a first-order differential equation</p></li>
+</ol>
+<section id="programming-syntax-keywords-functions-and-more">
+<h2>Programming syntax, keywords, functions and more<a class="headerlink" href="#programming-syntax-keywords-functions-and-more" title="Permalink to this heading">#</a></h2>
+<p>All programming languages come with some words that have specific function when they show up in source code; these special works are called <em>reserved words</em>.
+Python has <a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#keywords">35 reserved words</a>, while C++ has <a class="reference external" href="https://en.cppreference.com/w/cpp/keyword">97 keywords with 7 more already in progress</a>.
+Unless you are a software engineer, there is not a really a reason you would need even 50% of these keywords, but I highlight them to underscore the complexity of C++.</p>
+<p>Programming syntax are rules you must follow for a compiler or interpreter to understand the instruction you are trying to give it.
+Some simple rules for C++ that you will need are:</p>
+<ol class="arabic simple">
+<li><p>All variable names (this includes functions because they are, in a sense, variables) must start with an alphabetical character or underscore.</p></li>
+<li><p>Variable names contain numbers, letters or dollar signs.</p></li>
+<li><p>All statements must in end in semicolon.</p></li>
+<li><p>Control flow statements must be enclosed in parentheses.</p></li>
+<li><p>Curly braces determine scope.</p></li>
+</ol>
+<p>We are not going to systematically introduce all these and explain them.
+Rather, if you have questions you can always refer to the <a class="reference external" href="https://en.cppreference.com/w/cpp/language">cppreference.com</a> guide on the language.
+We will jump straight into coding.</p>
+</section>
+<section id="hello-world">
+<h2><em>Hello, World!</em><a class="headerlink" href="#hello-world" title="Permalink to this heading">#</a></h2>
+<p>The standard introduction program in C++ is as follows (we give python as a comparison)</p>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">C++</label><div class="tab-content docutils">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--0-input--2" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--2">Python</label><div class="tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello, World!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s dissect this code:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">#include</span></code> <em>directive</em> tells the C++ compiler to fetch the library <code class="docutils literal notranslate"><span class="pre">iostream</span></code> (referred to as a <em>header</em> or <em>header file</em>) and paste it into <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> document.
+It contains the input and output (i/o) abstractions that are common in C++.
+These abstraction are generically referred to as <em>streams</em>, so the name of the library should be more transparent now.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span> <span class="pre">{...}</span></code> block defines a function named <code class="docutils literal notranslate"><span class="pre">main</span></code>.
+Function delaration follow the style</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">return_type</span><span class="w"> </span><span class="nf">function_name</span><span class="p">(</span><span class="n">type_1</span><span class="w"> </span><span class="n">arg_1</span><span class="p">,</span><span class="w"> </span><span class="n">type_2</span><span class="w"> </span><span class="n">args_2</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="n">function</span><span class="w"> </span><span class="n">body</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">statemet</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When compiling C++ programs with most compilers, the compiler will always look for an <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function which within the supplied cpp files; it considers the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> the <em>entry point</em> for the program.
+This means that having multiple functions named <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> with throw and error at compile time.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::cout</span></code> is an abstraction some very hard working people have created to write output the terminal.
+The <code class="docutils literal notranslate"><span class="pre">std</span></code> part stands for <em>standard</em>, as <code class="docutils literal notranslate"><span class="pre">iostream</span></code> is part of the <em>Standard Template Library (STL)</em> that ships with every compiler, and <code class="docutils literal notranslate"><span class="pre">cout</span></code> stands for <em>common out</em> (another name for the terminal screen).
+The double colon between <code class="docutils literal notranslate"><span class="pre">std</span></code> and <code class="docutils literal notranslate"><span class="pre">cout</span></code> (called the <em>resolution operator</em>) indicates that <code class="docutils literal notranslate"><span class="pre">cout</span></code> is a name belonging the <code class="docutils literal notranslate"><span class="pre">std</span></code> <em>namespace</em>, (in fact, one of the keywords we will use is <code class="docutils literal notranslate"><span class="pre">namespace</span></code>).
+Namespaces are convenient for distinguishing between functions with the same name.
+For example, you may have a function <code class="docutils literal notranslate"><span class="pre">real::sqrt</span></code> which is a function that takes the square-root of real numbers and therefore declared in the <code class="docutils literal notranslate"><span class="pre">real</span></code>-namespace, while <code class="docutils literal notranslate"><span class="pre">complex::sqrt</span></code> takes the square-root of complex numbers and sits in the <code class="docutils literal notranslate"><span class="pre">complex</span></code>-namespace.
+These can be created by you</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">real</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">complex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// here we introduce some notation that we will elucidate a little later</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">z</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> is know as the <em>insertion operator</em>.
+All you should care about is that this essentially <em>inserts</em> the information on the right into the stream on the left.
+The syntax for printing to a file is identical, the stream variable is simply replaced by the file stream variable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Hello,</span> <span class="pre">World!\n&quot;</span></code> is called a <em>string</em>, or more technically a <em>const char array</em>.
+The <code class="docutils literal notranslate"><span class="pre">\n</span></code> at the end is a special character that indicates <em>add a new line</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">0</span></code> - every function with a non-<code class="docutils literal notranslate"><span class="pre">void</span></code> return-type needs to have a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement.
+Returning zero here, tells the operating system that the computer program executed successfully.</p></li>
+</ul>
+</section>
+<section id="file-i-o">
+<h2>File I/O<a class="headerlink" href="#file-i-o" title="Permalink to this heading">#</a></h2>
+<p>We can modify the above program to output <em>Hello, World!</em> to a file by replacing the <code class="docutils literal notranslate"><span class="pre">std::cout</span></code> stream by a file stream (again, we provide python for comparison)</p>
+<div class="tab-set docutils">
+<input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">C++</label><div class="tab-content docutils">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="w"> </span><span class="n">fout</span><span class="p">(</span><span class="s">&quot;output_file.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello, World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">fout</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--1-input--2" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--2">Python</label><div class="tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;output_file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Hello, World!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have included the <code class="docutils literal notranslate"><span class="pre">fstream</span></code> header (which itself actually includes the same headers as <code class="docutils literal notranslate"><span class="pre">iostream</span></code>), and constructed the file stream object <code class="docutils literal notranslate"><span class="pre">fout</span></code>.
+Notice that the syntax of writing to the file is identical as writing to <code class="docutils literal notranslate"><span class="pre">std::cout</span></code>.
+At the end of our program, we always have to be careful to release all the resources we consumed throughout our program.
+(The python example would also have a <code class="docutils literal notranslate"><span class="pre">f.close()</span></code> statement, if we had not used a context statement).
+The importance of acquiring and releasing resources (allocating and deallocating memory) is where a lot of time is spent when optimizing codes to run more efficiently and will be covered in our more advanced treatment of C++, later.</p>
+</section>
+<section id="text-th-order-runge-kutta">
+<h2>4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-Order Runge-Kutta<a class="headerlink" href="#text-th-order-runge-kutta" title="Permalink to this heading">#</a></h2>
+<p>Let us assume we have an initial value problem of the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-02c5b78a-38f2-43fd-9388-c864f82bd0fe">
+<span class="eqno">()<a class="headerlink" href="#equation-02c5b78a-38f2-43fd-9388-c864f82bd0fe" title="Permalink to this equation">#</a></span>\[\begin{align}
+x'(t)= f(x(t), t), \quad x(t_0) x_0,
+\end{align}\]</div>
+<p>we can solve such a system using a 4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-order Runge-Kutta Method (or just RK4).
+Schematically, this looks line</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1f1b8f69-863e-4175-bdba-684e82b722ab">
+<span class="eqno">()<a class="headerlink" href="#equation-1f1b8f69-863e-4175-bdba-684e82b722ab" title="Permalink to this equation">#</a></span>\[\begin{align}
+    k_1^{(n + 1)} &amp;= f(x(t_n),\ t_n) \\
+    k_2^{(n + 1)} &amp;= f\left(x(t_n) + k_1^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_3^{(n + 1)} &amp;= f\left(x(t_n) + k_2^{(n + 1)} \frac{h}{2},\ t_n + \frac{h}{2}\right) \\
+    k_4^{(n + 1)} &amp;= f\left(x(t_n) + k_3^{(n + 1)} j,\ t_n + h\right)
+\end{align}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+x(t_{n + 1}) = x(t_n + h) = x(t_n) + \frac{h}{6}\left(k_1^{(n + 1)} + 2k_2^{(n + 1)} + 21k_3^{(n + 1)} + k_4^{(n + 1)}\right)
+\]</div>
+<p>These equations can be coded into C++ as</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span><span class="c1"> // input/output manipulation - used to format output</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span><span class="c1">   // For std::exp and std::cosh</span>
+
+<span class="c1">// We don&#39;t have to define the function yet, so the compiler knows the symbol exists.</span>
+<span class="c1">// This is called _prototyping a function_</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Open output file</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="w"> </span><span class="n">fout</span><span class="p">(</span><span class="s">&quot;solution.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fstream</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Start time</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Initial condition</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t_f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span><span class="p">;</span><span class="w">     </span><span class="c1">// End time</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w">  </span><span class="c1">// Number of steps </span>
+
+<span class="w">    </span><span class="c1">// Integral numbers and floating point numbers are reppresented differently in binary</span>
+<span class="w">    </span><span class="c1">// To make sure the compiler knows which types are being multiplied we can hint to it </span>
+<span class="w">    </span><span class="c1">// what the types should be by casting, in this case `static_cast`-ing (meaning the </span>
+<span class="w">    </span><span class="c1">// compiler can do this at compile times), the desired type.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t_f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t_0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span><span class="w"> </span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">k_1</span><span class="p">,</span><span class="w"> </span><span class="n">k_2</span><span class="p">,</span><span class="w"> </span><span class="n">k_3</span><span class="p">,</span><span class="w"> </span><span class="n">k_4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x_0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// output current step to file</span>
+<span class="w">        </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Calculate next step</span>
+<span class="w">        </span><span class="n">k_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="n">t_0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+<span class="w">        </span><span class="n">k_4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">k_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k_3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_4</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Update time </span>
+<span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Our logic above implies that we would not output the last step, so we do it </span>
+<span class="w">    </span><span class="c1">// explicitly</span>
+<span class="w">    </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// Close file</span>
+<span class="w">    </span><span class="n">fout</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// An arbitrary choice</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cosh</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can run this code online using <em>Compiler Explorer</em> by following this <a class="reference external" href="https://godbolt.org/z/8ss6K48sh">link</a>.</p>
+<p>Perhaps the most ambiguous line here is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This line creates an array object that stores <code class="docutils literal notranslate"><span class="pre">N</span></code> <code class="docutils literal notranslate"><span class="pre">double</span></code>-type variables.
+This line can be thought of the equivalent for numpy</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-syntax-keywords-functions-and-more">Programming syntax, keywords, functions and more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-world"><em>Hello, World!</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-i-o">File I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-th-order-runge-kutta">4<span class="math notranslate nohighlight">\(^\text{th}\)</span>-Order Runge-Kutta</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kevin Ingles
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
