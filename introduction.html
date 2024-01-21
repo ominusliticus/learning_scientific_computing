@@ -181,6 +181,10 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">4. Numerical Integration</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ssh.html">5. Connecting to remote servers</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -331,6 +335,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-and-content">1.1. Chapters and content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-lessons">1.1.1. C++ lessons</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">1.1.2. Example projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.3. Essentials of high preformance computing</a></li>
 </ul>
 </li>
 </ul>
@@ -366,8 +371,9 @@ C++ is a very big and general purpose language, allowing for lots of freedom of 
 <p>As mentioned in the overview, the primary purpose of these notes are to teach you C++ programming.
 We will focus on modern C++, relying on language constructs from the 2011 standard and onwards, and a fairly decent review of the capabilities of the standard library (as we might need them) will be included.
 Has hinted at in the overview, these notes are by know means comprehensive enough to represent the full milieu of C++ language, just the most salient parts for computation and the parts I quite enjoy.</p>
-<p>The content is split into two parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
-The second part is dedicated to giving some example projects and to discuss design considerations.</p>
+<p>The content is split into three parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
+The second part is dedicated to giving some example projects and to discuss design considerations.
+Lastly, the third part digs into remote computing, bash scripting and slurm.</p>
 <section id="c-lessons">
 <h3><span class="section-number">1.1.1. </span>C++ lessons<a class="headerlink" href="#c-lessons" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -397,6 +403,18 @@ Where necessary, I will try to ellucidate the physical settings.</p>
 <li><p>Coupled ordinary differential equation</p></li>
 <li><p><span class="math notranslate nohighlight">\(N\)</span>-body simulations</p></li>
 <li><p>Integral equations</p></li>
+</ol>
+</section>
+<section id="essentials-of-high-preformance-computing">
+<h3><span class="section-number">1.1.3. </span>Essentials of high preformance computing<a class="headerlink" href="#essentials-of-high-preformance-computing" title="Permalink to this heading">#</a></h3>
+<p>High preformance computing comes in many shapes: (multiple) graphics card programming, multiple CPU with mesaging passing interfaces, or massively parallel and independent tasks.
+What they have in common is that they are usually execute remotely, that is not on the computer sitting in front of you.
+The topics covered here are meant to familiarize yourself with remote computing, and some of the consideration you have to make when designing code for such extreme computing environments.</p>
+<ol class="arabic simple">
+<li><p>Connecting to remote servers</p></li>
+<li><p>Bash scripting</p></li>
+<li><p>SLURM and other cluster-computing software</p></li>
+<li><p>Sycl, Kokos and amrex</p></li>
 </ol>
 </section>
 </section>
@@ -469,6 +487,7 @@ Where necessary, I will try to ellucidate the physical settings.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-and-content">1.1. Chapters and content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-lessons">1.1.1. C++ lessons</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">1.1.2. Example projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.3. Essentials of high preformance computing</a></li>
 </ul>
 </li>
 </ul>

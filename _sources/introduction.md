@@ -21,8 +21,9 @@ As mentioned in the overview, the primary purpose of these notes are to teach yo
 We will focus on modern C++, relying on language constructs from the 2011 standard and onwards, and a fairly decent review of the capabilities of the standard library (as we might need them) will be included.
 Has hinted at in the overview, these notes are by know means comprehensive enough to represent the full milieu of C++ language, just the most salient parts for computation and the parts I quite enjoy.
 
-The content is split into two parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
+The content is split into three parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
 The second part is dedicated to giving some example projects and to discuss design considerations.
+Lastly, the third part digs into remote computing, bash scripting and slurm.
 
 ### C++ lessons
 
@@ -41,6 +42,7 @@ The second part is dedicated to giving some example projects and to discuss desi
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
      to allow the compiler to do as much optimization as possible  -->
 ### Example projects
+
 Some of these programs are inspired by programs that I had to write for research.
 So the physics may be opaque, but the more important part is the program structure.
 Where necessary, I will try to ellucidate the physical settings.
@@ -50,3 +52,15 @@ Where necessary, I will try to ellucidate the physical settings.
 1. Coupled ordinary differential equation
 1. $N$-body simulations
 1. Integral equations
+
+
+### Essentials of high preformance computing
+
+High preformance computing comes in many shapes: (multiple) graphics card programming, multiple CPU with mesaging passing interfaces, or massively parallel and independent tasks.
+What they have in common is that they are usually execute remotely, that is not on the computer sitting in front of you.
+The topics covered here are meant to familiarize yourself with remote computing, and some of the consideration you have to make when designing code for such extreme computing environments.
+
+1. Connecting to remote servers
+1. Bash scripting
+1. SLURM and other cluster-computing software
+1. Sycl, Kokos and amrex
