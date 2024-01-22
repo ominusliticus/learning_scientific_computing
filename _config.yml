@@ -2,8 +2,8 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title    : Learning Scientific Computing
-author   : Kevin Ingles
-copyright: "2023" 
+author   : Kevin and Alex Ingles
+copyright: "2023-2024" 
 # logo: logo.png
 
 # Force re-execution of notebooks on each build.
