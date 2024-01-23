@@ -1,4 +1,5 @@
 # Compilation, Debugging and Debuggers
+<!-- _TODO:_ Give disclaimer that this section does not have to read? -->
 
 In the last chapter, we were introduced to the compiler as being the tool that translates the C++ code that we write, into machine code the CPU understands.
 In this chapter, we will dig a little deeper into the C++ compilers, their various stages and get a general feeling for how to read disassembly.
@@ -92,6 +93,83 @@ Though we won't be able to appreciate it from these notes, C++ provides a tool s
 
 
 ## Disassembly
+<!-- _TODO:_ Give disclaimer that this subsection does not have to read? -->
+
+We have used the word _disassembly_ without really explaining what it is.
+So let's clarify that here.
+Disassembly is a play on the word _assembly_ which describes the programming language that human write which translate directly into machine code for the CPU. 
+For this reason, every CPU architecture (and manufacturer) has their own version of assembly.
+Disassembly is the process of taking machine code, and translating is back into assembly.
+Two flavors of assembly that show up in personnal computers are x86 ([Intel&reg;](https://www.intel.com/content/www/us/en/homepage.html)) and ARM ([Apple Silicon](https://developer.apple.com/documentation/apple-silicon))
+
+We will take a little time to familiarize with the registers and commans commonly seen.
+We will not talk abouot register sizes, or the evolution of assembly languages, but encourage you to read on this, if you're any bit curious.
+A register is a physical location on the CPU where data can be load and the CPU can preform any number of commands (which we list below).
+The set of commands available, ultimately dictates the assembly that chip can understand.
+The register and their functions are
+
+### Register Types
+<!-- _TODO:_ Add corresponding ARM registers? -->
+
+``````{margin}
+```{warning}
+We only give registers for x86 architectures.
+ARM architectures have a different naming convention.
+```
+
+```{note}
+Registers starting with `r` could also start with `e` or have no prefix.
+This indicates whether the register is a 64, 32, or 16 bit registers.
+More details can be found [here](https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture)
+```
+``````
+
+```{list-table}
+:header-rows: 1
+
+* - Register
+  - Name
+  - Function
+* - `rax` 
+  - _accumulator registre_
+  - generally the register that stores the return value of a function (if necessary, it will store a function argument)
+* - `rbx`
+  - _base register_
+  - typically used for storing function arguments, especially pointers
+* - `rcx`
+  - _count register_
+  - typically keeps track of the loop count or index into a string for string operations
+* - `rdx`
+  - _data register_
+  - can be a register for an argument to a function
+* - `rsi`, `rdi`
+  - _index register_
+  - _source_ and _destination_ registers for stream operations (such as outputing text to terminal)
+* - `rbp`
+  - _base pointer_
+  - points to the bottom of the stack (a first-in-last-out data structure)
+* - `rsp`
+  - _stack pointer_
+  - points the the top of the stack
+* - `r8`-`r15`
+  - _additional registers_
+  - generally used to store function arguments
+* - `xmm0` - `xm15`
+  - _SIMD registers_
+  - used to vectorize arithmetic operations
+* - `st0`-`st7`
+  - _floating-point unit registers_
+  - for floating-point arithmetic
+```
+
+```{note}
+There are a limit to the number of arguments a function can take.
+This is generally determined by the number of register available on the CPU.
+If you find yourself passing a large number variables to a function, you should think about restructuring your code.
+```
+
+### Command Types
+<!-- _TODO:_ Add corresponding ARM commands? -->
 
 
 ### Revisiting `Hello, World!`
