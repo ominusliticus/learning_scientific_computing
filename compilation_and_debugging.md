@@ -66,6 +66,8 @@ The result output should just be `Hello, World!`!
 ### Digging a little deeper into the compiler
 
 Let's take a quick digression to understand what the compiler is doing under the hood.
+For the compilation process to begin, the compiler must find exactly _one_ `int main()` function across all input files.
+The compiler uses the function to understand how to put the program together, and optimize it.
 Compilation generally happens is several stages:
 1. Preprocessing
     - This step involves passing through the source code, and replacing preprocessing directives, also called macros, where ever they occur.
