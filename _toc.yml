@@ -11,13 +11,13 @@ parts:
   - caption: Basics of C++
     numbered: true
     chapters:
-    - file: what_is_a_program
-    - file: compilation_and_debugging
+    - file: cpp_chapters/what_is_a_program
+    - file: cpp_chapters/compilation_and_debugging
   - caption: C++ Example Projects
     numbered: true
     chapters:
-    - file: numerical_integration
+    - file: app_chapters/numerical_integration
   - caption: High Preformance Computing
     numbered: true
     chapters:
-    - file: ssh.md
+    - file: hpc_chapters/ssh.md

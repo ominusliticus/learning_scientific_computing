@@ -176,27 +176,9 @@ If you find yourself passing a large number variables to a function, you should 
 
 ### Revisiting `Hello, World!`
 
-The disassembly example that we looked at in the last chapter is
-
-```nasm
-.LC0:
-        .string "Hello, Wolrd!"
-main:
-        push    rbp
-        mov     rbp, rsp
-        mov     esi, OFFSET FLAT:.LC0
-        mov     edi, OFFSET FLAT:_ZSt4cout
-        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
-        mov     esi, OFFSET FLAT:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-        mov     rdi, rax
-        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
-        mov     eax, 0
-        pop     rbp
-        ret
-```
-
-In fact, this the disassembly generated using the `gcc` compiler on Compiler Explorer.
-The corresponding disassembly for the `clang` compiler is (slightly longer and more complicated)
+In the last chapter, we introduced what the disassembly looks like for a "Hello, World!" program.
+You may have noticed that Compiler Explorer was set to the `gcc` compiler.
+For completeness, we include the generated disassembly for a `clang` compiler.
 
 ```nasm
 __cxx_global_var_init:                  # @__cxx_global_var_init
@@ -235,7 +217,38 @@ _GLOBAL__sub_I_example.cpp:             # @_GLOBAL__sub_I_example.cpp
         .asciz  "Hello, Wolrd!"
 ```
 
-For this reason, we will on disect the `gcc` disassembly, the the idea is the same.
+Because it's simpler, we add comments to the `gcc` disassembly.
+But, as mentioned before, we will principally work with the `clang` compiler for this tutorial.
+Below, we have modified the disassembly by adding comments (the lines starting with semicolons) to indicate what each line does
 
+```nasm
+.LC0:
+	; Create location in memory to store output
+	; this string ships with the program
+        .string "Hello, Wolrd!"
+main:
+	; Create the stack
+        push    rbp
+	; Set stack pointer to the bottom
+        mov     rbp, rsp
+	; Store output string in register esi (second argument)
+        mov     esi, OFFSET FLAT:.LC0
+	; Store output stream in register edi (first argument)
+        mov     edi, OFFSET FLAT:_ZSt4cout
+	; Invoke call to the insertion operator `<<` to store string in stream
+        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
+	; Store `std::endl` object at register esi (to be consumed by an output stream)
+        mov     esi, OFFSET FLAT:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+	; Store the return value from the last `call` (a stream object) in register (argument for next function call)
+        mov     rdi, rax
+	; Invoke call to the inserttion operator `<<` to store the `std::endl` object
+        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
+	; Store return value to be return from `int main()`
+        mov     eax, 0
+	; Destroy stack 
+        pop     rbp
+	; Return from function
+        ret
+```
 
 ## Debugging

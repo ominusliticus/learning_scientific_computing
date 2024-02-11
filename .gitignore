@@ -2,3 +2,6 @@ _build/
 _build/*
 _build/**
 
+# vim artificats
+**.un*
+**.swp
