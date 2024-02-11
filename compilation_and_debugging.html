@@ -335,7 +335,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disassembly">3.2. Disassembly</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-hello-world">3.2.1. Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-types">3.2.1. Register Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-types">3.2.2. Command Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-hello-world">3.2.3. Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">3.3. Debugging</a></li>
@@ -352,6 +354,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="compilation-debugging-and-debuggers">
 <h1><span class="section-number">3. </span>Compilation, Debugging and Debuggers<a class="headerlink" href="#compilation-debugging-and-debuggers" title="Permalink to this heading">#</a></h1>
+<!-- _TODO:_ Give disclaimer that this section does not have to read? -->
 <p>In the last chapter, we were introduced to the compiler as being the tool that translates the C++ code that we write, into machine code the CPU understands.
 In this chapter, we will dig a little deeper into the C++ compilers, their various stages and get a general feeling for how to read disassembly.
 We will finish by talking about debugging, i.e., how to diagnose where and/or why our programming is failing.</p>
@@ -459,27 +462,101 @@ Though we won’t be able to appreciate it from these notes, C++ provides a tool
 </section>
 <section id="disassembly">
 <h2><span class="section-number">3.2. </span>Disassembly<a class="headerlink" href="#disassembly" title="Permalink to this heading">#</a></h2>
-<section id="revisiting-hello-world">
-<h3><span class="section-number">3.2.1. </span>Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code><a class="headerlink" href="#revisiting-hello-world" title="Permalink to this heading">#</a></h3>
-<p>The disassembly example that we looked at in the last chapter is</p>
-<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">.LC0:</span>
-<span class="w">        </span><span class="nf">.string</span><span class="w"> </span><span class="s">&quot;Hello, Wolrd!&quot;</span>
-<span class="nl">main:</span>
-<span class="w">        </span><span class="nf">push</span><span class="w">    </span><span class="nb">rbp</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rbp</span><span class="p">,</span><span class="w"> </span><span class="nb">rsp</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">.LC0</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">edi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4cout</span>
-<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">,</span><span class="w"> </span><span class="nv">char</span><span class="w"> </span><span class="nv">const</span><span class="o">*</span><span class="p">)</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rdi</span><span class="p">,</span><span class="w"> </span><span class="nb">rax</span>
-<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">))</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">eax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">        </span><span class="nf">pop</span><span class="w">     </span><span class="nb">rbp</span>
-<span class="w">        </span><span class="nf">ret</span>
-</pre></div>
+<!-- _TODO:_ Give disclaimer that this subsection does not have to read? -->
+<p>We have used the word <em>disassembly</em> without really explaining what it is.
+So let’s clarify that here.
+Disassembly is a play on the word <em>assembly</em> which describes the programming language that human write which translate directly into machine code for the CPU.
+For this reason, every CPU architecture (and manufacturer) has their own version of assembly.
+Disassembly is the process of taking machine code, and translating is back into assembly.
+Two flavors of assembly that show up in personnal computers are x86 (<a class="reference external" href="https://www.intel.com/content/www/us/en/homepage.html">Intel®</a>) and ARM (<a class="reference external" href="https://developer.apple.com/documentation/apple-silicon">Apple Silicon</a>)</p>
+<p>We will take a little time to familiarize with the registers and commans commonly seen.
+We will not talk abouot register sizes, or the evolution of assembly languages, but encourage you to read on this, if you’re any bit curious.
+A register is a physical location on the CPU where data can be load and the CPU can preform any number of commands (which we list below).
+The set of commands available, ultimately dictates the assembly that chip can understand.
+The register and their functions are</p>
+<section id="register-types">
+<h3><span class="section-number">3.2.1. </span>Register Types<a class="headerlink" href="#register-types" title="Permalink to this heading">#</a></h3>
+<!-- _TODO:_ Add corresponding ARM registers? -->
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>We only give registers for x86 architectures.
+ARM architectures have a different naming convention.</p>
 </div>
-<p>In fact, this the disassembly generated using the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler on Compiler Explorer.
-The corresponding disassembly for the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler is (slightly longer and more complicated)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Registers starting with <code class="docutils literal notranslate"><span class="pre">r</span></code> could also start with <code class="docutils literal notranslate"><span class="pre">e</span></code> or have no prefix.
+This indicates whether the register is a 64, 32, or 16 bit registers.
+More details can be found <a class="reference external" href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture">here</a></p>
+</div>
+</aside>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Register</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rax</span></code></p></td>
+<td><p><em>accumulator registre</em></p></td>
+<td><p>generally the register that stores the return value of a function (if necessary, it will store a function argument)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rbx</span></code></p></td>
+<td><p><em>base register</em></p></td>
+<td><p>typically used for storing function arguments, especially pointers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rcx</span></code></p></td>
+<td><p><em>count register</em></p></td>
+<td><p>typically keeps track of the loop count or index into a string for string operations</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rdx</span></code></p></td>
+<td><p><em>data register</em></p></td>
+<td><p>can be a register for an argument to a function</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rsi</span></code>, <code class="docutils literal notranslate"><span class="pre">rdi</span></code></p></td>
+<td><p><em>index register</em></p></td>
+<td><p><em>source</em> and <em>destination</em> registers for stream operations (such as outputing text to terminal)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rbp</span></code></p></td>
+<td><p><em>base pointer</em></p></td>
+<td><p>points to the bottom of the stack (a first-in-last-out data structure)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rsp</span></code></p></td>
+<td><p><em>stack pointer</em></p></td>
+<td><p>points the the top of the stack</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r8</span></code>-<code class="docutils literal notranslate"><span class="pre">r15</span></code></p></td>
+<td><p><em>additional registers</em></p></td>
+<td><p>generally used to store function arguments</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">xmm0</span></code> - <code class="docutils literal notranslate"><span class="pre">xm15</span></code></p></td>
+<td><p><em>SIMD registers</em></p></td>
+<td><p>used to vectorize arithmetic operations</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">st0</span></code>-<code class="docutils literal notranslate"><span class="pre">st7</span></code></p></td>
+<td><p><em>floating-point unit registers</em></p></td>
+<td><p>for floating-point arithmetic</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are a limit to the number of arguments a function can take.
+This is generally determined by the number of register available on the CPU.
+If you find yourself passing a large number variables to a function, you should think about restructuring your code.</p>
+</div>
+</section>
+<section id="command-types">
+<h3><span class="section-number">3.2.2. </span>Command Types<a class="headerlink" href="#command-types" title="Permalink to this heading">#</a></h3>
+<!-- _TODO:_ Add corresponding ARM commands? -->
+</section>
+<section id="revisiting-hello-world">
+<h3><span class="section-number">3.2.3. </span>Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code><a class="headerlink" href="#revisiting-hello-world" title="Permalink to this heading">#</a></h3>
+<p>In the last chapter, we introduced what the disassembly looks like for a “Hello, World!” program.
+You may have noticed that Compiler Explorer was set to the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler.
+For completeness, we include the generated disassembly for a <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler.</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">__cxx_global_var_init:</span><span class="w">                  </span><span class="c1"># @__cxx_global_var_init</span>
 <span class="w">        </span><span class="nf">push</span><span class="w">    </span><span class="nb">rbp</span>
 <span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rbp</span><span class="p">,</span><span class="w"> </span><span class="nb">rsp</span>
@@ -516,6 +593,39 @@ The corresponding disassembly for the <code class="docutils literal notranslate"
 <span class="w">        </span><span class="nf">.asciz</span><span class="w">  </span><span class="s">&quot;Hello, Wolrd!&quot;</span>
 </pre></div>
 </div>
+<p>Because it’s simpler, we add comments to the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> disassembly.
+But, as mentioned before, we will principally work with the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler for this tutorial.</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">.LC0:</span>
+<span class="w">	</span><span class="c1">; Create location in memory to store output</span>
+<span class="w">	</span><span class="c1">; this string ships with the program</span>
+<span class="w">        </span><span class="nf">.string</span><span class="w"> </span><span class="s">&quot;Hello, Wolrd!&quot;</span>
+<span class="nl">main:</span>
+<span class="w">	</span><span class="c1">; Create the stack</span>
+<span class="w">        </span><span class="nf">push</span><span class="w">    </span><span class="nb">rbp</span>
+<span class="w">	</span><span class="c1">; Set stack pointer to the bottom</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rbp</span><span class="p">,</span><span class="w"> </span><span class="nb">rsp</span>
+<span class="w">	</span><span class="c1">; Store output string in register esi (second argument)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">.LC0</span>
+<span class="w">	</span><span class="c1">; Store output stream in register edi (first argument)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">edi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4cout</span>
+<span class="w">	</span><span class="c1">; Invoke call to the insertion operator `&lt;&lt;` to store string in stream</span>
+<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">,</span><span class="w"> </span><span class="nv">char</span><span class="w"> </span><span class="nv">const</span><span class="o">*</span><span class="p">)</span>
+<span class="w">	</span><span class="c1">; Store `std::endl` object at register esi (to be consumed by an output stream)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">esi</span><span class="p">,</span><span class="w"> </span><span class="nv">OFFSET</span><span class="w"> </span><span class="nv">FLAT</span><span class="p">:</span><span class="nv">_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_</span>
+<span class="w">	</span><span class="c1">; Store the return value from the last `call` (a stream object) in register (argument for next function call)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">rdi</span><span class="p">,</span><span class="w"> </span><span class="nb">rax</span>
+<span class="w">	</span><span class="c1">; Invoke call to the inserttion operator `&lt;&lt;` to store the `std::endl` object</span>
+<span class="w">        </span><span class="nf">call</span><span class="w">    </span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">::</span><span class="nv">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="nv">std</span><span class="p">::</span><span class="nv">basic_ostream</span><span class="o">&lt;</span><span class="nv">char</span><span class="p">,</span><span class="w"> </span><span class="nv">std</span><span class="p">::</span><span class="nv">char_traits</span><span class="o">&lt;</span><span class="nv">char</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="p">))</span>
+<span class="w">	</span><span class="c1">; Store return value to be return from `int main()`</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="nb">eax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">	</span><span class="c1">; Destroy stack </span>
+<span class="w">        </span><span class="nf">pop</span><span class="w">     </span><span class="nb">rbp</span>
+<span class="w">	</span><span class="c1">; Return from function</span>
+<span class="w">        </span><span class="nf">ret</span>
+</pre></div>
+</div>
+<p>In fact, this the disassembly generated using the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler on Compiler Explorer.
+The corresponding disassembly for the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler is (slightly longer and more complicated)</p>
 <p>For this reason, we will on disect the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> disassembly, the the idea is the same.</p>
 </section>
 </section>
@@ -593,7 +703,9 @@ The corresponding disassembly for the <code class="docutils literal notranslate"
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disassembly">3.2. Disassembly</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-hello-world">3.2.1. Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-types">3.2.1. Register Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-types">3.2.2. Command Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#revisiting-hello-world">3.2.3. Revisiting <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">3.3. Debugging</a></li>
@@ -611,7 +723,7 @@ The corresponding disassembly for the <code class="docutils literal notranslate"
   <div class="footer-item">
     
 <p class="component-author">
-By Kevin Ingles
+By Kevin and Alex Ingles
 </p>
 
   </div>
@@ -621,7 +733,7 @@ By Kevin Ingles
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2023-2024.
       <br/>
     
   </p>
