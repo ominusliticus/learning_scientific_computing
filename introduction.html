@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -69,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2. What is a program" href="what_is_a_program.html" />
+    <link rel="next" title="2. What is a program" href="cpp_chapters/what_is_a_program.html" />
     <link rel="prev" title="Learning Scientific Computing" href="title.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -80,9 +80,10 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,14 +124,11 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -145,11 +143,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="title.html">
-  
   
   
   
@@ -174,16 +170,17 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basics of C++</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="what_is_a_program.html">2. What is a program</a></li>
-<li class="toctree-l1"><a class="reference internal" href="compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_chapters/what_is_a_program.html">2. What is a program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_chapters/compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_chapters/values_and_types.html">4. Variables, Values, Types and Templates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">4. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_chapters/numerical_integration.html">5. Numerical Integration</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ssh.html">5. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hpc_chapters/ssh.html">6. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -290,7 +287,6 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -300,7 +296,6 @@ document.write(`
   </button>
 `);
 </script>
-
 
 <script>
 document.write(`
@@ -347,7 +342,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
 <h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
@@ -389,6 +384,14 @@ Lastly, the third part digs into remote computing, bash scripting and slurm.</p>
 <li><p>Our best friend, std::optional, and error handling</p></li>
 <li><p>More on the standard template library (STL</p></li>
 </ol>
+<p>What we will not cover is:</p>
+<ol class="arabic simple">
+<li><p>Inheritance</p></li>
+<li><p>Template metaprogamming</p></li>
+<li><p>Common data structures and algorithms (such as queues and sort), this is because these are provided by the standard template library</p></li>
+<li><p>Concurrency computation models</p></li>
+<li><p>Disributed computation models</p></li>
+</ol>
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
      to allow the compiler to do as much optimization as possible  -->
 </section>
@@ -400,9 +403,11 @@ Where necessary, I will try to ellucidate the physical settings.</p>
 <ol class="arabic simple">
 <li><p>Numerical integration</p></li>
 <li><p>Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)</p></li>
+<li><p>Multilinear interpolation</p></li>
 <li><p>Coupled ordinary differential equation</p></li>
 <li><p><span class="math notranslate nohighlight">\(N\)</span>-body simulations</p></li>
 <li><p>Integral equations</p></li>
+<li><p>Random number generators</p></li>
 </ol>
 </section>
 <section id="essentials-of-high-preformance-computing">
@@ -411,11 +416,13 @@ Where necessary, I will try to ellucidate the physical settings.</p>
 What they have in common is that they are usually execute remotely, that is not on the computer sitting in front of you.
 The topics covered here are meant to familiarize yourself with remote computing, and some of the consideration you have to make when designing code for such extreme computing environments.</p>
 <ol class="arabic simple">
+<li><p>Command line basics</p></li>
 <li><p>Connecting to remote servers</p></li>
 <li><p>Bash scripting</p></li>
+<li><p>Git and GitHub basics</p></li>
 <li><p>SLURM and other cluster-computing software</p></li>
-<li><p>Sycl, Kokos and amrex</p></li>
 </ol>
+<!-- 1. Sycl, Kokos and amrex -->
 </section>
 </section>
 </section>
@@ -448,7 +455,7 @@ The topics covered here are meant to familiarize yourself with remote computing,
               
               
                 <footer class="prev-next-footer">
-                  
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="title.html"
@@ -460,7 +467,7 @@ The topics covered here are meant to familiarize yourself with remote computing,
       </div>
     </a>
     <a class="right-next"
-       href="what_is_a_program.html"
+       href="cpp_chapters/what_is_a_program.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
@@ -476,7 +483,6 @@ The topics covered here are meant to familiarize yourself with remote computing,
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -511,7 +517,6 @@ By Kevin and Alex Ingles
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023-2024.
@@ -538,8 +543,8 @@ By Kevin and Alex Ingles
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
