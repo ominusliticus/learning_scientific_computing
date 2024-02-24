@@ -221,6 +221,12 @@ Because it's simpler, we add comments to the `gcc` disassembly.
 But, as mentioned before, we will principally work with the `clang` compiler for this tutorial.
 Below, we have modified the disassembly by adding comments (the lines starting with semicolons) to indicate what each line does
 
+``````{margin}
+```{note}
+Semi-colons indicate comments
+```
+``````
+
 ```nasm
 .LC0:
 	; Create location in memory to store output
@@ -252,3 +258,25 @@ main:
 ```
 
 ## Debugging
+
+There are one of two problems for which debugging is used:
+1. Code crashes, such as a _segmentation fault_
+1. Deviation from expected behavior
+
+To assist us in narrowing down the source of the error, it would be nice to be able to step through the code one line at a time, one function at a time, or any other increment we can envision.
+Two tools that we will introduce here are intend to provide you with basic command-line tools that every C++ programmer should have some familiarity with.
+These are [_valgrind_](https://valgrind.org/) and [_GDB_](https://sourceware.org/gdb/).
+
+Here we will only go through the most basic usage, which should be adequate for your debugging purposes.
+
+
+### Valgrind
+
+
+### GBD
+GDB comes installed with the gcc compiler, and the clang compiler has their own version called LLDB.
+To appreciate the differences between what these offer, we would have to understand what the LLVM backend of the clang compiler provides us.
+But that is a rabbit whole we really don't want to go down.
+For simplicity, we will just provide and example for GDB for our hello world program.
+
+

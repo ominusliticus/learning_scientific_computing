@@ -32,7 +32,7 @@ We will make sure you have the infrastructure to compile programs in the next ch
 Feel free to copy to code snippet above, navigate to [Compiler Explorer](https://godbolt.org), and paste.
 What you should see on the website is
 
-```{figure} images/godbolt_hello_world_1.png
+```{figure} ../images/godbolt_hello_world_1.png
 :name: godbolt-hello-world
 
 Screenshot of Compiler Explorer, with the source code (left) and disassembly (right)

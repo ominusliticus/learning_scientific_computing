@@ -39,6 +39,14 @@ Lastly, the third part digs into remote computing, bash scripting and slurm.
 1. Our best friend, std::optional, and error handling
 1. More on the standard template library (STL
 
+What we will not cover is:
+
+1. Inheritance
+1. Template metaprogamming
+1. Common data structures and algorithms (such as queues and sort), this is because these are provided by the standard template library
+1. Concurrency computation models
+1. Disributed computation models
+
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
      to allow the compiler to do as much optimization as possible  -->
 ### Example projects
@@ -49,9 +57,11 @@ Where necessary, I will try to ellucidate the physical settings.
 
 1. Numerical integration
 1. Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)
+1. Multilinear interpolation
 1. Coupled ordinary differential equation
 1. $N$-body simulations
 1. Integral equations
+1. Random number generators
 
 
 ### Essentials of high preformance computing
@@ -60,7 +70,9 @@ High preformance computing comes in many shapes: (multiple) graphics card progra
 What they have in common is that they are usually execute remotely, that is not on the computer sitting in front of you.
 The topics covered here are meant to familiarize yourself with remote computing, and some of the consideration you have to make when designing code for such extreme computing environments.
 
+1. Command line basics
 1. Connecting to remote servers
 1. Bash scripting
+1. Git and GitHub basics
 1. SLURM and other cluster-computing software
-1. Sycl, Kokos and amrex
+<!-- 1. Sycl, Kokos and amrex -->
