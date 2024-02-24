@@ -328,8 +328,23 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types">4.1. Types</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intrinsic-types">4.1.1. Intrinsic types</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-defined-types">4.1.2. User-defined types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-declaration">4.1.3. Variable declaration</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#values">4.2. Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lvalues">4.2.1. Lvalues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rvalues">4.2.2. Rvalues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-categorities-derived-from-l-and-rvalues">4.2.3. Value categorities derived from l- and rvalues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delcaration-qualifiers">4.3. Delcaration qualifiers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-static-specifier">4.3.1. The <code class="docutils literal notranslate"><span class="pre">static</span></code> specifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-const-specifier">4.3.2. The <code class="docutils literal notranslate"><span class="pre">const</span></code> specifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constexpr-specifier">4.3.3. The <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> specifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templates">4.4. Templates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">4.5. Summary</a></li>
 </ul>
             </nav>
         </div>
@@ -441,14 +456,203 @@ For convenience, we include a screenshot</p>
 <figcaption>
 <p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Godbolt screenshot for a program that prints the output of selected primitive types.
 The output is in bytes; recall the 1 byte is 8 bits.
-We will discuss the Print function in the next chapter.</span><a class="headerlink" href="#sizeof-primitives" title="Permalink to this image">#</a></p>
+We will discuss the <code class="docutils literal notranslate"><span class="pre">Print</span></code> function in the next chapter.</span><a class="headerlink" href="#sizeof-primitives" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="user-defined-types">
 <h3><span class="section-number">4.1.2. </span>User-defined types<a class="headerlink" href="#user-defined-types" title="Permalink to this heading">#</a></h3>
-<!-- typdef, template, typename, class, structs -->
+<p>User-defined types are precisely as they sound.
+They are declared by creating <em>classes</em> or <em>structs</em> (link these), but we will postpone the precise details of how this works for later.
+The one user-defined type we will mention here is the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> container.
+This container stores a user-specified number of variables of a user-specified type.
+For example, it could 1000 <code class="docutils literal notranslate"><span class="pre">floats</span></code> all within the same variable.</p>
 </section>
+<section id="variable-declaration">
+<h3><span class="section-number">4.1.3. </span>Variable declaration<a class="headerlink" href="#variable-declaration" title="Permalink to this heading">#</a></h3>
+<p>We finally come to the first semantic rule for writing C++ code: variable declaration.</p>
+<div class="tip admonition">
+<p class="admonition-title">Rule: Variable Declaration</p>
+<p>At its core, variable declaration has the following form.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">type_declaration</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">variable_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;type_declaration&gt;</span></code> is replaced by a intrinisic type (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, etc) or user-defined type (<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>).
+<code class="docutils literal notranslate"><span class="pre">&lt;variable_name&gt;</span></code> is replaced by a string of characters that satisfy the followin</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="note admonition">
+<p class="admonition-title">Best Practices</p>
+<p>A common best practice is to make variable start with lower case letter.</p>
+</div>
+</aside>
+<div class="tip admonition">
+<p class="admonition-title">Rule: Variable Names</p>
+<ol class="arabic simple">
+<li><p>Must start with a letter or underscore, <code class="docutils literal notranslate"><span class="pre">a-z</span></code>, <code class="docutils literal notranslate"><span class="pre">A-Z</span></code>, <code class="docutils literal notranslate"><span class="pre">_</span></code></p></li>
+<li><p>Can only contain a number, letter, underscore or <code class="docutils literal notranslate"><span class="pre">$</span></code></p></li>
+<li><p>The variable name cannot have any whitespace</p></li>
+</ol>
+<p>Examples</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w">    </span><span class="n">count</span><span class="p">;</span><span class="w">      </span><span class="c1">// Valid</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">_fraction</span><span class="p">;</span><span class="w">  </span><span class="c1">// Valid</span>
+<span class="kt">bool</span><span class="w">   </span><span class="n">FLAG_1</span><span class="p">;</span><span class="w">     </span><span class="c1">// Valid</span>
+<span class="kt">long</span><span class="w">   </span><span class="mi">2</span><span class="n">_file</span><span class="p">;</span><span class="w">     </span><span class="c1">// Compiler error</span>
+<span class="kt">float</span><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">        </span><span class="c1">// Compiler error</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="values">
+<h2><span class="section-number">4.2. </span>Values<a class="headerlink" href="#values" title="Permalink to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="note admonition">
+<p class="admonition-title">Best Practices</p>
+<p>C++ programming language is looking to abolish initialization semantics of the for</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>in favor of</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>As for more complicated objects, the brace initialization ensures the object is created with the least memory overhead.
+In more technical terms, it ensures the object is instantiated with rvalues, rather than lvalues (which could incur an unnecessary copy operation).</p>
+</div>
+</aside>
+<p>As mentioned before, the <em>value</em> of a variable defines <em>how much</em> of an ingredient (type) it contains.
+Assigning a value to a variable is called <em>initialization</em>.
+Assigning values to variables that are already initialized is called <em>assignment</em>.
+Initialization typically happens at the same time of declaration, e.g.,</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">PI</span><span class="p">;</span><span class="w">                </span><span class="c1">// Declaration only</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">cpu_core_count</span><span class="p">{</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Declaration and initialization</span>
+<span class="n">cpu_core_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">       </span><span class="c1">// Assignment</span>
+</pre></div>
+</div>
+<p>C++ reasons about different values through discussing <em>value categories</em>.
+The two primary value categories are <em>rvalues</em> (read as R-values) and <em>lvalues</em> (read as L-values).
+This distintion exists because in C++ we have to think about memory management, resource acquistion and other semantic constructs within the language.
+It turns out that if the compiler expects an rvalue, but it given a lvalue, the compiler will throw a compilation error.
+We will now discuss the nuance behind their distinction</p>
+<section id="lvalues">
+<h3><span class="section-number">4.2.1. </span>Lvalues<a class="headerlink" href="#lvalues" title="Permalink to this heading">#</a></h3>
+<p>For historical reasons, the <em>L</em> refers to the variable appearing on the left-hand-side of the assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code>.
+According the ISO standard,</p>
+<blockquote>
+<div><p>an lvalue is an expression whose evaluation identifies an object or function.
+Object here means variable <em>name</em>, while function refers to a function’s <em>name</em>.
+In general, we will think of lvalues as <em>initialized variables</em>.</p>
+</div></blockquote>
+</section>
+<section id="rvalues">
+<h3><span class="section-number">4.2.2. </span>Rvalues<a class="headerlink" href="#rvalues" title="Permalink to this heading">#</a></h3>
+<p>For historical reasons, the <em>R</em> refers to the expression appearing on the right-hand-side of the assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code>.
+One thing to consider alreay is that in the following example</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">{</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// Could be written as foo = 10;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">baz</span><span class="p">{</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Could be written as baz = foo;</span>
+</pre></div>
+</div>
+<p>both <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">baz</span></code> are lvalues, but <code class="docutils literal notranslate"><span class="pre">10</span></code> is an rvalue.
+Another example of an rvalues is the return value of a function (there are caveats here that we will ignore for now).</p>
+</section>
+<section id="value-categorities-derived-from-l-and-rvalues">
+<h3><span class="section-number">4.2.3. </span>Value categorities derived from l- and rvalues<a class="headerlink" href="#value-categorities-derived-from-l-and-rvalues" title="Permalink to this heading">#</a></h3>
+<p>In recent years, the C++ standard has expanded the value categories to include <em>prvalue</em>, <em>xvalue</em>, and <em>glvalues</em> to help delineate between the roles that values can play.
+Those more interested in the precise taxonomy the C++ language is using now should read the <a class="reference external" href="https://en.cppreference.com/w/cpp/language/value_category">cppreference article</a> detailing it</p>
+</section>
+</section>
+<section id="delcaration-qualifiers">
+<h2><span class="section-number">4.3. </span>Delcaration qualifiers<a class="headerlink" href="#delcaration-qualifiers" title="Permalink to this heading">#</a></h2>
+<p>Variable declarations can be modified for extra functionality, we will refer to this as <em>type specifiers</em>.
+Three common specifiers that we will encounter are <code class="docutils literal notranslate"><span class="pre">static</span></code>, <code class="docutils literal notranslate"><span class="pre">const</span></code> and <code class="docutils literal notranslate"><span class="pre">constexpr</span></code>.
+Less common specifiers include <code class="docutils literal notranslate"><span class="pre">extern</span></code> and <code class="docutils literal notranslate"><span class="pre">volatile</span></code>.
+We will not go throught the last two, as, IMHO, these are only really useful when coding for low level systems such as embedded systems.
+Are usecases are simulation based.</p>
+<section id="the-static-specifier">
+<h3><span class="section-number">4.3.1. </span>The <code class="docutils literal notranslate"><span class="pre">static</span></code> specifier<a class="headerlink" href="#the-static-specifier" title="Permalink to this heading">#</a></h3>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The meaning of <code class="docutils literal notranslate"><span class="pre">static</span></code> is different when used inside a class declaration.
+This will be discussed in Chaper ?? (link chapter)</p>
+</div>
+</aside>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="p">{</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">static</span></code> specifier tells the compiler to not make the variable (or function) visible outside of the .CPP file in which it appears.
+This could be useful if there are variables you want to <em>hide</em> from other parts of the program.
+This is a remanent of the C programming language; modern C++ address this problem with encapsulation.
+However, we mention the specifier here because it does appear frequently in C++ code, but for a different reason (see the warning to the right).</p>
+<p>An example of its usage is</p>
+</section>
+<section id="the-const-specifier">
+<h3><span class="section-number">4.3.2. </span>The <code class="docutils literal notranslate"><span class="pre">const</span></code> specifier<a class="headerlink" href="#the-const-specifier" title="Permalink to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="kt">int</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// is equivalent to the above</span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">            </span><span class="c1">// Compile-time error</span>
+</pre></div>
+</div>
+<p>This specifier indicates that the value of the variable cannot be change after initialization.</p>
+</section>
+<section id="the-constexpr-specifier">
+<h3><span class="section-number">4.3.3. </span>The <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> specifier<a class="headerlink" href="#the-constexpr-specifier" title="Permalink to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w"> </span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">                </span><span class="c1">// Compile-time error</span>
+</pre></div>
+</div>
+<p>This is a stronger specifier than const, it tells the compiler that the variable’s value is known at compile time, and will not change for the duration of the program.
+This is particularly useful when you want to offload certain computations to the compiler, and can provide a dramatic improvement in speed of the program (up 10,000x).</p>
+</section>
+</section>
+<section id="templates">
+<h2><span class="section-number">4.4. </span>Templates<a class="headerlink" href="#templates" title="Permalink to this heading">#</a></h2>
+<!-- typdef, template, typename -->
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Templates really shine for template metaprogramming, which a programming paradigm that changes the way a program behaves based on the types.
+I.e., the programs behavior changes based on what types you offer it, but the actual code you read is the same.</p>
+</aside>
+<p>The last topic, and by far the most complex, is the <em>template</em> semantic.
+Template are what truly distinguish C++ from C, and allow you to write code that is generic in the type you want to use.
+There utility is far more visible for functions and class declarations, but we are going to give an incremental introduction.</p>
+<p>We come to our last rule of the chapter, how to declare (and use) variables with template parameters.</p>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Templated Variable Declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+
+<span class="c1">// Equivalently</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">template</span></code> and <code class="docutils literal notranslate"><span class="pre">typename</span></code> are reserved words, while we are free to replace <code class="docutils literal notranslate"><span class="pre">T</span></code> with anything we want (as long as it obeys the name of variable declarations, link these).</p>
+</div>
+<p>When dealing with templates, the declaration exist completely separately from the initialization.
+This is because, we also need to the instantiate the template parameter.
+For templated variable declarations, the only way to instantiate the template is through template specialization.</p>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Template Variable Specialization</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+
+<span class="c1">// Specializations</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>Even though all variables have the same name, they are distinguished by their template instantiation, which is good enough for the compiler to distinguish them.
+There are not many use-cases that I can think of for this particular semantic, besides some analogy of the example provided.
+An example program with this code can be found <a class="reference external" href="https://godbolt.org/z/P6nEavesf">here</a>.</p>
+</section>
+<section id="summary">
+<h2><span class="section-number">4.5. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -518,8 +722,23 @@ We will discuss the Print function in the next chapter.</span><a class="headerli
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types">4.1. Types</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intrinsic-types">4.1.1. Intrinsic types</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-defined-types">4.1.2. User-defined types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-declaration">4.1.3. Variable declaration</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#values">4.2. Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lvalues">4.2.1. Lvalues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rvalues">4.2.2. Rvalues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-categorities-derived-from-l-and-rvalues">4.2.3. Value categorities derived from l- and rvalues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delcaration-qualifiers">4.3. Delcaration qualifiers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-static-specifier">4.3.1. The <code class="docutils literal notranslate"><span class="pre">static</span></code> specifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-const-specifier">4.3.2. The <code class="docutils literal notranslate"><span class="pre">const</span></code> specifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constexpr-specifier">4.3.3. The <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> specifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templates">4.4. Templates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">4.5. Summary</a></li>
 </ul>
   </nav></div>
 
