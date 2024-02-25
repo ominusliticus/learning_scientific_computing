@@ -474,12 +474,12 @@ For example, it could 1000 <code class="docutils literal notranslate"><span clas
 <div class="tip admonition">
 <p class="admonition-title">Rule: Variable Declaration</p>
 <p>At its core, variable declaration has the following form.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">type_declaration</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">variable_name</span><span class="o">&gt;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">type_declaration</span><span class="w"> </span><span class="n">variable_name</span>
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;type_declaration&gt;</span></code> is replaced by a intrinisic type (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, etc) or user-defined type (<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>).
-<code class="docutils literal notranslate"><span class="pre">&lt;variable_name&gt;</span></code> is replaced by a string of characters that satisfy the followin</p>
+<p><code class="docutils literal notranslate"><span class="pre">type_declaration</span></code> is replaced by a intrinisic type (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, etc) or user-defined type (<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>).
+<code class="docutils literal notranslate"><span class="pre">variable_name</span></code> is replaced by a string of characters that satisfy the followin</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="note admonition">
@@ -649,10 +649,36 @@ For templated variable declarations, the only way to instantiate the template is
 </div>
 <p>Even though all variables have the same name, they are distinguished by their template instantiation, which is good enough for the compiler to distinguish them.
 There are not many use-cases that I can think of for this particular semantic, besides some analogy of the example provided.
-An example program with this code can be found <a class="reference external" href="https://godbolt.org/z/P6nEavesf">here</a>.</p>
+An example program with this code can be found <a class="reference external" href="https://godbolt.org/z/P6nEavesf">here</a>.
+Note, that template variables are identified by the presence of the a variable name followed by angled brackets with a type declaration inside.</p>
 </section>
 <section id="summary">
 <h2><span class="section-number">4.5. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>To summarize, we introduced variables, their declaration (which require types), there initializations (which requires values) and templates which treat types as values.
+For convenience the rules in green boxes are reproduced below for future reference</p>
+<div class="hint admonition">
+<p class="admonition-title">Rules for Variable Declarations</p>
+<p>Variable declarations follow the syntax</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">variable_name</span>
+</pre></div>
+</div>
+<p>Allowed expressions are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type_specifier</span></code>: <code class="docutils literal notranslate"><span class="pre">static</span></code>, <code class="docutils literal notranslate"><span class="pre">const</span></code>, or <code class="docutils literal notranslate"><span class="pre">constexpr</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type_declaration</span></code>: intrinsic types, such as <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">bool</span></code>, and user-defined types such as <code class="docutils literal notranslate"><span class="pre">std::vector</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variable_name</span></code>: following the three naming rules above</p></li>
+</ul>
+<p>Templated variable declarations follow the syntax</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">template_name</span><span class="o">&gt;</span>
+<span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">variable_name</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">template_name</span></code> has to satisfy the same naming rules for variable declarations.
+Templated variable declarations have to specialized for concrete types following the syntax</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">type_specifier</span><span class="w"> </span><span class="n">type_decalaration</span><span class="w"> </span><span class="n">variable_name</span><span class="o">&lt;</span><span class="n">concrete_type</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
