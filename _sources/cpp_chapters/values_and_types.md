@@ -289,7 +289,7 @@ Variable declarations follow the syntax
 type_specifier type_declaration variable_name
 ```
 Allowed expressions are
-- `type_specifier`: `static`, `const`, or `constexpr`.  
+- `type_specifier`: (optional) `static`, `const`, or `constexpr`.  
 - `type_declaration`: intrinsic types, such as `int`, `float` or `bool`, and user-defined types such as `std::vector`
 - `variable_name`: following the three naming rules above
 
