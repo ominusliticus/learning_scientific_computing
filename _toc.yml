@@ -18,6 +18,7 @@ parts:
     numbered: true
     chapters:
     - file: app_chapters/numerical_integration
+    - file: app_chapters/linear_interpolation
   - caption: High Preformance Computing
     numbered: true
     chapters:
