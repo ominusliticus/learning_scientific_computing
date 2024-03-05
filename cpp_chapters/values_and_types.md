@@ -105,12 +105,12 @@ We finally come to the first semantic rule for writing C++ code: variable declar
 :class: tip
 At its core, variable declaration has the following form.
 ```c++
-<type_declaration> <variable_name>
+type_declaration variable_name
 ```
 ``````
 
-`<type_declaration>` is replaced by a intrinisic type (`int`, `float`, etc) or user-defined type (`std::vector`).
-`<variable_name>` is replaced by a string of characters that satisfy the followin
+`type_declaration` is replaced by a intrinisic type (`int`, `float`, etc) or user-defined type (`std::vector`).
+`variable_name` is replaced by a string of characters that satisfy the followin
 
 ``````{margin}
 ```{admonition} Best Practices
@@ -275,5 +275,32 @@ template<> int size<double> = 8;
 Even though all variables have the same name, they are distinguished by their template instantiation, which is good enough for the compiler to distinguish them.
 There are not many use-cases that I can think of for this particular semantic, besides some analogy of the example provided.
 An example program with this code can be found [here](https://godbolt.org/z/P6nEavesf).
+Note, that template variables are identified by the presence of the a variable name followed by angled brackets with a type declaration inside.
 
 ## Summary
+
+To summarize, we introduced variables, their declaration (which require types), there initializations (which requires values) and templates which treat types as values.
+For convenience the rules in green boxes are reproduced below for future reference
+``````{admonition} Rules for Variable Declarations
+:class: hint 
+
+Variable declarations follow the syntax
+```c++
+type_specifier type_declaration variable_name
+```
+Allowed expressions are
+- `type_specifier`: (optional) `static`, `const`, or `constexpr`.  
+- `type_declaration`: intrinsic types, such as `int`, `float` or `bool`, and user-defined types such as `std::vector`
+- `variable_name`: following the three naming rules above
+
+Templated variable declarations follow the syntax
+```c++
+template<typename template_name>
+type_specifier type_declaration variable_name
+```
+where `template_name` has to satisfy the same naming rules for variable declarations.
+Templated variable declarations have to specialized for concrete types following the syntax
+```c++
+template<> type_specifier type_decalaration variable_name<concrete_type> = value
+```
+``````

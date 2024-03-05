@@ -14,6 +14,7 @@ parts:
     - file: cpp_chapters/what_is_a_program
     - file: cpp_chapters/compilation_and_debugging
     - file: cpp_chapters/values_and_types
+    - file: cpp_chapters/functions
   - caption: C++ Example Projects
     numbered: true
     chapters:
