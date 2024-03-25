@@ -3,9 +3,9 @@
 ## Background
 
 Linear interpolation is a method to estimate the value of a function given a finite set of known points.
-It can be useful when evaluating a function can be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like `exp` function.
-A quick optimization is then to evaluate the function at a selected number of points $\{x_n\}$ and store the evaluations $\{f(x_n)\}$.
-Then for any other $x$, given $k$ and $k+1$ such that $x_k \leq x \leq x_{k+1}$, $f(x)$ is given by
+It can also be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like `exp` function.
+A quick optimization is then to evaluate the expesnive function at a selected number of points $\{x_n\}$ and store the evaluations $\{f(x_n)\}$.
+Then, for any other $x$, given $k$ and $k+1$ such that $x_k \leq x \leq x_{k+1}$, $f(x)$ is given by
 
 $$ 
 f(x) = f(x_k) + \frac{f(x_{k+1}) - f(x_k)}{x_{k+1} - x_k} (x - x_k).

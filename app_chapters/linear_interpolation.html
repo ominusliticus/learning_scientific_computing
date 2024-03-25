@@ -353,9 +353,9 @@ document.write(`
 <section id="background">
 <h2><span class="section-number">7.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
 <p>Linear interpolation is a method to estimate the value of a function given a finite set of known points.
-It can be useful when evaluating a function can be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like <code class="docutils literal notranslate"><span class="pre">exp</span></code> function.
-A quick optimization is then to evaluate the function at a selected number of points <span class="math notranslate nohighlight">\(\{x_n\}\)</span> and store the evaluations <span class="math notranslate nohighlight">\(\{f(x_n)\}\)</span>.
-Then for any other <span class="math notranslate nohighlight">\(x\)</span>, given <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(k+1\)</span> such that <span class="math notranslate nohighlight">\(x_k \leq x \leq x_{k+1}\)</span>, <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+It can also be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like <code class="docutils literal notranslate"><span class="pre">exp</span></code> function.
+A quick optimization is then to evaluate the expesnive function at a selected number of points <span class="math notranslate nohighlight">\(\{x_n\}\)</span> and store the evaluations <span class="math notranslate nohighlight">\(\{f(x_n)\}\)</span>.
+Then, for any other <span class="math notranslate nohighlight">\(x\)</span>, given <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(k+1\)</span> such that <span class="math notranslate nohighlight">\(x_k \leq x \leq x_{k+1}\)</span>, <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-simple-linear-interp">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-simple-linear-interp" title="Permalink to this equation">#</a></span>\[ 
 f(x) = f(x_k) + \frac{f(x_{k+1}) - f(x_k)}{x_{k+1} - x_k} (x - x_k).
