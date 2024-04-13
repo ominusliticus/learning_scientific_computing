@@ -97,6 +97,7 @@ The one user-defined type we will mention here is the `std::vector` container.
 This container stores a user-specified number of variables of a user-specified type.
 For example, it could 1000 `floats` all within the same variable.
 
+(variable_declaration)=
 ### Variable declaration
 
 We finally come to the first semantic rule for writing C++ code: variable declaration.
@@ -191,7 +192,8 @@ Another example of an rvalues is the return value of a function (there are cavea
 In recent years, the C++ standard has expanded the value categories to include _prvalue_, _xvalue_, and _glvalues_ to help delineate between the roles that values can play.
 Those more interested in the precise taxonomy the C++ language is using now should read the [cppreference article](https://en.cppreference.com/w/cpp/language/value_category) detailing it
 
-## Delcaration qualifiers
+(declaration_qualifier)=
+## Delcaration qualifiers 
 
 Variable declarations can be modified for extra functionality, we will refer to this as _type specifiers_.
 Three common specifiers that we will encounter are `static`, `const` and `constexpr`.
