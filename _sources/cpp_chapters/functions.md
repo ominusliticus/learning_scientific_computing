@@ -78,3 +78,15 @@ One can imagine that a function's job is to check the state of one or more varia
 Two examples would be:
 1. Redrawing the screen after the mouse has been moved or key pushed, so the screen reflects the system's new state
 1. Indicating to a mesh refiner, for adaptive mesh refinement simulation, to refine a certain grid point before moving to the next time step.
+
+
+<!-- subsection: the int main function  -->
+<!-- 
+    section: template programming
+        subsection: multiple template parameters
+        subsection: variadic templates
+-->
+<!-- section: function overloading -->
+<!-- section: operators-->
+<!-- section: where can you define functions -->
+<!-- section: lambda functions -->
