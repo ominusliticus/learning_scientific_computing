@@ -310,7 +310,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -326,6 +328,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -347,6 +357,73 @@ But enough of a diagression.</p>
 In C++, whatever isn’t a variabe is probably a function.
 We will discuss the syntax of declaring, defining, overloading and templating functions.
 We will finish by writing the <code class="docutils literal notranslate"><span class="pre">Print</span></code> function that was already introduced in the last section, and will be prominantly featured throughout the rest of these notes.</p>
+<section id="the-vanilla-function">
+<h2><span class="section-number">5.1. </span>The Vanilla Function<a class="headerlink" href="#the-vanilla-function" title="Permalink to this heading">#</a></h2>
+<p>A function has four parts:</p>
+<ol class="arabic simple">
+<li><p>The type declaration - this can include the template paramters, the <a class="reference internal" href="values_and_types.html#declaration-qualifier"><span class="std std-ref">declaration qualifiers</span></a>, return type and attribute specification;</p></li>
+<li><p>The function name - which follows the same <a class="reference internal" href="values_and_types.html#variable-declaration"><span class="std std-ref">name converntions</span></a> as variables;</p></li>
+<li><p>The argument list - a comma separated list of declaration qualifiers, variable types, reference qualifiers, and (optionally) the variable name; and</p></li>
+<li><p>The function body - the recipe the function is supposed to execute.</p></li>
+</ol>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Function declarations</p>
+<p>A non-templated declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">function_body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A templated function declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">template_name</span><span class="o">&gt;</span>
+<span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">function_body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Functions can grossly be grouped into two categories, in terms of the their function in a program.
+These are</p>
+<ol class="arabic simple">
+<li><p>Pure functions - functions that only consume input and produce output; and</p></li>
+<li><p>Impure functions - functions that can have <em>side effects</em>.</p></li>
+</ol>
+<p>Side effects arise when the function modifies some other variable (we will use the word state henceforth) in the program.
+An example of a pure function is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here, the function simply takes to integers <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> as arguments, and returns their sum.
+An example of a function that preforms a side effect is</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ambersand(&amp;) means take the variable <em>by reference</em>, which allows us to modify its value and ensures
+that the modification last after the function exits.
+We will talk more about reference in Chapter 7.</p>
+</div>
+</aside>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here, the state of <code class="docutils literal notranslate"><span class="pre">c</span></code> is modified to store the result of the sum  <em>and</em> the sum is returned.
+One can imagine that a function’s job is to check the state of one or more variables, and flag another for later action.
+Two examples would be:</p>
+<ol class="arabic simple">
+<li><p>Redrawing the screen after the mouse has been moved or key pushed, so the screen reflects the system’s new state</p></li>
+<li><p>Indicating to a mesh refiner, for adaptive mesh refinement simulation, to refine a certain grid point before moving to the next time step.</p></li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -404,7 +481,20 @@ We will finish by writing the <code class="docutils literal notranslate"><span c
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
