@@ -337,8 +337,9 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-and-content">1.1. Chapters and content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-lessons">1.1.1. C++ lessons</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">1.1.2. Example projects</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.3. Essentials of high preformance computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meat-and-bones-of-a-project">1.1.2. Meat and bones of a project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-numeical-methods-and-projects">1.1.3. Example numeical methods and projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.4. Essentials of high preformance computing</a></li>
 </ul>
 </li>
 </ul>
@@ -374,9 +375,11 @@ C++ is a very big and general purpose language, allowing for lots of freedom of 
 <p>As mentioned in the overview, the primary purpose of these notes are to teach you C++ programming.
 We will focus on modern C++, relying on language constructs from the 2011 standard and onwards, and a fairly decent review of the capabilities of the standard library (as we might need them) will be included.
 Has hinted at in the overview, these notes are by know means comprehensive enough to represent the full milieu of C++ language, just the most salient parts for computation and the parts I quite enjoy.</p>
-<p>The content is split into three parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
-The second part is dedicated to giving some example projects and to discuss design considerations.
-Lastly, the third part digs into remote computing, bash scripting and slurm.</p>
+<p>The content is split into four parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
+The second part will go over structure multi-shource projects; well organized code helps both the development process and project comprehension by others.
+We will also discuss documentation of code in this section.
+The third  part is dedicated to giving some example projects and to discuss design considerations.
+Lastly, the fourth  part digs into remote computing, bash scripting and slurm.</p>
 <section id="c-lessons">
 <h3><span class="section-number">1.1.1. </span>C++ lessons<a class="headerlink" href="#c-lessons" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -400,18 +403,28 @@ Lastly, the third part digs into remote computing, bash scripting and slurm.</p>
 <li><p>Concurrency computation models</p></li>
 <li><p>Disributed computation models</p></li>
 </ol>
+</section>
+<section id="meat-and-bones-of-a-project">
+<h3><span class="section-number">1.1.2. </span>Meat and bones of a project<a class="headerlink" href="#meat-and-bones-of-a-project" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Setting up a multi-source file project</p></li>
+<li><p>Building projects with shell scripts</p></li>
+<li><p>Building projects with Makefiles</p></li>
+<li><p>Building projects with CMake</p></li>
+<li><p>Other build systems available</p></li>
+</ol>
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
      to allow the compiler to do as much optimization as possible  -->
 </section>
-<section id="example-projects">
-<h3><span class="section-number">1.1.2. </span>Example projects<a class="headerlink" href="#example-projects" title="Permalink to this heading">#</a></h3>
+<section id="example-numeical-methods-and-projects">
+<h3><span class="section-number">1.1.3. </span>Example numeical methods and projects<a class="headerlink" href="#example-numeical-methods-and-projects" title="Permalink to this heading">#</a></h3>
 <p>Some of these programs are inspired by programs that I had to write for research.
 So the physics may be opaque, but the more important part is the program structure.
 Where necessary, I will try to ellucidate the physical settings.</p>
 <ol class="arabic simple">
 <li><p>Numerical integration</p></li>
 <li><p>Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)</p></li>
-<li><p>Multilinear interpolation</p></li>
+<li><p>Linear interpolation</p></li>
 <li><p>Coupled ordinary differential equation</p></li>
 <li><p><span class="math notranslate nohighlight">\(N\)</span>-body simulations</p></li>
 <li><p>Integral equations</p></li>
@@ -419,7 +432,7 @@ Where necessary, I will try to ellucidate the physical settings.</p>
 </ol>
 </section>
 <section id="essentials-of-high-preformance-computing">
-<h3><span class="section-number">1.1.3. </span>Essentials of high preformance computing<a class="headerlink" href="#essentials-of-high-preformance-computing" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">1.1.4. </span>Essentials of high preformance computing<a class="headerlink" href="#essentials-of-high-preformance-computing" title="Permalink to this heading">#</a></h3>
 <p>High preformance computing comes in many shapes: (multiple) graphics card programming, multiple CPU with mesaging passing interfaces, or massively parallel and independent tasks.
 What they have in common is that they are usually execute remotely, that is not on the computer sitting in front of you.
 The topics covered here are meant to familiarize yourself with remote computing, and some of the consideration you have to make when designing code for such extreme computing environments.</p>
@@ -501,8 +514,9 @@ The topics covered here are meant to familiarize yourself with remote computing,
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapters-and-content">1.1. Chapters and content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-lessons">1.1.1. C++ lessons</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-projects">1.1.2. Example projects</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.3. Essentials of high preformance computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meat-and-bones-of-a-project">1.1.2. Meat and bones of a project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-numeical-methods-and-projects">1.1.3. Example numeical methods and projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essentials-of-high-preformance-computing">1.1.4. Essentials of high preformance computing</a></li>
 </ul>
 </li>
 </ul>

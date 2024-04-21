@@ -333,7 +333,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a></li>
 </ul>
             </nav>
         </div>
@@ -359,6 +363,13 @@ We will discuss the syntax of declaring, defining, overloading and templating fu
 We will finish by writing the <code class="docutils literal notranslate"><span class="pre">Print</span></code> function that was already introduced in the last section, and will be prominantly featured throughout the rest of these notes.</p>
 <section id="the-vanilla-function">
 <h2><span class="section-number">5.1. </span>The Vanilla Function<a class="headerlink" href="#the-vanilla-function" title="Permalink to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We will frequently refer to the argument list as the signature of a function.</p>
+</div>
+</aside>
 <p>A function has four parts:</p>
 <ol class="arabic simple">
 <li><p>The type declaration - this can include the template paramters, the <a class="reference internal" href="values_and_types.html#declaration-qualifier"><span class="std std-ref">declaration qualifiers</span></a>, return type and attribute specification;</p></li>
@@ -368,7 +379,7 @@ We will finish by writing the <code class="docutils literal notranslate"><span c
 </ol>
 <div class="hint admonition">
 <p class="admonition-title">Rule: Function declarations</p>
-<p>A non-templated declaration</p>
+<p>A non-templated function declaration</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">function_body</span>
@@ -424,11 +435,97 @@ Two examples would be:</p>
 <li><p>Indicating to a mesh refiner, for adaptive mesh refinement simulation, to refine a certain grid point before moving to the next time step.</p></li>
 </ol>
 <!-- subsection: the int main function  -->
+<section id="the-int-main-function">
+<h3><span class="section-number">5.1.1. </span>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function<a class="headerlink" href="#the-int-main-function" title="Permalink to this heading">#</a></h3>
+<p>A special function in all C++ programs is the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function.
+Every program needs exactly one for the program to be compiled.
+Should the compiler not find this <em>symbol</em>, then it will complain and fail.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have not takled about pointer types like <code class="docutils literal notranslate"><span class="pre">char*</span></code> or array types like <code class="docutils literal notranslate"><span class="pre">char[]</span></code>.
+These will be discussed down the in Chapter 7.</p>
+</div>
+</aside>
+<p>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function can have to forms:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">agrc</span></code> variable stores how many arguments were passed to the program from the command line.
+Assuming the program’s name is <code class="docutils literal notranslate"><span class="pre">prog</span></code>, a call with multiple arguments would look like</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./prog<span class="w"> </span>arg1<span class="w"> </span>arg2
+</pre></div>
+</div>
+<p>The passed arguments are stored in <code class="docutils literal notranslate"><span class="pre">argv</span></code>, which is an array of length <code class="docutils literal notranslate"><span class="pre">argc</span></code> of null-terminated strings.
+The name of the program is <em>always</em> stored in <code class="docutils literal notranslate"><span class="pre">argv[0]</span></code> and the passed arguments (if <code class="docutils literal notranslate"><span class="pre">argc</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>) start at <code class="docutils literal notranslate"><span class="pre">argv[1]</span></code>.
+Parsing of command line arguments is the responsibility of the developer, though well establishd library have been developed for this purpose and can be found on github.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your program does not <em>need</em> to take command line arguments.
+A benefit from taking command line arguments can be that not needing to recompile a program just because you want it to be change its behavior.</p>
+</div>
+<p>The return value of the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function is default to zero (that is, if no return statement is give, it will automatically add a <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">0;</span></code> to you <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> body).
+Non-zero return values, which we will refer to as <em>exit codes</em> typically indicate some error that occured in the program.</p>
+<p>Some facts to remember about <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code>:</p>
+<ol class="arabic simple">
+<li><p>It cannot be called by other functions;</p></li>
+<li><p>A multi-source project can can have exaclty one;</p></li>
+<li><p>It cannot be overload (see below); and</p></li>
+<li><p>It can only have to two signatures described above.</p></li>
+</ol>
 <!-- 
     section: template programming
         subsection: multiple template parameters
         subsection: variadic templates
+        subsection: C++-style casting
 -->
+</section>
+</section>
+<section id="templated-functions">
+<h2><span class="section-number">5.2. </span>Templated functions<a class="headerlink" href="#templated-functions" title="Permalink to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is such a thing as <em>casting</em>, which could have been introduced in the last chaper, but I chose to introduce here is it requires templated functions to implement</p>
+</div>
+</aside>
+<p>As stated in the last chaper, templates allow you write code that is generic in types.
+To appreciate this, we need to note that that C++ is a <em>strongly typed</em> language, meaning the following code shouldn’t compile (I say shouldn’t because all primitive types
+can be converted into each other).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;h&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;e&#39;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Won&#39;t compile because types are different </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The strong typing becomes more apparent once we used user-defined types, or classes.</p>
+<p>A way of writing a generic/templated addition function is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// OK!</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// OK!</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// FAILS! Compiler fails to deduce template paramter due </span>
+<span class="w">                           </span><span class="c1">// to conflicting variable types `int` and `double`</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <!-- section: function overloading -->
 <!-- section: operators-->
 <!-- section: where can you define functions -->
@@ -500,7 +597,11 @@ Two examples would be:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a></li>
 </ul>
   </nav></div>
 
