@@ -1,11 +1,13 @@
 # Numerical Integration
-[Compiler explorer development](https://godbolt.org/z/zzK37f754)
+[Compiler explorer development](https://godbolt.org/z/MnW77oMfo)
 
+<!--
 ```{admonition} TODO List for godbolt
 :class: warning
 - Add comment boarders that easily distinguish the different cases
 - Finish implementation of other numerical methods
 ```
+-->
 
 In this chapter, we will present several numerical integration techniques, including:
 - Riemann sums (midpoint)
