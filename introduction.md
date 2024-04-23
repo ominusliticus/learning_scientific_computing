@@ -21,9 +21,11 @@ As mentioned in the overview, the primary purpose of these notes are to teach yo
 We will focus on modern C++, relying on language constructs from the 2011 standard and onwards, and a fairly decent review of the capabilities of the standard library (as we might need them) will be included.
 Has hinted at in the overview, these notes are by know means comprehensive enough to represent the full milieu of C++ language, just the most salient parts for computation and the parts I quite enjoy.
 
-The content is split into three parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
-The second part is dedicated to giving some example projects and to discuss design considerations.
-Lastly, the third part digs into remote computing, bash scripting and slurm.
+The content is split into four parts: the first is dedicated to familiarizing yoursefl with C++ jargon, syntax, and idioms.
+The second part will go over structure multi-shource projects; well organized code helps both the development process and project comprehension by others.
+We will also discuss documentation of code in this section.
+The third  part is dedicated to giving some example projects and to discuss design considerations.
+Lastly, the fourth  part digs into remote computing, bash scripting and slurm.
 
 ### C++ lessons
 
@@ -47,9 +49,17 @@ What we will not cover is:
 1. Concurrency computation models
 1. Disributed computation models
 
+### Meat and bones of a project
+
+1. Setting up a multi-source file project
+1. Building projects with shell scripts
+1. Building projects with Makefiles
+1. Building projects with CMake
+1. Other build systems available
+
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
      to allow the compiler to do as much optimization as possible  -->
-### Example projects
+### Example numeical methods and projects
 
 Some of these programs are inspired by programs that I had to write for research.
 So the physics may be opaque, but the more important part is the program structure.
@@ -57,7 +67,7 @@ Where necessary, I will try to ellucidate the physical settings.
 
 1. Numerical integration
 1. Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)
-1. Multilinear interpolation
+1. Linear interpolation
 1. Coupled ordinary differential equation
 1. $N$-body simulations
 1. Integral equations

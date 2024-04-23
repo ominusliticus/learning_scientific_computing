@@ -239,11 +239,11 @@ This is particularly useful when you want to offload certain computations to the
 ## Templates
 <!-- typdef, template, typename -->
 ```{margin}
-Templates really shine for template metaprogramming, which a programming paradigm that changes the way a program behaves based on the types.
+Templates really shine for template metaprogramming, which is a programming paradigm that changes the way a program behaves based on the types.
 I.e., the programs behavior changes based on what types you offer it, but the actual code you read is the same.
 ```
 The last topic, and by far the most complex, is the _template_ semantic.
-Template are what truly distinguish C++ from C, and allow you to write code that is generic in the type you want to use.
+Templates are what truly distinguish C++ from C, and allow you to write code that is generic in the type you want to use.
 There utility is far more visible for functions and class declarations, but we are going to give an incremental introduction.
 
 We come to our last rule of the chapter, how to declare (and use) variables with template parameters.

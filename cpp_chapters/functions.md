@@ -14,6 +14,12 @@ We will finish by writing the `Print` function that was already introduced in th
 
 ## The Vanilla Function
 
+``````{margin}
+```{note}
+We will frequently refer to the argument list as the signature of a function.
+```
+``````
+
 A function has four parts:
 1. The type declaration - this can include the template paramters, the [declaration qualifiers](declaration_qualifier), return type and attribute specification;
 1. The function name - which follows the same [name converntions](variable_declaration) as variables;
@@ -23,7 +29,7 @@ A function has four parts:
 ``````{admonition} Rule: Function declarations
 :class: hint
 
-A non-templated declaration
+A non-templated function declaration
 ```c++
 type_specifier type_declaration function_name(argument_list)
 {
@@ -81,11 +87,99 @@ Two examples would be:
 
 
 <!-- subsection: the int main function  -->
+### The `int main` function
+
+A special function in all C++ programs is the `int main` function.
+Every program needs exactly one for the program to be compiled.
+Should the compiler not find this _symbol_, then it will complain and fail.
+
+``````{margin}
+```{note}
+We have not takled about pointer types like `char*` or array types like `char[]`.
+These will be discussed down the in Chapter 7.
+```
+``````
+The `int main` function can have to forms:
+```c++
+int main() { }
+int main(int argc, char* argv[]) { }
+```
+The `agrc` variable stores how many arguments were passed to the program from the command line.
+Assuming the program's name is `prog`, a call with multiple arguments would look like
+```bash
+./prog arg1 arg2
+```
+The passed arguments are stored in `argv`, which is an array of length `argc` of null-terminated strings.
+The name of the program is _always_ stored in `argv[0]` and the passed arguments (if `argc > 1`) start at `argv[1]`.
+Parsing of command line arguments is the responsibility of the developer, though well establishd library have been developed for this purpose and can be found on github.
+
+```{note}
+Your program does not _need_ to take command line arguments.
+A benefit from taking command line arguments can be that not needing to recompile a program just because you want it to be change its behavior.
+```
+
+The return value of the `int main` function is default to zero (that is, if no return statement is give, it will automatically add a `return 0;` to you `int main` body).
+Non-zero return values, which we will refer to as _exit codes_ typically indicate some error that occured in the program.
+
+Some facts to remember about `int main`:
+1. It cannot be called by other functions;
+1. A multi-source project can can have exaclty one;
+1. It cannot be overload (see below); and
+1. It can only have to two signatures described above.
+
 <!-- 
     section: template programming
         subsection: multiple template parameters
         subsection: variadic templates
+        subsection: C++-style casting
 -->
+## Templated functions
+
+``````{margin}
+```{note}
+There is such a thing as _casting_, which could have been introduced in the last chaper, but I chose to introduce here is it requires templated functions to implement
+```
+``````
+As stated in the last chaper, templates allow you write code that is generic in types.
+To appreciate this, we need to note that that C++ is a _strongly typed_ language, meaning the following code shouldn't compile (I say shouldn't because all primitive types
+can be converted into each other).
+```c++
+float add(float x, float y) { return x + y; }
+
+int main() 
+{
+    char x{ 'h' };
+    char y{ 'e' };
+
+    char z{ add(x, y) }; // Won't compile because types are different 
+}
+```
+The strong typing becomes more apparent once we used user-defined types, or classes.
+
+A way of writing a generic/templated addition function is
+```c++
+template<typename T>
+T add(T a, T b) { return a + b; }
+
+int main()
+{
+    int a{ 1 };
+    int b{ 1 };
+    int c{ add(a, b) };    // OK!
+
+    double x{ 1.0 };
+    double y{ 1.0 };
+    double z{ add(x, y) }; // OK!
+
+    int j{ add(a, x) };    // FAILS! Compiler fails to deduce template paramter due 
+                           // to conflicting variable types `int` and `double`
+}
+```
+Underneath the hood, the compiler reads through the source code, and for every call the templated function, tries to generate a version of `add` with the types specified.
+
+### Single template parameters
+
+
 <!-- section: function overloading -->
 <!-- section: operators-->
 <!-- section: where can you define functions -->

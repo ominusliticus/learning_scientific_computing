@@ -59,7 +59,7 @@ public:
 
     LinearInterpolator() = default;
     template<typename... Args>
-    constexpr LinearInterpolator(int num_points, VecPtr&& x, Args&&... args);
+    explicit constexpr LinearInterpolator(int num_points, VecPtr&& x, Args&&... args);
 
     template<typename... Args> 
     inline constexpr Vec<dim> get_derivative(const T& x_in, Args&&... args) const;
@@ -231,7 +231,8 @@ An example of this code in action can be found here: [Linear Interpolation Examp
   
   template<typename T, int dim, bool uniform>
   template<typename... Args>
-  constexpr LinearInterpolator<T, dim, uniform>::LinearInterpolator(int num_points, VecPtr&& x, Args&&... args)
+  constexpr 
+  LinearInterpolator<T, dim, uniform>::LinearInterpolator(int num_points, VecPtr&& x, Args&&... args)
       : m_input{ std::move(x) }, m_num_points{ num_points }
   {
       static_assert(sizeof...(args) == dim);
@@ -250,8 +251,9 @@ An example of this code in action can be found here: [Linear Interpolation Examp
   }
   
   template<typename T, int dim, bool uniform>
-  template<typename...Args>
-  inline constexpr LinearInterpolator<T, dim, uniform>::Vec<dim> LinearInterpolator<T, dim, uniform>::get_derivative(const T& x_in, Args&&... args) const
+  template<typename... Args>
+  inline constexpr LinearInterpolator<T, dim, uniform>::Vec<dim>
+  LinearInterpolator<T, dim, uniform>::get_derivative(const T& x_in, Args&&... args) const
   {
       constexpr int num_args = sizeof...(args);
       static_assert(num_args <= dim, "Cannot interpolate more quantities than dim");
@@ -264,7 +266,8 @@ An example of this code in action can be found here: [Linear Interpolation Examp
   }
   
   template<typename T, int dim, bool uniform>
-  inline constexpr int LinearInterpolator<T, dim, uniform>::find_index(const T& x_in) const
+  inline constexpr int 
+  LinearInterpolator<T, dim, uniform>::find_index(const T& x_in) const
   {
       if (uniform)
       {
@@ -288,8 +291,9 @@ An example of this code in action can be found here: [Linear Interpolation Examp
   }
   
   template<typename T, int dim, bool uniform>
-  template<typename...Args>
-  inline constexpr LinearInterpolator<T, dim, uniform>::Vec<dim> LinearInterpolator<T, dim, uniform>::interpolate(const T& x_in, Args&&... args) const
+  template<typename... Args>
+  inline constexpr LinearInterpolator<T, dim, uniform>::Vec<dim> 
+  LinearInterpolator<T, dim, uniform>::interpolate(const T& x_in, Args&&... args) const
   {
       constexpr int num_args = sizeof...(args);
       static_assert(num_args <= dim, "Cannot interpolate more quantities than dim");
