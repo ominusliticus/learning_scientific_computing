@@ -131,6 +131,7 @@ Some facts to remember about `int main`:
     section: template programming
         subsection: multiple template parameters
         subsection: variadic templates
+        subsection: template templates
         subsection: C++-style casting
 -->
 ## Templated functions
@@ -151,7 +152,7 @@ int main()
     char x{ 'h' };
     char y{ 'e' };
 
-    char z{ add(x, y) }; // Won't compile because types are different 
+    char z{ add(x, y) }; // Won't compile because `add` expects `float` 
 }
 ```
 The strong typing becomes more apparent once we used user-defined types, or classes.
@@ -175,8 +176,163 @@ int main()
                            // to conflicting variable types `int` and `double`
 }
 ```
+Underneath the hood, the compiler reads through the source code, and for every call the templated function, tries to generate a version of `add` with the types specified.
+
+### Single template parameters
+
+The simplest type of templated function is the _single template parameter function_.
+For an example see the definition for the `add` function above.
+Note that in calling the function, we do not need to use any syntax to indicate what the need type of the template is.
+Instead, the compiler figures this out for us; if it could not, then it would give us a compilation error.
+
+Using the example above, we could explicitly indicate what type the `add` function shoud admit by adding the _chevron_ syntax
+```c++
+template<typename T>
+T add(T a, T b) { return a + b; }
+
+int main()
+{
+    int a{ 1 };
+    int b{ 1 };
+    int c{ add<int>(a, b) }; 
+
+    double x{ 1.0 };
+    double y{ 1.0 };
+    double z{ add<double>(x, y) };
+}
+```
+It should now be more obvious why the call `add(a , x)` does not work.
+We cannot write `add<int>(a, x)` because `x` is of type `double`, and we cannot write `add<double>(a, x)` because `a` is of type `int`.
+
+``````{admonition} Rule: Single template function declaration
+:class: hint
+
+A single template parameter function declaration
+```c++
+template<typename t_param_name>
+type_specifier type_declaration function_name(argument_list)
+{
+    function_body
+}
+```
+where `t_param_name` needs to appear in `argument_list`.
+We can equally replace `typename` with `class`, the syntax is equivalent.
+``````
+
+### Multiple templates parameters
+
+You can provide multiple template parameters, by separating the the `typename` declarations with commas.
+A quick example might be printing the key and a value in a dictionary
+
+``````{margin}
+```{note}
+Here we use `const&` syntax, or _const reference_ which will be explained in Chapter {refernces}.
+We also use _structured binding_ syntax `auto &[a, b]` or `auto const&[a, b]` to unpack the two values in the dictionary container.
+This will revisit in the Chapter {STL library}
+```
+``````
+
+```c++
+#include <unordered_map>    // C++ name for a dictionary type
+#include <iostream>         // For `std::cout` to print to the terminal
+
+template<typename Key, typename Value>
+void print_dictionary(std::unorder_map<Key, Value> const& dict)
+{
+    for (auto const& [key, value] : dict)
+        std::cout << key << ": " << value << std::endl;
+}
+
+int main()
+{
+    std::unordered_map<char, int> dict_1{
+        {'a', 1},
+        {'b', 2},
+        {'c', 3}
+    };
+    print_dictionary(dict_1);
+
+    // First five digits of pi
+    std::unordered_map<int, int> dict_2{
+        {1, 3},
+        {2, 1},
+        {3, 4},
+        {4, 1},
+        {5, 5}
+    }
+    print_dictionary(dict_2);
+}
+```
+
+``````{admonition} Rule: Multiple template function declaration
+:class: hint
+
+A multiple template parameter function declaration
+```c++
+template<typename t_param_name_1, typename t_param_name_2>  // etc
+type_specifier type_declaration function_name(argument_list)
+{
+    function_body
+}
+```
+where `t_param_name_#` needs to appear in `argument_list`.
+We can equally replace `typename` with `class`, the syntax is equivalent.
+``````
+
+### Variadic template parameters
+
+A very useful, and very powerful use of template programming are the _variadic templates_.
+This, in short, means, functions with a _variable_ number of template arguments.
+A pair of convience functions that we will use time and time again in our examples are our `print` and `println` function.
+Its definitions looks like this
+
+```c++
+#include <iostream>
+
+template<typename... Args>
+void print(Args&&... args)
+{
+    ((std::cout << std::forward<Args>(args) << " "), ...);
+}
+
+template<typename... Args>
+voif println(Args&&... args)
+{
+    print(std::forward<Args>(args)...);
+    std::cout << std::endl;
+}
+```
+
+It is worth breaking down the synatx here.
+The ellispe denotes _variadic_: variadic programming is also present in the C programming language and implemented via macros.
+When they appear in the template declaration or argument list, they indicate that an arbitrary (limited by computer chip) number of template types/arguments are to be expected, and are referred to as a _parameter pack_.
+When appear in the body of a function, they indicate that a _template parameter pack_ is being _unpacked_; expression that contain the syntax `((), ...)` are called _folding expressions_.
+The double ambersand `&&` indicates that the arguments should be interpreted as r-value references unless const-qualified (more about this in Chapter {reference}).
+Lastly, the `std::forward` function, also a template function, also converts values to r-values.
 
 
+``````{admonition} Rule: Variadic template function declaration
+:class: hint
+
+A variadic template parameter function declaration
+```c++
+template<typename... Args>
+type_specifier type_declaration function_name(argument_list)
+{
+    function_body
+}
+```
+where `Args` needs to appear in `argument_list`.
+``````
+
+You can declare functions with two variadic template arguments.
+There is no immediate use-case that comes to mind for me, but you can feel free to look up examples.
+The important part is that the first parameter pack has to declared in the function call using chevrons, and the second is deduced from the arguments passed to the function.
+
+### Template template parameters
+
+
+<!--- section: template specialization -->
 <!-- section: function overloading -->
 <!-- section: operators-->
 <!-- section: where can you define functions -->

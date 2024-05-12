@@ -337,7 +337,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.2.1. Single template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.2.2. Multiple templates parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.2.3. Variadic template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.2.4. Template template parameters</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -479,6 +485,7 @@ Non-zero return values, which we will refer to as <em>exit codes</em> typically 
     section: template programming
         subsection: multiple template parameters
         subsection: variadic templates
+        subsection: template templates
         subsection: C++-style casting
 -->
 </section>
@@ -502,7 +509,7 @@ can be converted into each other).</p>
 <span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;h&#39;</span><span class="w"> </span><span class="p">};</span>
 <span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="sc">&#39;e&#39;</span><span class="w"> </span><span class="p">};</span>
 
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Won&#39;t compile because types are different </span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Won&#39;t compile because `add` expects `float` </span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -526,10 +533,155 @@ can be converted into each other).</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Underneath the hood, the compiler reads through the source code, and for every call the templated function, tries to generate a version of <code class="docutils literal notranslate"><span class="pre">add</span></code> with the types specified.</p>
+<section id="single-template-parameters">
+<h3><span class="section-number">5.2.1. </span>Single template parameters<a class="headerlink" href="#single-template-parameters" title="Permalink to this heading">#</a></h3>
+<p>The simplest type of templated function is the <em>single template parameter function</em>.
+For an example see the definition for the <code class="docutils literal notranslate"><span class="pre">add</span></code> function above.
+Note that in calling the function, we do not need to use any syntax to indicate what the need type of the template is.
+Instead, the compiler figures this out for us; if it could not, then it would give us a compilation error.</p>
+<p>Using the example above, we could explicitly indicate what type the <code class="docutils literal notranslate"><span class="pre">add</span></code> function shoud admit by adding the <em>chevron</em> syntax</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">{</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">z</span><span class="p">{</span><span class="w"> </span><span class="n">add</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It should now be more obvious why the call <code class="docutils literal notranslate"><span class="pre">add(a</span> <span class="pre">,</span> <span class="pre">x)</span></code> does not work.
+We cannot write <code class="docutils literal notranslate"><span class="pre">add&lt;int&gt;(a,</span> <span class="pre">x)</span></code> because <code class="docutils literal notranslate"><span class="pre">x</span></code> is of type <code class="docutils literal notranslate"><span class="pre">double</span></code>, and we cannot write <code class="docutils literal notranslate"><span class="pre">add&lt;double&gt;(a,</span> <span class="pre">x)</span></code> because <code class="docutils literal notranslate"><span class="pre">a</span></code> is of type <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Single template function declaration</p>
+<p>A single template parameter function declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">t_param_name</span><span class="o">&gt;</span>
+<span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">function_body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">t_param_name</span></code> needs to appear in <code class="docutils literal notranslate"><span class="pre">argument_list</span></code>.
+We can equally replace <code class="docutils literal notranslate"><span class="pre">typename</span></code> with <code class="docutils literal notranslate"><span class="pre">class</span></code>, the syntax is equivalent.</p>
+</div>
+</section>
+<section id="multiple-templates-parameters">
+<h3><span class="section-number">5.2.2. </span>Multiple templates parameters<a class="headerlink" href="#multiple-templates-parameters" title="Permalink to this heading">#</a></h3>
+<p>You can provide multiple template parameters, by separating the the <code class="docutils literal notranslate"><span class="pre">typename</span></code> declarations with commas.
+A quick example might be printing the key and a value in a dictionary</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here we use <code class="docutils literal notranslate"><span class="pre">const&amp;</span></code> syntax, or <em>const reference</em> which will be explained in Chapter {refernces}.
+We also use <em>structured binding</em> syntax <code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">&amp;[a,</span> <span class="pre">b]</span></code> or <code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">const&amp;[a,</span> <span class="pre">b]</span></code> to unpack the two values in the dictionary container.
+This will revisit in the Chapter {STL library}</p>
+</div>
+</aside>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span><span class="c1">    // C++ name for a dictionary type</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1">         // For `std::cout` to print to the terminal</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Key</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Value</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print_dictionary</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unorder_map</span><span class="o">&lt;</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">dict</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">dict</span><span class="p">)</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dict_1</span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="n">print_dictionary</span><span class="p">(</span><span class="n">dict_1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// First five digits of pi</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dict_2</span><span class="p">{</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">print_dictionary</span><span class="p">(</span><span class="n">dict_2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Multiple template function declaration</p>
+<p>A multiple template parameter function declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">t_param_name_1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">t_param_name_2</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// etc</span>
+<span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">function_body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">t_param_name_#</span></code> needs to appear in <code class="docutils literal notranslate"><span class="pre">argument_list</span></code>.
+We can equally replace <code class="docutils literal notranslate"><span class="pre">typename</span></code> with <code class="docutils literal notranslate"><span class="pre">class</span></code>, the syntax is equivalent.</p>
+</div>
+</section>
+<section id="variadic-template-parameters">
+<h3><span class="section-number">5.2.3. </span>Variadic template parameters<a class="headerlink" href="#variadic-template-parameters" title="Permalink to this heading">#</a></h3>
+<p>A very useful, and very powerful use of template programming are the <em>variadic templates</em>.
+This, in short, means, functions with a <em>variable</em> number of template arguments.
+A pair of convience functions that we will use time and time again in our examples are our <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> function.
+Its definitions looks like this</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">),</span><span class="w"> </span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">voif</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It is worth breaking down the synatx here.
+The ellispe denotes <em>variadic</em>: variadic programming is also present in the C programming language and implemented via macros.
+When they appear in the template declaration or argument list, they indicate that an arbitrary (limited by computer chip) number of template types/arguments are to be expected, and are referred to as a <em>parameter pack</em>.
+When appear in the body of a function, they indicate that a <em>template parameter pack</em> is being <em>unpacked</em>; expression that contain the syntax <code class="docutils literal notranslate"><span class="pre">((),</span> <span class="pre">...)</span></code> are called <em>folding expressions</em>.
+The double ambersand <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> indicates that the arguments should be interpreted as r-value references unless const-qualified (more about this in Chapter {reference}).
+Lastly, the <code class="docutils literal notranslate"><span class="pre">std::forward</span></code> function, also a template function, also converts values to r-values.</p>
+<div class="hint admonition">
+<p class="admonition-title">Rule: Variadic template function declaration</p>
+<p>A variadic template parameter function declaration</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">type_specifier</span><span class="w"> </span><span class="n">type_declaration</span><span class="w"> </span><span class="n">function_name</span><span class="p">(</span><span class="n">argument_list</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">function_body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">Args</span></code> needs to appear in <code class="docutils literal notranslate"><span class="pre">argument_list</span></code>.</p>
+</div>
+<p>You can declare functions with two variadic template arguments.
+There is no immediate use-case that comes to mind for me, but you can feel free to look up examples.
+The important part is that the first parameter pack has to declared in the function call using chevrons, and the second is deduced from the arguments passed to the function.</p>
+</section>
+<section id="template-template-parameters">
+<h3><span class="section-number">5.2.4. </span>Template template parameters<a class="headerlink" href="#template-template-parameters" title="Permalink to this heading">#</a></h3>
+<!--- section: template specialization -->
 <!-- section: function overloading -->
 <!-- section: operators-->
 <!-- section: where can you define functions -->
 <!-- section: lambda functions -->
+</section>
 </section>
 </section>
 
@@ -601,7 +753,13 @@ can be converted into each other).</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.2.1. Single template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.2.2. Multiple templates parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.2.3. Variadic template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.2.4. Template template parameters</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

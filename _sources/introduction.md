@@ -43,11 +43,15 @@ Lastly, the fourth  part digs into remote computing, bash scripting and slurm.
 
 What we will not cover is:
 
+1. Macros
 1. Inheritance
-1. Template metaprogamming
+1. Template metaprogamming or concepts
 1. Common data structures and algorithms (such as queues and sort), this is because these are provided by the standard template library
 1. Concurrency computation models
 1. Disributed computation models
+
+Separate notes will be developed for these, beside macros, which I assume the reader can learn on their own.
+If they are already developed, then the hyperlink above will take you to corresponding notes.
 
 ### Meat and bones of a project
 
