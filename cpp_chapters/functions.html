@@ -181,10 +181,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../app_chapters/numerical_integration.html">6. Numerical Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_chapters/linear_interpolation.html">7. Linear Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/integral_equations.html">8. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">8. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">9. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -676,6 +677,30 @@ The important part is that the first parameter pack has to declared in the funct
 </section>
 <section id="template-template-parameters">
 <h3><span class="section-number">5.2.4. </span>Template template parameters<a class="headerlink" href="#template-template-parameters" title="Permalink to this heading">#</a></h3>
+<p>Another variable powerful form of template programming is <em>template template functions</em>.
+These will be particularly useful after our next chapter where you will learn about classes and structures.
+For the sake of our demonstration, assume you have a container that stores some unkonwn number of arbitrary type <code class="docutils literal notranslate"><span class="pre">T</span></code> or that you have an array of <code class="docutils literal notranslate"><span class="pre">N</span></code> things of type <code class="docutils literal notranslate"><span class="pre">T</span></code>.
+We will call these objects <code class="docutils literal notranslate"><span class="pre">Container</span></code> and <code class="docutils literal notranslate"><span class="pre">Array</span></code> respectively.
+We can then write generic functions that print these objects (provided some internals exist in the class, which we will cover in the next Chapter).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Container</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print_container</span><span class="p">(</span><span class="n">Container</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">container</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">container</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;   &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">entry</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print_container</span><span class="p">(</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">array</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">array</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;   &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here, we have used <code class="docutils literal notranslate"><span class="pre">auto</span></code> to represent a <em>non-type template parameter</em>, as we expect <code class="docutils literal notranslate"><span class="pre">N</span></code> to be an number not a type.
+In practice, the array declaration may look like <code class="docutils literal notranslate"><span class="pre">template&lt;typename</span> <span class="pre">T,</span> <span class="pre">std::size_t</span> <span class="pre">N&gt;</span> <span class="pre">class</span> <span class="pre">Array;</span></code>, where it is now clearer that <code class="docutils literal notranslate"><span class="pre">N</span></code> is not a type but a constant.</p>
 <!--- section: template specialization -->
 <!-- section: function overloading -->
 <!-- section: operators-->

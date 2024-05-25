@@ -1,3 +1,4 @@
+(ch:numerical_integration)=
 # Numerical Integration
 [Compiler explorer development](https://godbolt.org/z/MnW77oMfo)
 

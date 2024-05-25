@@ -331,6 +331,31 @@ The important part is that the first parameter pack has to declared in the funct
 
 ### Template template parameters
 
+Another variable powerful form of template programming is _template template functions_.
+These will be particularly useful after our next chapter where you will learn about classes and structures.
+For the sake of our demonstration, assume you have a container that stores some unkonwn number of arbitrary type `T` or that you have an array of `N` things of type `T`.
+We will call these objects `Container` and `Array` respectively.
+We can then write generic functions that print these objects (provided some internals exist in the class, which we will cover in the next Chapter).
+
+```c++
+#include <iostream>
+
+template<template<typename> class Container, typename T>
+void print_container(Container<T>&&... container)
+{
+    for (auto const& entry : container)
+        println("   ", entry);
+}
+
+template<template<typename, auto> class Array, typename T, auto N>
+void print_container(Array<T, N>&&... array)
+{
+    for (auto const& element : array)
+        println("   ", element);
+}
+```
+Here, we have used `auto` to represent a _non-type template parameter_, as we expect `N` to be an number not a type.
+In practice, the array declaration may look like `template<typename T, std::size_t N> class Array;`, where it is now clearer that `N` is not a type but a constant.
 
 <!--- section: template specialization -->
 <!-- section: function overloading -->
