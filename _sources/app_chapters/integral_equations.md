@@ -13,7 +13,7 @@ Solving coupled Fredholm integral equations of the second kind will follow a sim
 Our Fredholm integral equation takes the form
 
 $$
-\phi(x) + \lambda \int_a^b K(x, y) \phi(y) dy = f(x),
+\phi(x)= f(x) + \lambda \int_a^b K(x, y) \phi(y) dy,
 $$ (1-d-fredholm)
 
 where $\phi(x)$ is the function we are looking for and $K(x, y)$ is called the _kernel_.
@@ -321,3 +321,12 @@ The program used to generate these tables is given below and is available [here]
   ```
 
 </details>
+
+
+## The two-dimensional case
+
+In two dimensions, we will write the Fredholm integral equation as
+
+$$
+\phi(\vec x) = f(\vec x) + \int_\Omega K(\vec x, \vec y) \phi(\vec x) d^2 y
+$$

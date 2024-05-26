@@ -342,6 +342,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">8.1.3. Comparison with analytic solution</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">8.2. The two-dimensional case</a></li>
 </ul>
             </nav>
         </div>
@@ -367,7 +368,7 @@ Solving coupled Fredholm integral equations of the second kind will follow a sim
 <p>Our Fredholm integral equation takes the form</p>
 <div class="math notranslate nohighlight" id="equation-1-d-fredholm">
 <span class="eqno">(8.1)<a class="headerlink" href="#equation-1-d-fredholm" title="Permalink to this equation">#</a></span>\[
-\phi(x) + \lambda \int_a^b K(x, y) \phi(y) dy = f(x),
+\phi(x)= f(x) + \lambda \int_a^b K(x, y) \phi(y) dy,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi(x)\)</span> is the function we are looking for and <span class="math notranslate nohighlight">\(K(x, y)\)</span> is called the <em>kernel</em>.
 If <span class="math notranslate nohighlight">\(f(x) \equiv 0\)</span>, the integral equation become a first kind type integral equation, and is no longer amenable to the procedure we layout below.
@@ -657,6 +658,14 @@ As the table shows, the quadrature converges to the analytic solution nicely, wh
 </details>
 </section>
 </section>
+<section id="the-two-dimensional-case">
+<h2><span class="section-number">8.2. </span>The two-dimensional case<a class="headerlink" href="#the-two-dimensional-case" title="Permalink to this heading">#</a></h2>
+<p>In two dimensions, we will write the Fredholm integral equation as</p>
+<div class="math notranslate nohighlight">
+\[
+\phi(\vec x) = f(\vec x) + \int_\Omega K(\vec x, \vec y) \phi(\vec x) d^2 y
+\]</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -729,6 +738,7 @@ As the table shows, the quadrature converges to the analytic solution nicely, wh
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">8.1.3. Comparison with analytic solution</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">8.2. The two-dimensional case</a></li>
 </ul>
   </nav></div>
 
