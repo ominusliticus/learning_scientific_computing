@@ -3,8 +3,7 @@
 In this chapter, we will discuss Fredholm integral equations of the second kind.
 These lend themselves well to iterative methods without a need to descretize your integration domain.
 Solutions obtained by such an iterative method go by the name of _Liouville-Neumann series_.
-We will start with a one-dimensional example comparing a discretized integration domain to a non-descretized one.
-Such non-discreized solutions are most commonly obtained using Lagrange interpolation polynomials, however, for the sake of this tutorial, we will avoid this complication.
+We will start with a one-dimensional example comparing two discretization methods to evaluate the integral over the integration domain.
 Then, we will introduce terminology and formalsm that should let you tackle $d$-dimensional integral equations.
 Solving coupled Fredholm integral equations of the second kind will follow a similar logic.
 
@@ -36,13 +35,13 @@ The Liouville-Neumann series is very simple: it says the solution is given by
 
 $$
 \phi(x) = \sum_{n=0}^\infty \lambda^n u_n(x),
-$$
+$$ (liouville-neumann-1d)
 
 where $u_n(x)$ is given by 
 
 $$
 u_n(x) = \int_a^b \cdots \int_a^b K(x, y_n) \cdots K(x, y_1) f(y_1) dy_1 \cdots dy_n,
-$$
+$$ (liouvill-neumann-1d-summand)
 
 and $u_0(x) = f(x)$.
 
@@ -55,7 +54,7 @@ Each subsequent update uses Riemann sums to evaluate the integral
 
 $$
 u_n(x_i) = \sum_{j=1}^N K(x_i, y_j) u_{n-1}(y_j) \Delta y.
-$$
+$$ (liouville-neumann-1d-summand-riemann)
 
 This solution improves in accuracy with the larger number of subdivisions $N$.
 Written in code, we have
@@ -154,11 +153,13 @@ The points in the interval $[a,b]$ are then $x_i = \frac{1}{2}[(a - b) \xi_i + (
 The first iteration is initialzed as be before, however, the subsequent updates now become
 
 $$
-u_n(x_i) = \sum_{j=1}^N w_jK(x_i, y_j) u_{n-1}(y_j)
-$$
+u_n(x_i) = \frac{b - a}{2}\sum_{j=1}^N w_jK(x_i, y_j) u_{n-1}(y_j)
+$$ (liouville-neumann-1d-summand-quadrature)
 
 to calculate the roots, given the integer $N$, we use the `get_root_and_wweights` function
 we introduced in the {ref}`Numerical Integration <ch:numerical_integration>` chapter.
+The factor of $(b - a)/2$ arise from the Jacobian of changing the integration variables from $x_i$ to 
+$\xi_i$ (this detail is hidden in the formula we have written).
 
 ```c++
 template<int bins, typename T, typename InitialCondition, typename Kernel>
@@ -328,5 +329,129 @@ The program used to generate these tables is given below and is available [here]
 In two dimensions, we will write the Fredholm integral equation as
 
 $$
-\phi(\vec x) = f(\vec x) + \int_\Omega K(\vec x, \vec y) \phi(\vec x) d^2 y
+\phi(\vec x) = f(\vec x) + \lambda \int_\Omega K(\vec x, \vec y) \phi(\vec x) d^2 y.
+$$ (fredholm-equation-2d)
+
+Here $\Omega$ denotes the integration domain, which we leave unspecified.
+As a practive problem, we will solve a Poisson equation by recasting it as a _boundary integral equation_.
+The details will be left to that subsection.
+
+As before, we construct our solution iteratively,
+
 $$
+\phi(\vec x) = \sum_{n=0}^\infty \lambda^n u_n(\vec x),
+$$ (liouville-neumann-2d)
+
+with $u_n(\vec x)$ defined as 
+
+$$
+u_n(\vec x) = \int_\Omega K(\vec x, \vec y) u_{n - 1}(\vec y) d^2 y,
+$$ (liouville-neumann-2d-summand)
+
+and $u_0(\vec x) = f(\vec x)$.
+
+### Evaluation via quadrature: the Nyström method
+
+We jump straight to quadrature, as Riemann sums are far too inefficient for numerical evaluation.
+We can choose the number of roots sufficient large, se $N=40$, to populate our domain adequately.
+Note, in our example calculations we use Gauss-Legendre quadrature, however, Gauss-Lebatto-Legendre quadrature is used more commonly as it includes evaluation of the end points.
+
+The two dimensional analog, assuming a rectanular integration domain, of Eq. {eq}`liouville-neumann-1d-summand-quadrature` is
+
+$$
+u_n(x_{1i}, x_{2j}) = \frac{b_2 - a_2}{2}\frac{b_1 - a_1}{2}\sum_{m=1}^N \sum_{n=1}^N w_m w_n K(x_{1i}, x_{2j}, y_{1m}, y_{2n}) u_{n-1}(y_{1m}, y_{2n}).
+$$ (liouvill-neumann-2d-summand-quadrature)
+
+where we have choosen to write out the components of the vectors $\vec x = (x_1\ \ x_2)^\mathsf{T}$ and $\vec y = (y_1\ \ y_2)^\mathsf{T}$.
+The code implementation is 
+
+```c++
+Nothing here yet
+```
+
+### Evaluation via Galerkin methods
+
+```{margin}
+Much of this discussion is taken from {cite}`Atkinson1987TheDG`. 
+
+```
+The Galerkin method takes our integral equation, and converts it to a linear algebra problem for matrix inversion.
+At the core of the methods are two discretizations: (1) discretization of the integration domain $\Omega to \Omega_h$, and (2) a _discretization_ of the unknown function.
+The ladder means that we choose to represent our unknown function $\phi(\vec x)$ with unknown coefficients $\phi_i$ and known orthogonal basis functions $\eta_i(\vec x)$ for $\Omega_h$
+
+$$
+\phi(\vec x) = \sum_{i=1}^N \phi_i \eta_i(\vec x).
+$$ (phi-discretization)
+
+A common choice for the basis functions in _finitie element analysis_ are [hat functions](https://en.wikipedia.org/wiki/Triangular_function).
+In our application below, we will assume that the basis is represented by Lagrange interpolants, which will require a little more discussion.
+
+The integrals are evaluated via quadrature.
+We introduce the notation
+
+$$
+\vec x_p = \frac{1}{2}[(\vec b - \vec a) \xi_p + (\vec b + \vec a)],
+$$ (interpolant-nodes)
+
+where the $\{\xi_i\}$, $i=1,\ldots,R$ are the nodes for our quadrature scheme (for us this is Gauss-Legendre).
+
+We can multiply both sides of Eq. {eq}`fredholm-equation-2d`, by the basis $\eta_j(\vec x)$ and integrate.
+This gives us the system
+
+\begin{align}
+\sum_{p=1}^R \sum_{i=1}^N w_p \phi_i \eta_i(\vec x_p) \eta_j(\vec x_p)
+&=
+\sum_{p=1}^R w_p f(\vec x_p) \eta_j(\vec x_p)
+\\
+&\qquad
++
+\lambda \sum_{p=1}^R \sum_{q=1}^R \sum_{i=1}^N w_p w_q \phi_i K(\vec x_p, \vec x_q) \eta_i(\vec x_q) \eta_j(\vec x_p).
+\end{align}
+
+This equation can be simplified if we make the identification
+
+$$
+\mathsf H_{ip} = \eta_i(\vec x_p), 
+\qquad   
+\mathsf K_{pq} = K(\vec x_p, \vec x_q),
+\qquad
+f_p = f(\vec x_p),
+\qquad
+\mathsf W = \text{diag}(w_1, \ldots, w_R).
+$$
+
+Then this system is written succinctly as
+
+$$
+\mathsf H \mathsf W \mathsf H^\mathsf{T} \vec \phi
+& =
+\mathsf H \mathsf W \vec f
++
+\lambda \mathsf H \mathsf W \mathsf K \mathsf W \mathsf H^\mathsf{T} \vec \phi
+\\
+\mathsf H^\mathsf{T} \vec \phi 
+& =
+\vec f 
++
+\lambda \mathsf K \mathsf W \mathsf H^\mathsf{T} \vec \phi.
+$$ (fredholm-equation-galerkin-matrix-form)
+
+The system is solved as
+
+$$
+\vec \phi 
+=
+(\mathsf H^\mathsf{T} - \lambda \mathsf K \mathsf W \mathsf H^\mathsf{T})^{-1} \vec f.
+$$ (fredholm-equation-galerkin-matrix-soln)
+
+
+
+### Application: 2-d Poisson Equation
+
+
+
+## Bibliography 
+
+```{bibliography}
+:filter: docname in docnames
+```

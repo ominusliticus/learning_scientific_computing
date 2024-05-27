@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>7. Numerical Integration &#8212; Learning Scientific Computing</title>
+    <title>8. Linear Algebra &#8212; Learning Scientific Computing</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'app_chapters/numerical_integration';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'app_chapters/linear_algebra';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Linear Algebra" href="linear_algebra.html" />
-    <link rel="prev" title="6. Preface" href="app_preface.html" />
+    <link rel="next" title="9. Interpolation" href="interpolation.html" />
+    <link rel="prev" title="7. Numerical Integration" href="numerical_integration.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,8 +180,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="app_preface.html">6. Preface</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">8. Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">7. Numerical Integration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Linear Algebra</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpolation.html">9. Interpolation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integral_equations.html">10. Integral Equations</a></li>
 </ul>
@@ -242,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/app_chapters/numerical_integration.md" target="_blank"
+      <li><a href="../_sources/app_chapters/linear_algebra.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -313,9 +313,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -326,20 +324,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Numerical Integration</h1>
+    <h1>Linear Algebra</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-integration-an-overview">7.1. Numerical Integration: An Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midpoint-sum-rule">7.2. Midpoint Sum Rule</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -349,50 +338,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="numerical-integration">
-<span id="ch-numerical-integration"></span><h1><span class="section-number">7. </span>Numerical Integration<a class="headerlink" href="#numerical-integration" title="Permalink to this heading">#</a></h1>
-<p><a class="reference external" href="https://godbolt.org/z/MnW77oMfo">Compiler explorer development</a></p>
-<!--
-```{admonition} TODO List for godbolt
-:class: warning
-- Add comment boarders that easily distinguish the different cases
-- Finish implementation of other numerical methods
-```
--->
-<p>In this chapter, we will present several numerical integration techniques, including:</p>
-<ul class="simple">
-<li><p>Riemann sums (midpoint)</p></li>
-<li><p>Trapezoid</p></li>
-<li><p>Simpson’s Rule</p></li>
-<li><p>Gaussian Quadrature</p></li>
-<li><p>Adaptive Quadrature</p></li>
-</ul>
-<p>We will define interfaces that allows one to supply both arrays and function pointers.</p>
-<section id="numerical-integration-an-overview">
-<h2><span class="section-number">7.1. </span>Numerical Integration: An Overview<a class="headerlink" href="#numerical-integration-an-overview" title="Permalink to this heading">#</a></h2>
-<p>When we learn about integrals, we also learn about anti-derivatives.
-We quickly learn that finding these anti-derivatives can be difficult, requiring techniques like partial fraction decompositions or trignometric substituion.
-So integrand simply have no closed form anti-derivatives, and it is for these that numerical integration is important.</p>
-<p>The intuition about numerical integration is built from Riemann sums: one successively slices the integration interval into more and more bins and adds up the area of the rectangles inside the interval.
-As with all numerical techniques, such methods incure a <em>descretization error</em>.
-Such an error shrinks as the number of rectangles approaches infinity, but at the cost of exorbitant computation.</p>
-<p>For numerical integration, more clever methods to cut down on computational costs but maitain small descretization have developed.
-The most popular of such methods are called <em>quadrature methods</em> (their generalization to dimensions larger than one is <em>cubature</em>).
-These will be discussed in more detailed below.</p>
-<p>It must be said, however, that minimization of numerical errors is not aways desirable: the numerical integration scheme chosen depends on the problem you wish to solve.
-When evaluating an integral to find an average, a quadrature method may suffice.
-When solving an integral equation, a Simpson rule may be required.
-The key difference is whetherthe the points at which the integrand is being evaluated are regularly spaced or irregularly spaces.
-A problem like an integral equation, will be much simpler if the integration domain is descritized regularly (in one dimension), whereas its descritization in three dimensions could be uniform (sparse grid quadrature methods) or non-uniform (finite element analysis and spectral methods).</p>
-<p>In this chapter, we will focus on 1-dimensional integration domains.
-We will present implementations with increasing complexity for you to choose which you prefer.
-At the end, as usual, there will be a link to a Compiler Explorer instances where the code has been implemented and tested.
-Starting with this chapter, we will see that these numerical techniques oftern depend on numerical methods implemented on other domains of mathematics, such as linear algebra.
-We will provide links to the relevent material as needed.</p>
-</section>
-<section id="midpoint-sum-rule">
-<h2><span class="section-number">7.2. </span>Midpoint Sum Rule<a class="headerlink" href="#midpoint-sum-rule" title="Permalink to this heading">#</a></h2>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-algebra">
+<h1><span class="section-number">8. </span>Linear Algebra<a class="headerlink" href="#linear-algebra" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,20 +373,20 @@ We will provide links to the relevent material as needed.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="app_preface.html"
+       href="numerical_integration.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Preface</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Numerical Integration</p>
       </div>
     </a>
     <a class="right-next"
-       href="linear_algebra.html"
+       href="interpolation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Linear Algebra</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Interpolation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -450,21 +397,7 @@ We will provide links to the relevent material as needed.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-integration-an-overview">7.1. Numerical Integration: An Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midpoint-sum-rule">7.2. Midpoint Sum Rule</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

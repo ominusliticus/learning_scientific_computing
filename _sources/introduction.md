@@ -71,7 +71,7 @@ Where necessary, I will try to ellucidate the physical settings.
 
 1. Numerical integration
 1. Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)
-1. Linear interpolation
+1. Interpolation: linear, Delaunay, Lagrange and Hermite
 1. Coupled ordinary differential equation
 1. $N$-body simulations
 1. Integral equations
