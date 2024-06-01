@@ -43,11 +43,15 @@ Lastly, the fourth  part digs into remote computing, bash scripting and slurm.
 
 What we will not cover is:
 
+1. Macros
 1. Inheritance
-1. Template metaprogamming
+1. Template metaprogamming or concepts
 1. Common data structures and algorithms (such as queues and sort), this is because these are provided by the standard template library
 1. Concurrency computation models
 1. Disributed computation models
+
+Separate notes will be developed for these, beside macros, which I assume the reader can learn on their own.
+If they are already developed, then the hyperlink above will take you to corresponding notes.
 
 ### Meat and bones of a project
 
@@ -65,9 +69,10 @@ Some of these programs are inspired by programs that I had to write for research
 So the physics may be opaque, but the more important part is the program structure.
 Where necessary, I will try to ellucidate the physical settings.
 
+1. Root finding
 1. Numerical integration
 1. Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)
-1. Linear interpolation
+1. Interpolation: linear, Delaunay, Lagrange and Hermite
 1. Coupled ordinary differential equation
 1. $N$-body simulations
 1. Integral equations

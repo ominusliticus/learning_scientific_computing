@@ -18,8 +18,12 @@ parts:
   - caption: C++ Example Projects
     numbered: true
     chapters:
+    - file: app_chapters/app_preface
+    - file: app_chapters/root_finding
     - file: app_chapters/numerical_integration
-    - file: app_chapters/linear_interpolation
+    - file: app_chapters/linear_algebra
+    - file: app_chapters/interpolation
+    - file: app_chapters/integral_equations
   - caption: High Preformance Computing
     numbered: true
     chapters:
