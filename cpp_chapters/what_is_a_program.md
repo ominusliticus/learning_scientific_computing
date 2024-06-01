@@ -1,23 +1,30 @@
 # What is a program
 
-C++ is a compiled language, meaning that to execute code written in C++, it has first be converted into machine code: this is the job of the compiler.
-We will talk about the compiler in the next chapter, but in general, to have a good understanding of any programming language, it is important to understand what the compiler does behind the scene.
-Programs are resulting machine code executable.
-These executables are hardware specific, meaning that that a program compiled on Windows machine, will not work on a Mac or Linux machine.
+C++ is a compiled language, meaning that human radable code needs to turn into machine readable code berfore execution, this is the job of the compiler.
+The compiler will be discussed in the next chapter, but generally, good comprehension of the compiler facilitates good understanding of the program.
+For the context of these notes, a program  will refer to a compiled exectable of C++ source code.
+These executables are operating system (OS) specific, meaning that that a program compiled on Windows, will not work for Mac or Linux.
+Futhermore, an instance of a running program or executable will called an application.
 
-There are generally three ingredients to making a program:
-1. The source code: the header files and translation uints
-1. The libraries which the program has to link to
-1. The compiler, which is generally bundled with the linker, that translate our code to machine code.
+There are three primary ingredients to compiling a program:
+1. The translation unit: prepocessing files, header files, and source code (this includes directives such as `#define`)
+1. The dynamic and static libraries required by the linker
+1. Compiler flags to further configure the compilation process.
 
-The source code is generally what we write, or take from other people.
-These are the _.cpp_ and _.hpp_ (and various other file suffixes, but these are the ones that we will use) files.
-The libraries are either provided by the operating sytstem, such as `libc`, or are installed via package manager, such as `libopenblas`.
-The compiler translates _.cpp_ files into machine code, and the linker matches all the _symbols_ between these _translation units_ and library calls.
-If all the symbols can be resolved (i.e., function, variables, types and operations), the executable is linked and can be run on the device.
+Source code will refer the human readable C++ files written on a computer.
+This inclueds _.cpp_ and _.hpp_ files; although, there are various suffixes denoting file types, thses notes will focus on the first two..
+Libraries are either provided by the operating sytstem, such as `libc`, or are installed via package manager, such as `libopenblas`.
+Libraries are a product of compiled C++ code, similar to executables but cannot be run as applications.
+Static libraies are physical copies of compiled code that need to be available to the linker at compile time and will generally be denoted as _.lib_ files..
+Dynamically linked libraries forego the requirement of requiring a physical copy, and just need the library to be avaialbe on the system.
+Dynamically linked libraies, will consist of _.lib_ files and _.dll_ files, where _.lib_ expose the _symbols_ while _.dll_ expose the logic.
+Symbols refer to functions, classes, variables, etc. defined in source and header files, while logic refers to the implementation of these symbols.
+The compiler translates _.cpp_ files into machine code, and the linker matches all the _symbols_ between _translation units_ and _libraries_.
+If all the symbols can be resolved , the executable is linked and can be run on the device.
 
-As our first program, and the standard first program for any language, we will write a `"Hello, World!"` program, which prints the sentence to your command line (also known as _standard out_ or _stdout_).
-In C++, this looks like
+The standard first program for any language is a the _hello world_ program. 
+In which the string `"Hello, World!"` is written to the command line (also known as _standard out_ or _stdout_).
+In C++, this may look like:
 
 ```c++
 #include <iostream>
@@ -28,9 +35,10 @@ int main() {
 }
 ```
 
-We will make sure you have the infrastructure to compile programs in the next chapter, but for this chapter is good enough to use my favorite website [Compiler Explorer](https://godbolt.org).
-Feel free to copy to code snippet above, navigate to [Compiler Explorer](https://godbolt.org), and paste.
-What you should see on the website is
+Proper compiler infrastructure wiill be addressed in the next chapter.
+For this chapter t is recommended a free onlice compiler, such as [Compiler Explorer](https://godbolt.org).
+Feel free to copy to code snippet above and run it in any online compiler.
+The expected ouput of the program for [Compiler Explorer](https://godbolt.org) is as follows:
 
 ```{figure} ../images/godbolt_hello_world_1.png
 :name: godbolt-hello-world
@@ -38,7 +46,7 @@ What you should see on the website is
 Screenshot of Compiler Explorer, with the source code (left) and disassembly (right)
 ```
 
-The left-hand side represent the code we are compiling, while the right-hand side shows us the _disassembly_ (we reproduce the content here for convenience).
+The left-hand side represents the code being compiled, while the right-hand side shows _disassembly_ (reproduced below for convenience).
 
 ```nasm
 .LC0:
@@ -57,16 +65,15 @@ main:
         ret
 ```
 
-This is computer code that has been converted to assembly for us to know exactly what operations the CPU is executing.
-We won't get into it here (we will explain what each line does in the next chapter), but learning to understand disassembly will be a valuable tool for optimization purposes in the future.
-In general, a good rule-of-thumb for preformance considerations is: _the fewer lines of actual machine instructions, the better_.
-We will rely on the compiler to do most of the optimization, but there are tricks we can use to help the compiler out.
-One of the most notable instance, which I will mention here without further clarification, is using lambda functions instead of function pointers.
+Assembly is machine code that is formatted in a more digestable manner, to represent the exact commands ran on the processor during execution.
+Each line and its meaning is further discussed in the next chapter, but undersanding disassembly is vital for optimization in high performance contexts.
+In general, the rule for optimization to follow is: _the fewer lines of actual machine instructions, the better_.
+Modern compilers are incredibly advanced and implement various optimizations already, but passing compiler flags can facilitate futher or specific optimization as well.
 
-To see the output of our code, we have to add an executor.
-This can be accomplished by clicking the `Add new...` drop-down menu on the right-hand side and selecting the `Executor From This` option.
+To see the output of our code, an executor must be added.
+This is accomplished by clicking the `add new...` drop-down menu on the right-hand side and selecting the `Executor From This` option.
 
-This will return another, third column with the contents
+This will return a third column with the contents:
 
 ```bash
 Program returned: 0
