@@ -1,14 +1,21 @@
 # Introduction
 
-This document is intended as a reference for anyone beginning their journey into scientific computing. It may serve as a reference for navigating the command line and C++ guidance, including:
+This document is intended as a reference for anyone beginning their journey into scientific computing. 
+It may serve as a reference for navigating the command line and C++ guidance, including:
 - C++ basics and intermediates
-- Familiarization with POSIX system command line tools and tricks. particularly in High Performance environments and compute clusters
+- Familiarization with POSIX system command line tools and tricks, particularly for High Performance environments and compute clusters
 - Bash shell scripting
 - Project Configuration
-- Version Control with Git, including server side configuration on GitHub
+- Version Control with Git, including remote server visualization with GitHub
 
-The standard for high performance and scientific computing is C++, therefore, the primary focus of the following sections will be to provide guidance for the C++ programming language. Examples in this document will serve to as a template for configuring and setting up more complicated projects. 
-Let it be noted that the following contents are subjective and not intended to be comprehensive, reflecting personal preferences and conclusions regarding the C++ language; that C++ is a a very large and general purpose language, allowing for freedom of expression and emphasis. To this extent, little importance is placed on concepts such as inheritance, highlighting its relevance simply for applications such as "Curiously Recurring Template Parameters". Furthermore, this document will address modern C++, encompassing language constructs from 2011 and onward, and a review of the standard library..
+The standard for high performing scientific computing is C++.
+Therefore, the primary focus of the following sections will be to provide guidance for the C++ programming language. 
+Examples in this document will serve to as a template for configuring and setting up more complicated projects. 
+Let it be noted that the following content is subjective and not intended to be comprehensive.
+It reflects personal preferences and conclusions regarding the C++ language.
+That is, C++ is a a very large and general purpose language, allowing for freedom of expression and emphasis. 
+To this extent, little importance is placed on concepts such as inheritance, highlighting its relevance simply for applications such as "Curiously Recurring Template Parameters". 
+Furthermore, this document will address modern C++, encompassing language constructs from 2011 and onward, and a review of the standard library.
 
 ## Chapters and Content
 
