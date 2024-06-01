@@ -5,8 +5,7 @@
 <!--
 ```{admonition} TODO List for godbolt
 :class: warning
-- Add comment boarders that easily distinguish the different cases
-- Finish implementation of other numerical methods
+- Add a functionality that let's us avoid points: this may involve upgrading the integration information to a struct
 ```
 -->
 

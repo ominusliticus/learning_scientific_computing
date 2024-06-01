@@ -395,8 +395,7 @@ $$ (interpolant-nodes)
 
 where the $\{\xi_i\}$, $i=1,\ldots,R$ are the nodes for our quadrature scheme (for us this is Gauss-Legendre).
 
-We can multiply both sides of Eq. {eq}`fredholm-equation-2d`, by the basis $\eta_j(\vec x)$ and integrate.
-This gives us the system
+We can multiply both sides of Eq. {eq}`fredholm-equation-2d`, by the basis $\eta_j(\vec x)$ and integrate. This gives us the system
 
 \begin{align}
 \sum_{p=1}^R \sum_{i=1}^N w_p \phi_i \eta_i(\vec x_p) \eta_j(\vec x_p)

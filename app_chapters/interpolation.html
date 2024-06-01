@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>9. Interpolation &#8212; Learning Scientific Computing</title>
+    <title>10. Interpolation &#8212; Learning Scientific Computing</title>
   
   
   
@@ -69,8 +69,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'app_chapters/interpolation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10. Integral Equations" href="integral_equations.html" />
-    <link rel="prev" title="8. Linear Algebra" href="linear_algebra.html" />
+    <link rel="next" title="11. Integral Equations" href="integral_equations.html" />
+    <link rel="prev" title="9. Linear Algebra" href="linear_algebra.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,14 +182,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="app_preface.html">6. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">7. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">8. Linear Algebra</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integral_equations.html">10. Integral Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="root_finding.html">7. Root finding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">8. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">9. Linear Algebra</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integral_equations.html">11. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">11. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">12. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -338,12 +339,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-interpolation">9.1. Linear Interpolation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">9.1.1. Background</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">9.1.2. Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-interpolation">10.1. Linear Interpolation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">10.1.1. Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">10.1.2. Implementation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrange-interpolation-polynmials">9.2. Lagrange Interpolation Polynmials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrange-interpolation-polynmials">10.2. Lagrange Interpolation Polynmials</a></li>
 </ul>
             </nav>
         </div>
@@ -356,29 +357,29 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="interpolation">
-<h1><span class="section-number">9. </span>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">10. </span>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this heading">#</a></h1>
 <section id="linear-interpolation">
-<h2><span class="section-number">9.1. </span>Linear Interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>Linear Interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this heading">#</a></h2>
 <section id="background">
-<h3><span class="section-number">9.1.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h3>
 <p>Linear interpolation is a method to estimate the value of a function given a finite set of known points.
 It can also be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like <code class="docutils literal notranslate"><span class="pre">exp</span></code> function.
 A quick optimization is then to evaluate the expesnive function at a selected number of points <span class="math notranslate nohighlight">\(\{x_n\}\)</span> and store the evaluations <span class="math notranslate nohighlight">\(\{f(x_n)\}\)</span>.
 Then, for any other <span class="math notranslate nohighlight">\(x\)</span>, given <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(k+1\)</span> such that <span class="math notranslate nohighlight">\(x_k \leq x \leq x_{k+1}\)</span>, <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-simple-linear-interp">
-<span class="eqno">(9.1)<a class="headerlink" href="#equation-simple-linear-interp" title="Permalink to this equation">#</a></span>\[ 
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-simple-linear-interp" title="Permalink to this equation">#</a></span>\[ 
 f(x) = f(x_k) + \frac{f(x_{k+1}) - f(x_k)}{x_{k+1} - x_k} (x - x_k).
 \]</div>
 <p>The fraction in the second term should be interpreted as the slope between the two know points <span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(x_{k+1}\)</span>.
 The accuracy of such an interpolation scheme increases with the resolution (i.e., the number of evaluations stored).</p>
 <p>This interpolation scheme can be generalized the a vector <span class="math notranslate nohighlight">\(\mathbf F(x)\)</span> all depending a singles inputs</p>
 <div class="math notranslate nohighlight" id="equation-multi-linear-interp">
-<span class="eqno">(9.2)<a class="headerlink" href="#equation-multi-linear-interp" title="Permalink to this equation">#</a></span>\[ 
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-multi-linear-interp" title="Permalink to this equation">#</a></span>\[ 
 \mathbf F(x) = \mathbf F(x_k) + \frac{\mathbf F(x_{k+1}) - \mathbf F(x_k)}{x_{k+1} - x_k} (x - x_k).
 \]</div>
 </section>
 <section id="implementation">
-<h3><span class="section-number">9.1.2. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.2. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h3>
 <p>Credit to this implementation goes to Elias Most.
 We will now give the details for the interpolation class.
 As usual, we will define the skeleton of the class first  (all its functions and members), and implement each function individually.
@@ -650,7 +651,7 @@ Recall that since we are using templated functions, we have to provide the imple
 </section>
 </section>
 <section id="lagrange-interpolation-polynmials">
-<span id="lagrange-interpolation"></span><h2><span class="section-number">9.2. </span>Lagrange Interpolation Polynmials<a class="headerlink" href="#lagrange-interpolation-polynmials" title="Permalink to this heading">#</a></h2>
+<span id="lagrange-interpolation"></span><h2><span class="section-number">10.2. </span>Lagrange Interpolation Polynmials<a class="headerlink" href="#lagrange-interpolation-polynmials" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -690,7 +691,7 @@ Recall that since we are using templated functions, we have to provide the imple
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Linear Algebra</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Linear Algebra</p>
       </div>
     </a>
     <a class="right-next"
@@ -698,7 +699,7 @@ Recall that since we are using templated functions, we have to provide the imple
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>Integral Equations</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Integral Equations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -718,12 +719,12 @@ Recall that since we are using templated functions, we have to provide the imple
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-interpolation">9.1. Linear Interpolation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">9.1.1. Background</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">9.1.2. Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-interpolation">10.1. Linear Interpolation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background">10.1.1. Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">10.1.2. Implementation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrange-interpolation-polynmials">9.2. Lagrange Interpolation Polynmials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrange-interpolation-polynmials">10.2. Lagrange Interpolation Polynmials</a></li>
 </ul>
   </nav></div>
 

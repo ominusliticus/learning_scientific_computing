@@ -69,6 +69,7 @@ Some of these programs are inspired by programs that I had to write for research
 So the physics may be opaque, but the more important part is the program structure.
 Where necessary, I will try to ellucidate the physical settings.
 
+1. Root finding
 1. Numerical integration
 1. Linear algebra (matrix multiplication, vector addition, inner products, matrix reduction)
 1. Interpolation: linear, Delaunay, Lagrange and Hermite
