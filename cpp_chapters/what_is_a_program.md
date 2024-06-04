@@ -7,17 +7,18 @@ These executables are operating system (OS) specific, meaning that that a progra
 Futhermore, an instance of a running program or executable will called an application.
 
 There are three primary ingredients to compiling a program:
-1. The translation unit: prepocessing files, header files, and source code (this includes directives such as `#define`)
+1. The translation unit: source (.cpp) and  header(.hpp) files
 1. The dynamic and static libraries required by the linker
-1. Compiler flags to further configure the compilation process.
+1. The compiler which will assemble the machine code and link all the libraries and units
 
-Source code will refer the human readable C++ files written on a computer.
-This inclueds _.cpp_ and _.hpp_ files; although, there are various suffixes denoting file types, thses notes will focus on the first two..
+Source code is any file that can be written or changed changed on a computer, andis relevant to the application/executable.
+This is primarily source and header files; which, generally use the extension _.cpp_ and _.hpp_ respectively.
+Note, that there are other file extensions that may denote a source or header files.
 Libraries are either provided by the operating sytstem, such as `libc`, or are installed via package manager, such as `libopenblas`.
-Libraries are a product of compiled C++ code, similar to executables but cannot be run as applications.
-Static libraies are physical copies of compiled code that need to be available to the linker at compile time and will generally be denoted as _.lib_ files..
-Dynamically linked libraries forego the requirement of requiring a physical copy, and just need the library to be avaialbe on the system.
-Dynamically linked libraies, will consist of _.lib_ files and _.dll_ files, where _.lib_ expose the _symbols_ while _.dll_ expose the logic.
+Libraries are a product of compiled code, similar to executables but cannot be run as applications.
+Static libraies are physical copies of compiled code that need to be available to the linker at compile time.
+Dynamically linked libraries forego the requirement of a physical copy, and just need the library to be avaialbe on the system.
+For dynamically linked libraries, it is still necessary to compile a file, defining the symbols, alongside the executable.
 Symbols refer to functions, classes, variables, etc. defined in source and header files, while logic refers to the implementation of these symbols.
 The compiler translates _.cpp_ files into machine code, and the linker matches all the _symbols_ between _translation units_ and _libraries_.
 If all the symbols can be resolved , the executable is linked and can be run on the device.
