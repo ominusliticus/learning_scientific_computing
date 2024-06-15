@@ -7,6 +7,7 @@ It may serve as a reference for navigating the command line and C++ guidance, in
 - Bash shell scripting
 - Project Configuration
 - Version Control with Git, including remote server visualization with GitHub
+- Communication with remote  particular in complex compute clusters, an command line interfacing
 
 The standard for high performing scientific computing is C++.
 Therefore, the primary focus of the following sections will be to provide guidance for the C++ programming language. 
@@ -20,7 +21,7 @@ Furthermore, this document will address modern C++, encompassing language constr
 ## Chapters and Content
 
 The content will be divided into 4 parts:
-- C++ jargon, syntax, an idioms
+- C++ jargon, syntax, and idioms
 - Structure and documentation of multi source projects
 - Example projects and design consideration
 - Command Line, Remote Computing, bash scripting, Slurm, and Git
@@ -39,7 +40,7 @@ The content will be divided into 4 parts:
 1. std::optional and error handling
 1. More on the standard template library (STL)
 
- Topics briefly considered are:
+ Topics that will not be considered are:
 
 1. Inheritance
 1. Template metaprogamming
@@ -51,8 +52,8 @@ The content will be divided into 4 parts:
 
 1. Setting up a multi-source file project
 1. Building projects with shell scripts
-1. Building projects with Makefiles
-1. Building projects with CMake
+1. Building projects with CMake and Makefiles
+1. Building projects with Meson
 1. Other available build systems
 
 <!-- Here I really want to make sure about the importance of using lambdas when passing functors
