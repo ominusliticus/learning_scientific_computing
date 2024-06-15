@@ -18,27 +18,50 @@ Libraries are either provided by the operating sytstem, such as `libc`, or are i
 Libraries are a product of compiled code, similar to executables but cannot be run as applications.
 Static libraies are physical copies of compiled code that need to be available to the linker at compile time.
 Dynamically linked libraries forego the requirement of a physical copy, and just need the library to be avaialbe on the system.
-For dynamically linked libraries, it is still necessary to compile a file, defining the symbols, alongside the executable.
+For dynamically linked libraries, it is still necessary to nclude a file during compilation, defining the symbols, alongside the executable.
 Symbols refer to functions, classes, variables, etc. defined in source and header files, while logic refers to the implementation of these symbols.
-The compiler translates _.cpp_ files into machine code, and the linker matches all the _symbols_ between _translation units_ and _libraries_.
-If all the symbols can be resolved , the executable is linked and can be run on the device.
+The compiler translates _.cpp_ files into object files,, and the linker matches all the _symbols_ between _translation units_ and _libraries_.
+If all the symbols can be resolved, the executable is linked and can be run on the device.
 
 The standard first program for any language is a the _hello world_ program. 
 In which the string `"Hello, World!"` is written to the command line (also known as _standard out_ or _stdout_).
 In C++, this may look like:
 
+``````{tab} Pre C++20
 ```c++
 #include <iostream>
-
 int main() {
     std::cout << "Hello, World!" std::endl;
     return 0;
 }
 ```
+``````
+``````{tab} Post C++20
+```c++
+import <iostream>;
+auto main() -> int {
+    std::cout << "Hello, World!" std::endl;
+    return 0;
+}
+```
+Assuming this file is names `main.cpp`, it can be compiled using the command
+```bash
+g++ -std=c++20 -fmodels-ts -o main main.cpp -x c++-system-header iostream
+```
+``````
+``````{tab} Post C++23
+```c++
+import <print>;
+auto main() -> int {
+    std::print("Hello, World!");
+    return 0;
+}
+```
+``````
 
-Proper compiler infrastructure wiill be addressed in the next chapter.
-For this chapter t is recommended a free onlice compiler, such as [Compiler Explorer](https://godbolt.org).
-Feel free to copy to code snippet above and run it in any online compiler.
+Proper compiler infrastructure will be addressed in the next chapter.
+For this chapter t is recommended a free online compiler, such as [Compiler Explorer](https://godbolt.org).
+Feel free to copy any of the code snippets above and run them in an online compiler.
 The expected ouput of the program for [Compiler Explorer](https://godbolt.org) is as follows:
 
 ```{figure} ../images/godbolt_hello_world_1.png
