@@ -12,6 +12,10 @@ In C++, whatever isn't a variabe is probably a function.
 We will discuss the syntax of declaring, defining, overloading and templating functions.
 We will finish by writing the `Print` function that was already introduced in the last section, and will be prominantly featured throughout the rest of these notes.
 
+<!-- section: The vinalla function
+        subssection: where can you define functions
+        subsection: the int main function  
+-->
 ## The Vanilla Function
 
 ``````{margin}
@@ -85,8 +89,9 @@ Two examples would be:
 1. Redrawing the screen after the mouse has been moved or key pushed, so the screen reflects the system's new state
 1. Indicating to a mesh refiner, for adaptive mesh refinement simulation, to refine a certain grid point before moving to the next time step.
 
+### Where can you define a function
 
-<!-- subsection: the int main function  -->
+
 ### The `int main` function
 
 A special function in all C++ programs is the `int main` function.
@@ -126,6 +131,33 @@ Some facts to remember about `int main`:
 1. A multi-source project can can have exaclty one;
 1. It cannot be overload (see below); and
 1. It can only have to two signatures described above.
+
+
+
+<!-- section: function overloading -->
+## Function Overloading
+In C++, two or more functions can share the same name if and only if they have a different signature (argument list).
+This is called _function overloading_.
+Our go to example of this chapter will be the `add` function: the most basic add function is
+```c+++
+int add(int a, int b)
+{
+    return a + b;
+}
+```
+it takes to integers and returns an integer.
+However, we can also add floats, doubles, longs, long longs, long doubles etc.
+In the C programing language, these would all need to be written (or generated) explicityly.
+Morever, since C++ does not have function overloading, they would have had to be defined with a different name each.
+In C++, however, we can just write
+```c++
+int    add(int a, int b) { return a + b; }
+float  add(float x, float y) { return x + y; }
+double add(double x, double y) { return x + y; }
+// and many more 
+```
+In the next section, we will see how we can forgo the tedium of writing out all the functions explicitly and just use templates, but the real utility is that operations such as `+`, `-`, `==`, etc are implemented as functions (more specifically operators), which can be overloaded as well.
+A discussion of operator overloading will follow that of templates.
 
 <!-- 
     section: template programming
@@ -179,8 +211,37 @@ Underneath the hood, the compiler reads through the source code, and for every c
 
 ### Single template parameters
 
-
-<!-- section: function overloading -->
 <!-- section: operators-->
-<!-- section: where can you define functions -->
+## Operator overloading
+
+Every operation in C++ is expressed as function, and can, therefore, be overloaded.
+This is useful when you want to define costum behaviour for a user-defined types (discussed in the next chapter), or wish to make code more human readable.
+We tak as an example, the `add` function again
+```c++
+template<typename T>
+T add(T a, T b) { return a + b; }
+```
+This operation is defined for any type `T` that overloads/implements the `operator+` operation.
+Operator overloading only makes sense for user-defined types, which will be the subject of the next chapter.
+But for our example here, it will be enought to wet our appetite here with a very basic implementation for addition of complex numbers
+```c++
+struct complex 
+{
+    double real;
+    double imag;
+};
+
+complex operator+(const complex& left, const complex& right)
+{
+    return complex{ 
+        .real = left.real + right.real,
+        .imag = left.imag + right.imag
+    };
+}
+```
+A more in-depth discussion of this example will follow in the next chapter.
+A list of all the opeartor that can be overloaded is found [here](https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B)
+
+
 <!-- section: lambda functions -->
+## Lambda functions
