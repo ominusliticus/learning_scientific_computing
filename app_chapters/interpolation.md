@@ -1,6 +1,8 @@
-# Linear Interpolation
+# Interpolation
 
-## Background
+##  Linear Interpolation
+
+### Background
 
 Linear interpolation is a method to estimate the value of a function given a finite set of known points.
 It can also be useful when a function needs to be evaluated repeatedly, but is rather expensive to call, like `exp` function.
@@ -21,7 +23,7 @@ $$
 $$ (multi-linear-interp)
 
 
-## Implementation
+### Implementation
 
 Credit to this implementation goes to Elias Most.
 We will now give the details for the interpolation class.
@@ -309,4 +311,7 @@ An example of this code in action can be found here: [Linear Interpolation Examp
 
 </details>
 
+
+(lagrange_interpolation)=
+## Lagrange Interpolation Polynmials
 
