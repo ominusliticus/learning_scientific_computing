@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>8. Root finding &#8212; Learning Scientific Computing</title>
+    <title>9. Root finding &#8212; Learning Scientific Computing</title>
   
   
   
@@ -69,8 +69,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'app_chapters/root_finding';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Numerical Integration" href="numerical_integration.html" />
-    <link rel="prev" title="7. Preface" href="app_preface.html" />
+    <link rel="next" title="10. Numerical Integration" href="numerical_integration.html" />
+    <link rel="prev" title="8. Preface" href="app_preface.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,20 +178,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/values_and_types.html">4. Variables, Values, Types and Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/functions.html">5. Functions, Operators, Lambda Expressions, Function Overloading and Variadic Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/pointers.html">6. Pointers and references</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/pointers.html">6. Pointers, References and Values</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="app_preface.html">7. Preface</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Root finding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">9. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">10. Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interpolation.html">11. Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integral_equations.html">12. Integral Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_preface.html">8. Preface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Root finding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">10. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">11. Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolation.html">12. Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integral_equations.html">13. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">13. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">14. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -340,10 +341,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-root-finding">8.1. One-dimensional root finding</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secant-method">8.1.1. Secant method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bisection-method">8.1.2. Bisection method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brent-method">8.1.3. Brent method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-root-finding">9.1. One-dimensional root finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secant-method">9.1.1. Secant method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bisection-method">9.1.2. Bisection method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brent-method">9.1.3. Brent method</a></li>
 </ul>
 </li>
 </ul>
@@ -358,9 +359,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="root-finding">
-<h1><span class="section-number">8. </span>Root finding<a class="headerlink" href="#root-finding" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">9. </span>Root finding<a class="headerlink" href="#root-finding" title="Permalink to this heading">#</a></h1>
 <section id="one-dimensional-root-finding">
-<h2><span class="section-number">8.1. </span>One-dimensional root finding<a class="headerlink" href="#one-dimensional-root-finding" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>One-dimensional root finding<a class="headerlink" href="#one-dimensional-root-finding" title="Permalink to this heading">#</a></h2>
 <p>Often times in computational settings, we wish to find the roots of a system.
 Some simple examples are find the roots of a denominator, to see where poles arise, and avoid them during your numerical integation scheme.
 The two most common root finding algorithms are <em>Newton’s Method</em> and <em>bisection method</em>.
@@ -368,7 +369,7 @@ The former has a more numerically stable counter part, calle the <em>secant meth
 More optimized formulas exist for root finding, with very specific use cases.
 However, for this chaper, we will focus on the secant, bisection and Brent methods.</p>
 <section id="secant-method">
-<h3><span class="section-number">8.1.1. </span>Secant method<a class="headerlink" href="#secant-method" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.1.1. </span>Secant method<a class="headerlink" href="#secant-method" title="Permalink to this heading">#</a></h3>
 <p>Given a function <span class="math notranslate nohighlight">\(f(x)\)</span>, and an initial guesses <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> for the location of the root <span class="math notranslate nohighlight">\(x_\ast\)</span>, the secant method iterates the formula</p>
 <div class="math notranslate nohighlight">
 \[
@@ -404,7 +405,7 @@ x_n = x_{n - 1} - f(x_{n-1})\frac{x_{n - 1} - x_{n - 2}}{f(x_{n - 1}) - f(x_{n -
 That’s it!</p>
 </section>
 <section id="bisection-method">
-<h3><span class="section-number">8.1.2. </span>Bisection method<a class="headerlink" href="#bisection-method" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.1.2. </span>Bisection method<a class="headerlink" href="#bisection-method" title="Permalink to this heading">#</a></h3>
 <p>As the name suggests, this method finds the root by systematically splitting an interval into two, and continuing the search in one of those intervals.
 Let <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> be the end points of the interval, such that <span class="math notranslate nohighlight">\(a &lt; b\)</span>, and <span class="math notranslate nohighlight">\(f(x)\)</span> be the function, whose roots we are locating.
 If <span class="math notranslate nohighlight">\(f(a) f(b) &gt; 0\)</span>, we can conclude tha there is no sign change for <span class="math notranslate nohighlight">\(f(x)\)</span>, and consequently (though not strictly true), there is no root.
@@ -439,7 +440,7 @@ Written in code, the bisection method can be implemented as</p>
 </div>
 </section>
 <section id="brent-method">
-<h3><span class="section-number">8.1.3. </span>Brent method<a class="headerlink" href="#brent-method" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">9.1.3. </span>Brent method<a class="headerlink" href="#brent-method" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -480,7 +481,7 @@ Written in code, the bisection method can be implemented as</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Preface</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Preface</p>
       </div>
     </a>
     <a class="right-next"
@@ -488,7 +489,7 @@ Written in code, the bisection method can be implemented as</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Numerical Integration</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Numerical Integration</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -508,10 +509,10 @@ Written in code, the bisection method can be implemented as</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-root-finding">8.1. One-dimensional root finding</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secant-method">8.1.1. Secant method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bisection-method">8.1.2. Bisection method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brent-method">8.1.3. Brent method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-root-finding">9.1. One-dimensional root finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#secant-method">9.1.1. Secant method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bisection-method">9.1.2. Bisection method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brent-method">9.1.3. Brent method</a></li>
 </ul>
 </li>
 </ul>

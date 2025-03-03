@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>6. Pointers and references &#8212; Learning Scientific Computing</title>
+    <title>6. Pointers, References and Values &#8212; Learning Scientific Computing</title>
   
   
   
@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'cpp_chapters/pointers';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Preface" href="../app_chapters/app_preface.html" />
+    <link rel="next" title="8. Preface" href="../app_chapters/app_preface.html" />
     <link rel="prev" title="5. Functions, Operators, Lambda Expressions, Function Overloading and Variadic Templates" href="functions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,20 +176,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="values_and_types.html">4. Variables, Values, Types and Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">5. Functions, Operators, Lambda Expressions, Function Overloading and Variadic Templates</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Pointers and references</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Pointers, References and Values</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/app_preface.html">7. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/root_finding.html">8. Root finding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/numerical_integration.html">9. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/linear_algebra.html">10. Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/interpolation.html">11. Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/integral_equations.html">12. Integral Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/app_preface.html">8. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/root_finding.html">9. Root finding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/numerical_integration.html">10. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/linear_algebra.html">11. Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/interpolation.html">12. Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/integral_equations.html">13. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">13. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">14. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -315,7 +316,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -326,11 +329,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pointers and references</h1>
+    <h1>Pointers, References and Values</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">6. Pointers, References and Values</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pointers-and-references">7. Pointers and references</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -340,8 +353,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pointers-and-references">
-<h1><span class="section-number">6. </span>Pointers and references<a class="headerlink" href="#pointers-and-references" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="pointers-references-and-values">
+<h1><span class="section-number">6. </span>Pointers, References and Values<a class="headerlink" href="#pointers-references-and-values" title="Permalink to this heading">#</a></h1>
+<p>Some <a class="reference external" href="https://godbolt.org/z/GW7eMKT1E">text</a> that I have written so far</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pointers-and-references">
+<h1><span class="section-number">7. </span>Pointers and references<a class="headerlink" href="#pointers-and-references" title="Permalink to this heading">#</a></h1>
 <p><a class="reference external" href="https://godbolt.org/z/bGaj169TE">Some early notes</a></p>
 </section>
 
@@ -389,7 +406,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Preface</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Preface</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -400,7 +417,22 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">6. Pointers, References and Values</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pointers-and-references">7. Pointers and references</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

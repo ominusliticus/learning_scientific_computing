@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'cpp_chapters/functions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Pointers and references" href="pointers.html" />
+    <link rel="next" title="6. Pointers, References and Values" href="pointers.html" />
     <link rel="prev" title="4. Variables, Values, Types and Templates" href="values_and_types.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,20 +176,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="values_and_types.html">4. Variables, Values, Types and Templates</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Functions, Operators, Lambda Expressions, Function Overloading and Variadic Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pointers.html">6. Pointers and references</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pointers.html">6. Pointers, References and Values</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/app_preface.html">7. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/root_finding.html">8. Root finding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/numerical_integration.html">9. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/linear_algebra.html">10. Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/interpolation.html">11. Interpolation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_chapters/integral_equations.html">12. Integral Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/app_preface.html">8. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/root_finding.html">9. Root finding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/numerical_integration.html">10. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/linear_algebra.html">11. Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/interpolation.html">12. Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_chapters/integral_equations.html">13. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">13. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">14. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -339,16 +340,20 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-can-you-define-a-function">5.1.1. Where can you define a function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.2. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.2.1. Single template parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.2.2. Multiple templates parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.2.3. Variadic template parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.2.4. Template template parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-overloading">5.2. Function Overloading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.3. Templated functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.3.1. Single template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.3.2. Multiple templates parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.3.3. Variadic template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.3.4. Template template parameters</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-overloading">5.4. Operator overloading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">5.5. Lambda functions</a></li>
 </ul>
             </nav>
         </div>
@@ -372,6 +377,10 @@ But enough of a diagression.</p>
 In C++, whatever isn’t a variabe is probably a function.
 We will discuss the syntax of declaring, defining, overloading and templating functions.
 We will finish by writing the <code class="docutils literal notranslate"><span class="pre">Print</span></code> function that was already introduced in the last section, and will be prominantly featured throughout the rest of these notes.</p>
+<!-- section: The vinalla function
+        subssection: where can you define functions
+        subsection: the int main function  
+-->
 <section id="the-vanilla-function">
 <h2><span class="section-number">5.1. </span>The Vanilla Function<a class="headerlink" href="#the-vanilla-function" title="Permalink to this heading">#</a></h2>
 <aside class="margin sidebar">
@@ -445,9 +454,11 @@ Two examples would be:</p>
 <li><p>Redrawing the screen after the mouse has been moved or key pushed, so the screen reflects the system’s new state</p></li>
 <li><p>Indicating to a mesh refiner, for adaptive mesh refinement simulation, to refine a certain grid point before moving to the next time step.</p></li>
 </ol>
-<!-- subsection: the int main function  -->
+<section id="where-can-you-define-a-function">
+<h3><span class="section-number">5.1.1. </span>Where can you define a function<a class="headerlink" href="#where-can-you-define-a-function" title="Permalink to this heading">#</a></h3>
+</section>
 <section id="the-int-main-function">
-<h3><span class="section-number">5.1.1. </span>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function<a class="headerlink" href="#the-int-main-function" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.2. </span>The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function<a class="headerlink" href="#the-int-main-function" title="Permalink to this heading">#</a></h3>
 <p>A special function in all C++ programs is the <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function.
 Every program needs exactly one for the program to be compiled.
 Should the compiler not find this <em>symbol</em>, then it will complain and fail.</p>
@@ -486,6 +497,33 @@ Non-zero return values, which we will refer to as <em>exit codes</em> typically 
 <li><p>It cannot be overload (see below); and</p></li>
 <li><p>It can only have to two signatures described above.</p></li>
 </ol>
+<!-- section: function overloading -->
+</section>
+</section>
+<section id="function-overloading">
+<h2><span class="section-number">5.2. </span>Function Overloading<a class="headerlink" href="#function-overloading" title="Permalink to this heading">#</a></h2>
+<p>In C++, two or more functions can share the same name if and only if they have a different signature (argument list).
+This is called <em>function overloading</em>.
+Our go to example of this chapter will be the <code class="docutils literal notranslate"><span class="pre">add</span></code> function: the most basic add function is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>it takes to integers and returns an integer.
+However, we can also add floats, doubles, longs, long longs, long doubles etc.
+In the C programing language, these would all need to be written (or generated) explicityly.
+Morever, since C++ does not have function overloading, they would have had to be defined with a different name each.
+In C++, however, we can just write</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w">    </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">float</span><span class="w">  </span><span class="nf">add</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="c1">// and many more </span>
+</pre></div>
+</div>
+<p>In the next section, we will see how we can forgo the tedium of writing out all the functions explicitly and just use templates, but the real utility is that operations such as <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, etc are implemented as functions (more specifically operators), which can be overloaded as well.
+A discussion of operator overloading will follow that of templates.</p>
 <!-- 
     section: template programming
         subsection: multiple template parameters
@@ -494,9 +532,8 @@ Non-zero return values, which we will refer to as <em>exit codes</em> typically 
         subsection: C++-style casting
 -->
 </section>
-</section>
 <section id="templated-functions">
-<h2><span class="section-number">5.2. </span>Templated functions<a class="headerlink" href="#templated-functions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>Templated functions<a class="headerlink" href="#templated-functions" title="Permalink to this heading">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -540,7 +577,7 @@ can be converted into each other).</p>
 </div>
 <p>Underneath the hood, the compiler reads through the source code, and for every call the templated function, tries to generate a version of <code class="docutils literal notranslate"><span class="pre">add</span></code> with the types specified.</p>
 <section id="single-template-parameters">
-<h3><span class="section-number">5.2.1. </span>Single template parameters<a class="headerlink" href="#single-template-parameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>Single template parameters<a class="headerlink" href="#single-template-parameters" title="Permalink to this heading">#</a></h3>
 <p>The simplest type of templated function is the <em>single template parameter function</em>.
 For an example see the definition for the <code class="docutils literal notranslate"><span class="pre">add</span></code> function above.
 Note that in calling the function, we do not need to use any syntax to indicate what the need type of the template is.
@@ -578,7 +615,7 @@ We can equally replace <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="multiple-templates-parameters">
-<h3><span class="section-number">5.2.2. </span>Multiple templates parameters<a class="headerlink" href="#multiple-templates-parameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.2. </span>Multiple templates parameters<a class="headerlink" href="#multiple-templates-parameters" title="Permalink to this heading">#</a></h3>
 <p>You can provide multiple template parameters, by separating the the <code class="docutils literal notranslate"><span class="pre">typename</span></code> declarations with commas.
 A quick example might be printing the key and a value in a dictionary</p>
 <aside class="margin sidebar">
@@ -636,13 +673,12 @@ We can equally replace <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="variadic-template-parameters">
-<h3><span class="section-number">5.2.3. </span>Variadic template parameters<a class="headerlink" href="#variadic-template-parameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.3. </span>Variadic template parameters<a class="headerlink" href="#variadic-template-parameters" title="Permalink to this heading">#</a></h3>
 <p>A very useful, and very powerful use of template programming are the <em>variadic templates</em>.
 This, in short, means, functions with a <em>variable</em> number of template arguments.
 A pair of convience functions that we will use time and time again in our examples are our <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> function.
 Its definitions looks like this</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-
 <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
 <span class="p">{</span>
@@ -680,7 +716,7 @@ There is no immediate use-case that comes to mind for me, but you can feel free 
 The important part is that the first parameter pack has to declared in the function call using chevrons, and the second is deduced from the arguments passed to the function.</p>
 </section>
 <section id="template-template-parameters">
-<h3><span class="section-number">5.2.4. </span>Template template parameters<a class="headerlink" href="#template-template-parameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.4. </span>Template template parameters<a class="headerlink" href="#template-template-parameters" title="Permalink to this heading">#</a></h3>
 <p>Another variable powerful form of template programming is <em>template template functions</em>.
 These will be particularly useful after our next chapter where you will learn about classes and structures.
 For the sake of our demonstration, assume you have a container that stores some unkonwn number of arbitrary type <code class="docutils literal notranslate"><span class="pre">T</span></code> or that you have an array of <code class="docutils literal notranslate"><span class="pre">N</span></code> things of type <code class="docutils literal notranslate"><span class="pre">T</span></code>.
@@ -708,9 +744,41 @@ In practice, the array declaration may look like <code class="docutils literal n
 <!--- section: template specialization -->
 <!-- section: function overloading -->
 <!-- section: operators-->
-<!-- section: where can you define functions -->
+</section>
+</section>
+<section id="operator-overloading">
+<h2><span class="section-number">5.4. </span>Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this heading">#</a></h2>
+<p>Every operation in C++ is expressed as function, and can, therefore, be overloaded.
+This is useful when you want to define costum behaviour for a user-defined types (discussed in the next chapter), or wish to make code more human readable.
+We tak as an example, the <code class="docutils literal notranslate"><span class="pre">add</span></code> function again</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This operation is defined for any type <code class="docutils literal notranslate"><span class="pre">T</span></code> that overloads/implements the <code class="docutils literal notranslate"><span class="pre">operator+</span></code> operation.
+Operator overloading only makes sense for user-defined types, which will be the subject of the next chapter.
+But for our example here, it will be enought to wet our appetite here with a very basic implementation for addition of complex numbers</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">complex</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">real</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">imag</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">complex</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">complex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">complex</span><span class="o">&amp;</span><span class="w"> </span><span class="n">right</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">complex</span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="p">.</span><span class="n">real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">.</span><span class="n">real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">.</span><span class="n">real</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">.</span><span class="n">imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">.</span><span class="n">imag</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A more in-depth discussion of this example will follow in the next chapter.
+A list of all the opeartor that can be overloaded is found <a class="reference external" href="https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B">here</a></p>
 <!-- section: lambda functions -->
 </section>
+<section id="lambda-functions">
+<h2><span class="section-number">5.5. </span>Lambda functions<a class="headerlink" href="#lambda-functions" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -758,7 +826,7 @@ In practice, the array declaration may look like <code class="docutils literal n
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Pointers and references</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Pointers, References and Values</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -779,16 +847,20 @@ In practice, the array declaration may look like <code class="docutils literal n
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-vanilla-function">5.1. The Vanilla Function</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.1. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-can-you-define-a-function">5.1.1. Where can you define a function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-int-main-function">5.1.2. The <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main</span></code> function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.2. Templated functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.2.1. Single template parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.2.2. Multiple templates parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.2.3. Variadic template parameters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.2.4. Template template parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-overloading">5.2. Function Overloading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#templated-functions">5.3. Templated functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-template-parameters">5.3.1. Single template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-templates-parameters">5.3.2. Multiple templates parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variadic-template-parameters">5.3.3. Variadic template parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#template-template-parameters">5.3.4. Template template parameters</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-overloading">5.4. Operator overloading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">5.5. Lambda functions</a></li>
 </ul>
   </nav></div>
 

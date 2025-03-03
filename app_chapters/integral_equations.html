@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>12. Integral Equations &#8212; Learning Scientific Computing</title>
+    <title>13. Integral Equations &#8212; Learning Scientific Computing</title>
   
   
   
@@ -69,8 +69,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'app_chapters/integral_equations';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13. Connecting to remote servers" href="../hpc_chapters/ssh.html" />
-    <link rel="prev" title="11. Interpolation" href="interpolation.html" />
+    <link rel="next" title="14. Connecting to remote servers" href="../hpc_chapters/ssh.html" />
+    <link rel="prev" title="12. Interpolation" href="interpolation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,20 +178,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/compilation_and_debugging.html">3. Compilation, Debugging and Debuggers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/values_and_types.html">4. Variables, Values, Types and Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/functions.html">5. Functions, Operators, Lambda Expressions, Function Overloading and Variadic Templates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/pointers.html">6. Pointers and references</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_chapters/pointers.html">6. Pointers, References and Values</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">C++ Example Projects</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="app_preface.html">7. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="root_finding.html">8. Root finding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">9. Numerical Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">10. Linear Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interpolation.html">11. Interpolation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Integral Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_preface.html">8. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="root_finding.html">9. Root finding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical_integration.html">10. Numerical Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_algebra.html">11. Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolation.html">12. Interpolation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Integral Equations</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">High Preformance Computing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">13. Connecting to remote servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hpc_chapters/ssh.html">14. Connecting to remote servers</a></li>
 </ul>
 
     </div>
@@ -340,19 +341,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-one-dimensional-case">12.1. The one-dimensional case</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simple-discretization">12.1.1. The simple discretization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-quadrature">12.1.2. Using quadrature</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">12.1.3. Comparison with analytic solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-one-dimensional-case">13.1. The one-dimensional case</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simple-discretization">13.1.1. The simple discretization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-quadrature">13.1.2. Using quadrature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">13.1.3. Comparison with analytic solution</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">12.2. The two-dimensional case</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-quadrature-the-nystrom-method">12.2.1. Evaluation via quadrature: the Nyström method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-galerkin-methods">12.2.2. Evaluation via Galerkin methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-2-d-poisson-equation">12.2.3. Application: 2-d Poisson Equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">13.2. The two-dimensional case</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-quadrature-the-nystrom-method">13.2.1. Evaluation via quadrature: the Nyström method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-galerkin-methods">13.2.2. Evaluation via Galerkin methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-2-d-poisson-equation">13.2.3. Application: 2-d Poisson Equation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">12.3. Bibliography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">13.3. Bibliography</a></li>
 </ul>
             </nav>
         </div>
@@ -365,7 +366,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="integral-equations">
-<h1><span class="section-number">12. </span>Integral Equations<a class="headerlink" href="#integral-equations" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">13. </span>Integral Equations<a class="headerlink" href="#integral-equations" title="Permalink to this heading">#</a></h1>
 <p>In this chapter, we will discuss Fredholm integral equations of the second kind.
 These lend themselves well to iterative methods without a need to descretize your integration domain.
 Solutions obtained by such an iterative method go by the name of <em>Liouville-Neumann series</em>.
@@ -373,10 +374,10 @@ We will start with a one-dimensional example comparing two discretization method
 Then, we will introduce terminology and formalsm that should let you tackle <span class="math notranslate nohighlight">\(d\)</span>-dimensional integral equations.
 Solving coupled Fredholm integral equations of the second kind will follow a similar logic.</p>
 <section id="the-one-dimensional-case">
-<h2><span class="section-number">12.1. </span>The one-dimensional case<a class="headerlink" href="#the-one-dimensional-case" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">13.1. </span>The one-dimensional case<a class="headerlink" href="#the-one-dimensional-case" title="Permalink to this heading">#</a></h2>
 <p>Our Fredholm integral equation takes the form</p>
 <div class="math notranslate nohighlight" id="equation-1-d-fredholm">
-<span class="eqno">(12.1)<a class="headerlink" href="#equation-1-d-fredholm" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.1)<a class="headerlink" href="#equation-1-d-fredholm" title="Permalink to this equation">#</a></span>\[
 \phi(x)= f(x) + \lambda \int_a^b K(x, y) \phi(y) dy,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi(x)\)</span> is the function we are looking for and <span class="math notranslate nohighlight">\(K(x, y)\)</span> is called the <em>kernel</em>.
@@ -388,28 +389,28 @@ If the the integral equation is linear (<span class="math notranslate nohighligh
 <p>As an example, we will solve the separable integral equation with <span class="math notranslate nohighlight">\(K(x,y)= xy\)</span> and <span class="math notranslate nohighlight">\(f(x) = x\)</span>.
 This integral equation has the solution</p>
 <div class="math notranslate nohighlight" id="equation-exact-soln-1d">
-<span class="eqno">(12.2)<a class="headerlink" href="#equation-exact-soln-1d" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.2)<a class="headerlink" href="#equation-exact-soln-1d" title="Permalink to this equation">#</a></span>\[
 \phi(x) = \frac{3x}{3 -\lambda}.
 \]</div>
 <p>From the solution, we can tell that the radius of convergence is 3.</p>
 <p>The Liouville-Neumann series is very simple: it says the solution is given by</p>
 <div class="math notranslate nohighlight" id="equation-liouville-neumann-1d">
-<span class="eqno">(12.3)<a class="headerlink" href="#equation-liouville-neumann-1d" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.3)<a class="headerlink" href="#equation-liouville-neumann-1d" title="Permalink to this equation">#</a></span>\[
 \phi(x) = \sum_{n=0}^\infty \lambda^n u_n(x),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(u_n(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-liouvill-neumann-1d-summand">
-<span class="eqno">(12.4)<a class="headerlink" href="#equation-liouvill-neumann-1d-summand" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.4)<a class="headerlink" href="#equation-liouvill-neumann-1d-summand" title="Permalink to this equation">#</a></span>\[
 u_n(x) = \int_a^b \cdots \int_a^b K(x, y_n) \cdots K(x, y_1) f(y_1) dy_1 \cdots dy_n,
 \]</div>
 <p>and <span class="math notranslate nohighlight">\(u_0(x) = f(x)\)</span>.</p>
 <section id="the-simple-discretization">
-<h3><span class="section-number">12.1.1. </span>The simple discretization<a class="headerlink" href="#the-simple-discretization" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.1.1. </span>The simple discretization<a class="headerlink" href="#the-simple-discretization" title="Permalink to this heading">#</a></h3>
 <p>A simple discretization of integration domain amounts to splitting the interval <span class="math notranslate nohighlight">\([a,b]\)</span> up into <span class="math notranslate nohighlight">\(N\)</span> even chunks.
 The first iteration is simple <span class="math notranslate nohighlight">\(u_0(x_i) = f(x_i)\)</span>, for <span class="math notranslate nohighlight">\(i={1,\ldots,N}\)</span>.
 Each subsequent update uses Riemann sums to evaluate the integral</p>
 <div class="math notranslate nohighlight" id="equation-liouville-neumann-1d-summand-riemann">
-<span class="eqno">(12.5)<a class="headerlink" href="#equation-liouville-neumann-1d-summand-riemann" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.5)<a class="headerlink" href="#equation-liouville-neumann-1d-summand-riemann" title="Permalink to this equation">#</a></span>\[
 u_n(x_i) = \sum_{j=1}^N K(x_i, y_j) u_{n-1}(y_j) \Delta y.
 \]</div>
 <p>This solution improves in accuracy with the larger number of subdivisions <span class="math notranslate nohighlight">\(N\)</span>.
@@ -498,14 +499,14 @@ This is, in our opinion, much cleaner.</p>
 <p>Further below, we will preform a comparison with the analytic result.o</p>
 </section>
 <section id="using-quadrature">
-<h3><span class="section-number">12.1.2. </span>Using quadrature<a class="headerlink" href="#using-quadrature" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.1.2. </span>Using quadrature<a class="headerlink" href="#using-quadrature" title="Permalink to this heading">#</a></h3>
 <p>This implementation is not too different, in fact, a lot of the code can be reused.
 We use Gauss-Legendre roots <span class="math notranslate nohighlight">\(\{\xi_i\}\)</span> and weights <span class="math notranslate nohighlight">\(\{w_i\}\)</span>.
 The roots <span class="math notranslate nohighlight">\(\{\xi_i\}\)</span>, <span class="math notranslate nohighlight">\(i=1,\ldots,N\)</span>, to represents the evaluation points in an interval <span class="math notranslate nohighlight">\([-1,1]\)</span>.
 The points in the interval <span class="math notranslate nohighlight">\([a,b]\)</span> are then <span class="math notranslate nohighlight">\(x_i = \frac{1}{2}[(a - b) \xi_i + (a + b)]\)</span>.
 The first iteration is initialzed as be before, however, the subsequent updates now become</p>
 <div class="math notranslate nohighlight" id="equation-liouville-neumann-1d-summand-quadrature">
-<span class="eqno">(12.6)<a class="headerlink" href="#equation-liouville-neumann-1d-summand-quadrature" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.6)<a class="headerlink" href="#equation-liouville-neumann-1d-summand-quadrature" title="Permalink to this equation">#</a></span>\[
 u_n(x_i) = \frac{b - a}{2}\sum_{j=1}^N w_jK(x_i, y_j) u_{n-1}(y_j)
 \]</div>
 <p>to calculate the roots, given the integer <span class="math notranslate nohighlight">\(N\)</span>, we use the <code class="docutils literal notranslate"><span class="pre">get_root_and_wweights</span></code> function
@@ -569,7 +570,7 @@ The factor of <span class="math notranslate nohighlight">\((b - a)/2\)</span> ar
 </div>
 </section>
 <section id="comparison-with-analytic-solution">
-<h3><span class="section-number">12.1.3. </span>Comparison with analytic solution<a class="headerlink" href="#comparison-with-analytic-solution" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.1.3. </span>Comparison with analytic solution<a class="headerlink" href="#comparison-with-analytic-solution" title="Permalink to this heading">#</a></h3>
 <p>Below we compare the analytic solution and the numerical ones described above in the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>.
 We also compare the preformance for difference values of <span class="math notranslate nohighlight">\(\lambda\)</span>.
 As the table shows, the quadrature converges to the analytic solution nicely, while the simple discretization needs <em>A LOT</em> of subdivision to get close.</p>
@@ -670,10 +671,10 @@ As the table shows, the quadrature converges to the analytic solution nicely, wh
 </section>
 </section>
 <section id="the-two-dimensional-case">
-<h2><span class="section-number">12.2. </span>The two-dimensional case<a class="headerlink" href="#the-two-dimensional-case" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">13.2. </span>The two-dimensional case<a class="headerlink" href="#the-two-dimensional-case" title="Permalink to this heading">#</a></h2>
 <p>In two dimensions, we will write the Fredholm integral equation as</p>
 <div class="math notranslate nohighlight" id="equation-fredholm-equation-2d">
-<span class="eqno">(12.7)<a class="headerlink" href="#equation-fredholm-equation-2d" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.7)<a class="headerlink" href="#equation-fredholm-equation-2d" title="Permalink to this equation">#</a></span>\[
 \phi(\vec x) = f(\vec x) + \lambda \int_\Omega K(\vec x, \vec y) \phi(\vec x) d^2 y.
 \]</div>
 <p>Here <span class="math notranslate nohighlight">\(\Omega\)</span> denotes the integration domain, which we leave unspecified.
@@ -681,23 +682,23 @@ As a practive problem, we will solve a Poisson equation by recasting it as a <em
 The details will be left to that subsection.</p>
 <p>As before, we construct our solution iteratively,</p>
 <div class="math notranslate nohighlight" id="equation-liouville-neumann-2d">
-<span class="eqno">(12.8)<a class="headerlink" href="#equation-liouville-neumann-2d" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.8)<a class="headerlink" href="#equation-liouville-neumann-2d" title="Permalink to this equation">#</a></span>\[
 \phi(\vec x) = \sum_{n=0}^\infty \lambda^n u_n(\vec x),
 \]</div>
 <p>with <span class="math notranslate nohighlight">\(u_n(\vec x)\)</span> defined as</p>
 <div class="math notranslate nohighlight" id="equation-liouville-neumann-2d-summand">
-<span class="eqno">(12.9)<a class="headerlink" href="#equation-liouville-neumann-2d-summand" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.9)<a class="headerlink" href="#equation-liouville-neumann-2d-summand" title="Permalink to this equation">#</a></span>\[
 u_n(\vec x) = \int_\Omega K(\vec x, \vec y) u_{n - 1}(\vec y) d^2 y,
 \]</div>
 <p>and <span class="math notranslate nohighlight">\(u_0(\vec x) = f(\vec x)\)</span>.</p>
 <section id="evaluation-via-quadrature-the-nystrom-method">
-<h3><span class="section-number">12.2.1. </span>Evaluation via quadrature: the Nyström method<a class="headerlink" href="#evaluation-via-quadrature-the-nystrom-method" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.2.1. </span>Evaluation via quadrature: the Nyström method<a class="headerlink" href="#evaluation-via-quadrature-the-nystrom-method" title="Permalink to this heading">#</a></h3>
 <p>We jump straight to quadrature, as Riemann sums are far too inefficient for numerical evaluation.
 We can choose the number of roots sufficient large, se <span class="math notranslate nohighlight">\(N=40\)</span>, to populate our domain adequately.
 Note, in our example calculations we use Gauss-Legendre quadrature, however, Gauss-Lebatto-Legendre quadrature is used more commonly as it includes evaluation of the end points.</p>
-<p>The two dimensional analog, assuming a rectanular integration domain, of Eq. <a class="reference internal" href="#equation-liouville-neumann-1d-summand-quadrature">(12.6)</a> is</p>
+<p>The two dimensional analog, assuming a rectanular integration domain, of Eq. <a class="reference internal" href="#equation-liouville-neumann-1d-summand-quadrature">(13.6)</a> is</p>
 <div class="math notranslate nohighlight" id="equation-liouvill-neumann-2d-summand-quadrature">
-<span class="eqno">(12.10)<a class="headerlink" href="#equation-liouvill-neumann-2d-summand-quadrature" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.10)<a class="headerlink" href="#equation-liouvill-neumann-2d-summand-quadrature" title="Permalink to this equation">#</a></span>\[
 u_n(x_{1i}, x_{2j}) = \frac{b_2 - a_2}{2}\frac{b_1 - a_1}{2}\sum_{m=1}^N \sum_{n=1}^N w_m w_n K(x_{1i}, x_{2j}, y_{1m}, y_{2n}) u_{n-1}(y_{1m}, y_{2n}).
 \]</div>
 <p>where we have choosen to write out the components of the vectors <span class="math notranslate nohighlight">\(\vec x = (x_1\ \ x_2)^\mathsf{T}\)</span> and <span class="math notranslate nohighlight">\(\vec y = (y_1\ \ y_2)^\mathsf{T}\)</span>.
@@ -707,7 +708,7 @@ The code implementation is</p>
 </div>
 </section>
 <section id="evaluation-via-galerkin-methods">
-<h3><span class="section-number">12.2.2. </span>Evaluation via Galerkin methods<a class="headerlink" href="#evaluation-via-galerkin-methods" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.2.2. </span>Evaluation via Galerkin methods<a class="headerlink" href="#evaluation-via-galerkin-methods" title="Permalink to this heading">#</a></h3>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>Much of this discussion is taken from <span id="id1">[<a class="reference internal" href="#id3" title="Kendall E. Atkinson and A. Bogomolny. The discrete galerkin method for integral equations. Mathematics of Computation, 48:595-616, 1987. URL: https://api.semanticscholar.org/CorpusID:42097770.">AB87</a>]</span>.</p>
@@ -716,7 +717,7 @@ The code implementation is</p>
 At the core of the methods are two discretizations: (1) discretization of the integration domain <span class="math notranslate nohighlight">\(\Omega to \Omega_h\)</span>, and (2) a <em>discretization</em> of the unknown function.
 The ladder means that we choose to represent our unknown function <span class="math notranslate nohighlight">\(\phi(\vec x)\)</span> with unknown coefficients <span class="math notranslate nohighlight">\(\phi_i\)</span> and known orthogonal basis functions <span class="math notranslate nohighlight">\(\eta_i(\vec x)\)</span> for <span class="math notranslate nohighlight">\(\Omega_h\)</span></p>
 <div class="math notranslate nohighlight" id="equation-phi-discretization">
-<span class="eqno">(12.11)<a class="headerlink" href="#equation-phi-discretization" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.11)<a class="headerlink" href="#equation-phi-discretization" title="Permalink to this equation">#</a></span>\[
 \phi(\vec x) = \sum_{i=1}^N \phi_i \eta_i(\vec x).
 \]</div>
 <p>A common choice for the basis functions in <em>finitie element analysis</em> are <a class="reference external" href="https://en.wikipedia.org/wiki/Triangular_function">hat functions</a>.
@@ -724,13 +725,13 @@ In our application below, we will assume that the basis is represented by Lagran
 <p>The integrals are evaluated via quadrature.
 We introduce the notation</p>
 <div class="math notranslate nohighlight" id="equation-interpolant-nodes">
-<span class="eqno">(12.12)<a class="headerlink" href="#equation-interpolant-nodes" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.12)<a class="headerlink" href="#equation-interpolant-nodes" title="Permalink to this equation">#</a></span>\[
 \vec x_p = \frac{1}{2}[(\vec b - \vec a) \xi_p + (\vec b + \vec a)],
 \]</div>
 <p>where the <span class="math notranslate nohighlight">\(\{\xi_i\}\)</span>, <span class="math notranslate nohighlight">\(i=1,\ldots,R\)</span> are the nodes for our quadrature scheme (for us this is Gauss-Legendre).</p>
-<p>We can multiply both sides of Eq. <a class="reference internal" href="#equation-fredholm-equation-2d">(12.7)</a>, by the basis <span class="math notranslate nohighlight">\(\eta_j(\vec x)\)</span> and integrate. This gives us the system</p>
-<div class="amsmath math notranslate nohighlight" id="equation-34d81c95-bce4-4b9b-9fe7-1174c9d19d01">
-<span class="eqno">(12.13)<a class="headerlink" href="#equation-34d81c95-bce4-4b9b-9fe7-1174c9d19d01" title="Permalink to this equation">#</a></span>\[\begin{align}
+<p>We can multiply both sides of Eq. <a class="reference internal" href="#equation-fredholm-equation-2d">(13.7)</a>, by the basis <span class="math notranslate nohighlight">\(\eta_j(\vec x)\)</span> and integrate. This gives us the system</p>
+<div class="amsmath math notranslate nohighlight" id="equation-39278c32-54a1-476b-bf07-baa3bcafdfc0">
+<span class="eqno">(13.13)<a class="headerlink" href="#equation-39278c32-54a1-476b-bf07-baa3bcafdfc0" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sum_{p=1}^R \sum_{i=1}^N w_p \phi_i \eta_i(\vec x_p) \eta_j(\vec x_p)
 &amp;=
 \sum_{p=1}^R w_p f(\vec x_p) \eta_j(\vec x_p)
@@ -752,7 +753,7 @@ f_p = f(\vec x_p),
 \]</div>
 <p>Then this system is written succinctly as</p>
 <div class="math notranslate nohighlight" id="equation-fredholm-equation-galerkin-matrix-form">
-<span class="eqno">(12.14)<a class="headerlink" href="#equation-fredholm-equation-galerkin-matrix-form" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(13.14)<a class="headerlink" href="#equation-fredholm-equation-galerkin-matrix-form" title="Permalink to this equation">#</a></span>\[\begin{split}
 \mathsf H \mathsf W \mathsf H^\mathsf{T} \vec \phi
 &amp; =
 \mathsf H \mathsf W \vec f
@@ -767,18 +768,18 @@ f_p = f(\vec x_p),
 \end{split}\]</div>
 <p>The system is solved as</p>
 <div class="math notranslate nohighlight" id="equation-fredholm-equation-galerkin-matrix-soln">
-<span class="eqno">(12.15)<a class="headerlink" href="#equation-fredholm-equation-galerkin-matrix-soln" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(13.15)<a class="headerlink" href="#equation-fredholm-equation-galerkin-matrix-soln" title="Permalink to this equation">#</a></span>\[
 \vec \phi 
 =
 (\mathsf H^\mathsf{T} - \lambda \mathsf K \mathsf W \mathsf H^\mathsf{T})^{-1} \vec f.
 \]</div>
 </section>
 <section id="application-2-d-poisson-equation">
-<h3><span class="section-number">12.2.3. </span>Application: 2-d Poisson Equation<a class="headerlink" href="#application-2-d-poisson-equation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">13.2.3. </span>Application: 2-d Poisson Equation<a class="headerlink" href="#application-2-d-poisson-equation" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 <section id="bibliography">
-<h2><span class="section-number">12.3. </span>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">13.3. </span>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id2">
 <div class="citation" id="id3" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">AB87</a><span class="fn-bracket">]</span></span>
@@ -825,7 +826,7 @@ f_p = f(\vec x_p),
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Interpolation</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Interpolation</p>
       </div>
     </a>
     <a class="right-next"
@@ -833,7 +834,7 @@ f_p = f(\vec x_p),
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>Connecting to remote servers</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Connecting to remote servers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -853,19 +854,19 @@ f_p = f(\vec x_p),
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-one-dimensional-case">12.1. The one-dimensional case</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simple-discretization">12.1.1. The simple discretization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-quadrature">12.1.2. Using quadrature</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">12.1.3. Comparison with analytic solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-one-dimensional-case">13.1. The one-dimensional case</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simple-discretization">13.1.1. The simple discretization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-quadrature">13.1.2. Using quadrature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-analytic-solution">13.1.3. Comparison with analytic solution</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">12.2. The two-dimensional case</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-quadrature-the-nystrom-method">12.2.1. Evaluation via quadrature: the Nyström method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-galerkin-methods">12.2.2. Evaluation via Galerkin methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-2-d-poisson-equation">12.2.3. Application: 2-d Poisson Equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-dimensional-case">13.2. The two-dimensional case</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-quadrature-the-nystrom-method">13.2.1. Evaluation via quadrature: the Nyström method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-via-galerkin-methods">13.2.2. Evaluation via Galerkin methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-2-d-poisson-equation">13.2.3. Application: 2-d Poisson Equation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">12.3. Bibliography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">13.3. Bibliography</a></li>
 </ul>
   </nav></div>
 
