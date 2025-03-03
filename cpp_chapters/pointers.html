@@ -355,11 +355,278 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pointers-references-and-values">
 <h1><span class="section-number">6. </span>Pointers, References and Values<a class="headerlink" href="#pointers-references-and-values" title="Permalink to this heading">#</a></h1>
-<p>Some <a class="reference external" href="https://godbolt.org/z/GW7eMKT1E">text</a> that I have written so far</p>
+<p>From: https://godbolt.org/z/GW7eMKT1E</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="c1">// Ignore this for now, it is simply a convenient way to print things.</span>
+<span class="c1">//      print(10, 20);      // Outputs: 10 20</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">),</span><span class="w"> </span><span class="p">...);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Pointers</span>
+
+<span class="c1">// A review on pointers:</span>
+<span class="c1">// Recall that pointer stores an address.</span>
+<span class="c1">// If I have a declaration</span>
+<span class="c1">//      T* p;</span>
+<span class="c1">// The p stores an address and at that address we expect an object of type T</span>
+<span class="c1">// To access the object, I have to dereference the pointer as: *p.</span>
+<span class="c1">// For example:</span>
+<span class="c1">//      double* p = new double;  // Creates pointer and allocates memory on heap, but *p has no value</span>
+<span class="c1">//      *p = 30.0;               // We have no set the value of the double stored at address p</span>
+<span class="c1">//  </span>
+<span class="c1">// Pointers are particularly important if I wanted to store something in memory, but I don&#39;t know how </span>
+<span class="c1">// much memory I need when I write the program.</span>
+<span class="c1">// For example: If I create a program that is a gradebook, I can have a varying number of students </span>
+<span class="c1">// and or assignment every semester.</span>
+<span class="c1">// The &quot;new&quot; keyword let&#39;s us know that we are asking for memory during the program.</span>
+<span class="c1">// Such memory is called &quot;heap memory&quot;, and we can continue to request more as long as there is memory</span>
+<span class="c1">// available.</span>
+<span class="c1">//</span>
+<span class="c1">// For variables that we know the size of information being stored, we don&#39;t need the &quot;new&quot; keyword.</span>
+<span class="c1">// For example:</span>
+<span class="c1">//      double v = 30.0;    // v is not a pointer, it simply stores a value;</span>
+<span class="c1">// However, this variable still lives somewhere in computer memory,  so it must also have an address.</span>
+<span class="c1">// I can get that address by &quot;referencing&quot; the variable.</span>
+<span class="c1">// For example:</span>
+<span class="c1">//      double v = 30.0;</span>
+<span class="c1">//      double* p = &amp;v;     // p is a pointer that points to the location where v is stored.</span>
+<span class="c1">// Notice how *p has a value, and that we did not have to use the keyword &quot;new&quot;, why is that?</span>
+<span class="c1">// Generally, variables that don&#39;t require the new keyword are stored on the &quot;stack&quot;</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">// This brings us to an important concept: YOU CANNOT DEREFERENCE AN UNDEFINED POINTER!</span>
+<span class="c1">//      double* p;      // This is an undefined pointer, more accurately, a null-pointer</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">// That last think to know is that addresses are essentially store as large natural numbers (unsigned integers).</span>
+<span class="c1">// They are represented in hexademical, as indicated by the &quot;0x&quot; at the beginning of the output</span>
+<span class="c1">// (to test this, go to python and type &quot;hex(1234567)&quot;).</span>
+<span class="c1">// But because they are stored as unsigned integers, you preform arithmetic with pointes.</span>
+<span class="c1">// This will be useful when we talk about arrays next</span>
+
+<span class="c1">// Below, are some propmpts where I want you to guess what the output is:</span>
+<span class="c1">//  - if it is a pointer, then just state pointer</span>
+<span class="c1">//  - if it is a value, then give the expected value</span>
+
+<span class="kt">int</span><span class="w"> </span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span><span class="p">;</span><span class="w">    </span><span class="c1">// identitical to: double x{ 10.0 };</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">     </span><span class="c1">// identitical to: double y{ 5.0 };</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">     </span><span class="c1">// identitical to: double z{ 1.0 };</span>
+<span class="w">                        </span><span class="c1">// This &quot;brace-initialization&quot; lets you know you&#39;re dealing with value types</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">y</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">p3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">z</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w">    </span><span class="c1">// Here, we have assigend a value to *p</span>
+
+<span class="w">    </span><span class="c1">// tryu predicting the output before looking at it</span>
+<span class="w">    </span><span class="c1">// Remember: to produce the output you must go to the &quot;+ Add new...&quot; tab above and add the &quot;Execution Only&quot; option</span>
+<span class="w">    </span><span class="c1">// this will open a new window for you</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="o">*</span><span class="n">p2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="o">&amp;</span><span class="n">z</span><span class="p">);</span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">p3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">z</span><span class="p">;</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="o">*</span><span class="n">p3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w">   </span><span class="c1">// Any pointer allocated with new needs a corresponding delete call</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="pointers-and-references">
 <h1><span class="section-number">7. </span>Pointers and references<a class="headerlink" href="#pointers-and-references" title="Permalink to this heading">#</a></h1>
-<p><a class="reference external" href="https://godbolt.org/z/bGaj169TE">Some early notes</a></p>
+<p>From: https://godbolt.org/z/bGaj169TE</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="c1">// It is time to create a class.</span>
+<span class="c1">// To appreciate this you have to understand variables and functions.</span>
+<span class="c1">// Classes provide a neat way to encapsulate data (variables) and the operations (member functions or methods) you wish to perform on the data.</span>
+<span class="c1">// Today&#39;s class will be an array with some conveince functions</span>
+<span class="c1">//</span>
+<span class="c1">// In addition, we will need to become aware of template programming.</span>
+<span class="c1">// Template programming allows us to create variables, functions and class that are generic in the type.</span>
+<span class="c1">// Remember that C++ is a strongly typed language that means that all types have to be known at compile time.</span>
+<span class="c1">// This also means that, if you want a function to be defined for any data type, you have to write the corresponding implementation</span>
+<span class="c1">//</span>
+<span class="c1">// For exampe: I am tired of constantly typing &quot;stc::cout &lt;&lt;&quot; and &quot;std::endl;&quot; after printing a single variable.</span>
+<span class="c1">// In general, I want to be able to print address, ints, doubles, chars and strings.</span>
+<span class="c1">// I can combine all of these by writing the function</span>
+<span class="c1">//      template&lt;typename T&gt;</span>
+<span class="c1">//      void print(T&amp; t)</span>
+<span class="c1">//      {</span>
+<span class="c1">//          std::cout &lt;&lt; t &lt;&lt; std::endl;</span>
+<span class="c1">//      }</span>
+<span class="c1">// and the compiler takes care of &quot;instantiating&quot; the definition for all the relevant types that make a call to this function througout the </span>
+<span class="c1">// program.</span>
+
+<span class="c1">// Here I take template programming up another notch, but we will discuss this Wednesday</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">),</span><span class="w"> </span><span class="p">...);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// We want our Array class to store any data type, so we make it generic in type T</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This access specifier is used to determine who can call the members below it outside of the class.</span>
+<span class="w">    </span><span class="c1">// Anything marked &quot;public&quot; can be accessed using the &quot;.&quot; or &quot;-&gt;&quot; syntax.</span>
+<span class="w">    </span><span class="c1">// Anything private cannot</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Every class needs constructors and destructors.</span>
+<span class="w">    </span><span class="c1">// The constructors tell the program how to build the class given some input data, while the destructor tells the computer how to </span>
+<span class="w">    </span><span class="c1">// relinquish any resources the class may have claimed.</span>
+
+<span class="w">    </span><span class="c1">// Constructors always have the same name as the class, and there can be multiple</span>
+<span class="w">    </span><span class="n">Array</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w">          </span><span class="c1">// Get used to always including this line, it automatically defines a &quot;default constructor for you&quot;</span>
+<span class="w">    </span><span class="n">Array</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">     </span><span class="c1">// Constructor that takes an array</span>
+<span class="w">    </span><span class="n">Array</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span><span class="w">  </span><span class="c1">// Constructor used to make a copy, called &quot;copy constructor&quot;</span>
+<span class="w">    </span><span class="n">Array</span><span class="p">(</span><span class="n">Array</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span><span class="w">       </span><span class="c1">// Constructor used to consume a copy, called &quot;move constructor&quot;</span>
+
+<span class="w">    </span><span class="c1">// Destructors are denoted with a tilde preceeding the name, and there can only be one</span>
+<span class="w">    </span><span class="c1">// For this class, we don&#39;t have worry about resource management because everything is stack allocated</span>
+<span class="w">    </span><span class="o">~</span><span class="n">Array</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Now we wish to overload the assignment operator &quot;=&quot;, which play a similar role to the copy and move constructors above</span>
+<span class="w">    </span><span class="c1">// In general, the other Array object could have a different but convertible type.</span>
+<span class="w">    </span><span class="c1">// In most cases, the compiler can perform this check for us (though there are ways to make the conversion and its check very explicit)</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span><span class="w">   </span><span class="c1">// This is the &quot;copy assignment&quot;</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Array</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span><span class="w">        </span><span class="c1">// This is the &quot;move assignment&quot;</span>
+<span class="w">    </span><span class="c1">// For a simple class like this, we could have easily made these default</span>
+<span class="w">    </span><span class="c1">// Array&amp; operator=(const Array&amp; other) = default;</span>
+<span class="w">    </span><span class="c1">// Array&amp; operator=(Array&amp;&amp; other) = default;    </span>
+
+<span class="w">    </span><span class="c1">// next we have some accessor functions, that allow the user to view the contained data</span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="nf">data</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_data</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">      </span><span class="c1">// Gives access to data, but the &quot;const&quot; ensures the data won&#39;t be changed</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_size</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Gives access to size, but the &quot;const&quot; ensures that the m_size can&#39;t be modified</span>
+
+<span class="w">    </span><span class="c1">// Since we have an array, we might wish to index into the array, and possible change an entry</span>
+<span class="w">    </span><span class="c1">// This is done by overloading the &quot;[]&quot; operator</span>
+<span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w">          </span><span class="c1">// allows mutation at index i</span>
+<span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// does not allow mutation at index i, and needed for &quot;const correctness&quot;</span>
+<span class="w">    </span><span class="c1">// It is customary to add &quot;bounds checking&quot; to such indexing operators, which ensure that the index &quot;i&quot; is less than &quot;m_size&quot;</span>
+<span class="w">    </span><span class="c1">// Go ahead and add the bounds checking to the function body.</span>
+
+<span class="w">    </span><span class="c1">// There are many more functions we can define: see the documentation for the standard library of the array class for details.</span>
+<span class="w">    </span><span class="c1">// We will avoid these for this example, as the idea is to introduce many key concepts of a class to you</span>
+
+<span class="w">    </span><span class="c1">// It is costumary to make the data the class represents private to mitigate any chances of an outsider to mutate the data</span>
+<span class="w">    </span><span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">m_data</span><span class="p">[</span><span class="n">N</span><span class="p">];</span><span class="w">    </span><span class="c1">// The &quot;m_&quot; is optional, but helps communicate that the variable is private; the &quot;m&quot; standing for &quot;member&quot;</span>
+<span class="w">                    </span><span class="c1">// This the pointer to the array we are storing</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_size</span><span class="p">;</span><span class="w">     </span><span class="c1">// This is the size of the array, or number of entries</span>
+
+<span class="p">};</span><span class="w">  </span><span class="c1">// This ending semi-colon is very important</span>
+
+
+<span class="c1">// The above amounts to the &quot;class declaration&quot;, but note that none of the function bodies have been defined besides the </span>
+<span class="c1">// accessors.</span>
+<span class="c1">// For a non-templated class, it is customary to provide the definitions in a separate .cpp, where the .hpp and .cpp file share the same names.</span>
+<span class="c1">// For a templated class, for compiler reason, the functions have to defined in/with the declaration.</span>
+<span class="c1">// So we could, in principle, have included all of the function definitions in the declarations above, but that wouldn&#39;t be as instructive.</span>
+<span class="c1">// To implement the function bodies, we need a couple more libraries</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cassert&gt;</span><span class="c1">      // for assert           &lt;------ crashes program if asssumption given is not met</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span><span class="c1">      // for std::memcpy      &lt;------ to copy memory from location to another</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span><span class="c1">       // for std::move        &lt;------ we will talk about this next lecture</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span><span class="c1">     // for std::exchange    &lt;------ returns current value, and replaces with supplied value</span>
+
+<span class="c1">// We begin by implementing the constructors, pay close attention to where the template parameters are being included</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;::</span><span class="n">Array</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Value constructed called&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// This line is solely for booking keeping</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// Copy constructor</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;::</span><span class="n">Array</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Copy constructor called&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">m_size</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// Move constructor</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;::</span><span class="n">Array</span><span class="p">(</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Move constructor called&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_size</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// Copy assignment</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;</span><span class="w"> </span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Copy assignment called&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">m_size</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Move assignment</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;</span><span class="w"> </span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;&amp;&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Move assignment called&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_size</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Check basic functionality of class</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_3</span><span class="p">(</span><span class="n">arr_1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr_2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_c</span><span class="p">;</span>
+<span class="w">    </span><span class="n">arr_c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr_1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Are these move/copy constructions or assignments?</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">arr_5</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">arr_1</span><span class="p">));</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">arr_6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">arr_2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr_m</span><span class="p">;</span>
+<span class="w">    </span><span class="n">arr_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">arr_1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
